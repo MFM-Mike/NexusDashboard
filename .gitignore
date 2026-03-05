@@ -1,0 +1,10 @@
+# .NET
+bin/
+obj/
+out/
+.vs/
+*.user
+*.suo
+packages/
+.DS_Store
+Thumbs.db
