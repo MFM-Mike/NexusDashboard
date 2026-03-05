@@ -1,0 +1,17 @@
+@using NexusDashboard.Shared.Models
+
+<span class="badge" style="background:@Color;font-size:0.7rem">@Level</span>
+
+@code {
+    [Parameter, EditorRequired] public LogLevel Level { get; set; }
+
+    private string Color => Level switch
+    {
+        LogLevel.DEBUG => "#6c757d",
+        LogLevel.INFO  => "#0d6efd",
+        LogLevel.WARN  => "#ffc107",
+        LogLevel.ERROR => "#dc3545",
+        LogLevel.FATAL => "#6f42c1",
+        _ => "#6c757d"
+    };
+}

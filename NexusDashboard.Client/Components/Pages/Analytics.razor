@@ -1,0 +1,183 @@
+@page "/analytics"
+@rendermode InteractiveServer
+@using NexusDashboard.Client.Services
+@using NexusDashboard.Shared.Models
+@inject DashboardStateService State
+
+<PageTitle>Analytics — NexusDashboard</PageTitle>
+
+<h4 class="fw-bold mb-4">Analytics</h4>
+
+@if (State.ActiveFile == null)
+{
+    <div class="alert alert-info">Load a log file from the Overview page first.</div>
+}
+else
+{
+    var summary = State.ActiveFile.Summary;
+    var entries = State.ActiveFile.Entries;
+
+    <!-- Activity over time -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white fw-semibold border-0">
+            <i class="bi bi-bar-chart-line me-2 text-primary"></i>Activity Over Time
+        </div>
+        <div class="card-body">
+            @if (summary.TimeSeries.Any())
+            {
+                var maxTotal = summary.TimeSeries.Max(p => p.Total);
+                <div class="d-flex align-items-end gap-1" style="height:160px;overflow-x:auto">
+                    @foreach (var pt in summary.TimeSeries)
+                    {
+                        var pct   = maxTotal > 0 ? (pt.Total * 100.0 / maxTotal) : 0;
+                        var ePct  = maxTotal > 0 ? (pt.Error * 100.0 / maxTotal) : 0;
+                        var fPct  = maxTotal > 0 ? (pt.Fatal * 100.0 / maxTotal) : 0;
+                        <div class="d-flex flex-column align-items-center" style="min-width:24px" title="@pt.Bucket.ToString("g"): @pt.Total total, @pt.Error errors, @pt.Fatal fatals">
+                            <div style="width:16px;background:#e9ecef;height:@pct.ToString("F0")%;position:relative;border-radius:2px 2px 0 0">
+                                @if (fPct > 0)
+                                {
+                                    <div style="position:absolute;bottom:0;width:100%;height:@((fPct/pct*100).ToString("F0"))%;background:#6f42c1;border-radius:2px 2px 0 0"></div>
+                                }
+                                @if (ePct > 0)
+                                {
+                                    <div style="position:absolute;bottom:@((fPct/pct*100).ToString("F0"))%;width:100%;height:@((ePct/pct*100).ToString("F0"))%;background:#dc3545"></div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="d-flex gap-3 mt-2 small text-muted flex-wrap">
+                    <span><span class="badge" style="background:#e9ecef;color:#333">INFO/DEBUG</span></span>
+                    <span><span class="badge" style="background:#ffc107">WARN</span></span>
+                    <span><span class="badge bg-danger">ERROR</span></span>
+                    <span><span class="badge" style="background:#6f42c1">FATAL</span></span>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Not enough data for time series.</p>
+            }
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <!-- Log volume by hour of day -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold border-0">
+                    <i class="bi bi-clock me-2 text-primary"></i>Volume by Hour of Day
+                </div>
+                <div class="card-body">
+                    @{
+                        var byHour = Enumerable.Range(0, 24)
+                            .Select(h => new { Hour = h, Count = entries.Count(e => e.Timestamp.Hour == h) })
+                            .ToList();
+                        var maxHour = byHour.Max(h => h.Count);
+                    }
+                    <div class="d-flex align-items-end gap-1" style="height:100px">
+                        @foreach (var h in byHour)
+                        {
+                            var pct = maxHour > 0 ? (h.Count * 100.0 / maxHour) : 0;
+                            <div style="flex:1;background:#0d6efd;height:@pct.ToString("F0")%;border-radius:2px 2px 0 0;min-width:8px"
+                                 title="@h.Hour:00 — @h.Count entries"></div>
+                        }
+                    </div>
+                    <div class="d-flex justify-content-between small text-muted mt-1">
+                        <span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logger error rates -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold border-0">
+                    <i class="bi bi-graph-up-arrow me-2 text-primary"></i>Error Rate by Logger (top 8)
+                </div>
+                <div class="card-body p-0">
+                    @{
+                        var loggerStats = summary.UniqueLoggers
+                            .Select(l => new
+                            {
+                                Logger  = l,
+                                Total   = entries.Count(e => e.Logger == l),
+                                Errors  = entries.Count(e => e.Logger == l && e.Level is LogLevel.ERROR or LogLevel.FATAL)
+                            })
+                            .Where(x => x.Total > 0)
+                            .OrderByDescending(x => x.Errors)
+                            .Take(8)
+                            .ToList();
+                    }
+                    <ul class="list-group list-group-flush small">
+                        @foreach (var ls in loggerStats)
+                        {
+                            var errorPct = ls.Total > 0 ? (ls.Errors * 100.0 / ls.Total) : 0;
+                            <li class="list-group-item px-3 py-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-truncate me-2" title="@ls.Logger">@ls.Logger</span>
+                                    <span class="text-danger fw-semibold">@ls.Errors err / @ls.Total total</span>
+                                </div>
+                                <div class="progress" style="height:6px">
+                                    <div class="progress-bar bg-danger" style="width:@errorPct.ToString("F0")%"></div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thread activity -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white fw-semibold border-0">
+            <i class="bi bi-cpu me-2 text-primary"></i>Thread Activity
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Thread</th>
+                        <th>Total</th>
+                        <th>Errors</th>
+                        <th>Warnings</th>
+                        <th>Error %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in summary.UniqueThreads
+                        .Select(t => new {
+                            Thread  = t,
+                            Total   = entries.Count(e => e.Thread == t),
+                            Errors  = entries.Count(e => e.Thread == t && e.Level is LogLevel.ERROR or LogLevel.FATAL),
+                            Warns   = entries.Count(e => e.Thread == t && e.Level == LogLevel.WARN)
+                        })
+                        .OrderByDescending(x => x.Total).Take(20))
+                    {
+                        var ep = t.Total > 0 ? (t.Errors * 100.0 / t.Total) : 0;
+                        <tr>
+                            <td class="small">@t.Thread</td>
+                            <td>@t.Total.ToString("N0")</td>
+                            <td class="text-danger">@t.Errors</td>
+                            <td class="text-warning">@t.Warns</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="progress flex-grow-1" style="height:6px;max-width:80px">
+                                        <div class="progress-bar bg-danger" style="width:@ep.ToString("F0")%"></div>
+                                    </div>
+                                    <span class="small">@ep.ToString("F1")%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    protected override void OnInitialized() => State.OnStateChanged += StateHasChanged;
+    public void Dispose() => State.OnStateChanged -= StateHasChanged;
+}

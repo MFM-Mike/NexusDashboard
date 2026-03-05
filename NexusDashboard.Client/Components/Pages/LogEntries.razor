@@ -1,0 +1,202 @@
+@page "/logs"
+@rendermode InteractiveServer
+@using NexusDashboard.Client.Services
+@using NexusDashboard.Shared.Models
+@inject DashboardStateService State
+
+<PageTitle>Log Entries — NexusDashboard</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold mb-0">Log Entries</h4>
+    <FileLoader />
+</div>
+
+@if (State.ActiveFile == null)
+{
+    <div class="alert alert-info">Load a log file from the Overview page first.</div>
+}
+else
+{
+    <!-- Filter bar -->
+    <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">Search</label>
+                    <input class="form-control form-control-sm" placeholder="Message or exception…"
+                           @bind="_filter.MessageSearch" @bind:event="oninput" @oninput="ResetPage" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">Logger</label>
+                    <input class="form-control form-control-sm" placeholder="Logger name…"
+                           @bind="_filter.LoggerFilter" @bind:event="oninput" @oninput="ResetPage" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">Thread</label>
+                    <input class="form-control form-control-sm" placeholder="Thread…"
+                           @bind="_filter.ThreadFilter" @bind:event="oninput" @oninput="ResetPage" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">Levels</label>
+                    <div class="d-flex flex-wrap gap-1">
+                        @foreach (var lvl in Enum.GetValues<LogLevel>())
+                        {
+                            var isActive = _filter.Levels.Contains(lvl);
+                            <button class="btn btn-sm @(isActive ? "active" : "")"
+                                    style="background:@(isActive ? LevelColor(lvl) : "#e9ecef");color:@(isActive ? "white" : "#333");border:none;padding:2px 8px;font-size:0.75rem"
+                                    @onclick="() => ToggleLevel(lvl)">
+                                @lvl
+                            </button>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="exOnly"
+                               @bind="_filter.OnlyWithExceptions" @bind:after="ResetPage" />
+                        <label class="form-check-label small" for="exOnly">Exceptions only</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-sm btn-outline-secondary w-100" @onclick="ClearFilters">
+                        <i class="bi bi-x-circle"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    @{
+        var result = State.QueryEntries(_filter);
+    }
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+            <span class="small text-muted">@result.TotalCount.ToString("N0") entries matching filters</span>
+            <div class="d-flex align-items-center gap-2">
+                <label class="small text-muted me-1">Per page</label>
+                <select class="form-select form-select-sm" style="width:80px"
+                        @bind="_filter.PageSize" @bind:after="ResetPage">
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:150px">Timestamp</th>
+                        <th style="width:70px">Level</th>
+                        <th style="width:180px">Logger</th>
+                        <th style="width:80px">Thread</th>
+                        <th>Message</th>
+                        <th style="width:40px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in result.Entries)
+                    {
+                        <tr class="@(entry.Exception != null ? "table-danger-light" : "")"
+                            style="cursor:pointer" @onclick="() => ToggleDetail(entry.Id)">
+                            <td class="small text-muted">@entry.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td><LevelBadge Level="entry.Level" /></td>
+                            <td class="small text-truncate" style="max-width:180px" title="@entry.Logger">@entry.Logger</td>
+                            <td class="small text-muted">@entry.Thread</td>
+                            <td class="small text-truncate" style="max-width:400px" title="@entry.Message">
+                                @if (entry.Exception != null)
+                                {
+                                    <i class="bi bi-bug text-danger me-1"></i>
+                                }
+                                @entry.Message
+                            </td>
+                            <td class="text-center">
+                                <i class="bi @(_expandedId == entry.Id ? "bi-chevron-up" : "bi-chevron-down") text-muted small"></i>
+                            </td>
+                        </tr>
+                        @if (_expandedId == entry.Id)
+                        {
+                            <tr>
+                                <td colspan="6" class="bg-light p-3">
+                                    <LogEntryDetail Entry="entry" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                    @if (!result.Entries.Any())
+                    {
+                        <tr><td colspan="6" class="text-center text-muted py-4">No entries match the current filters.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Pagination -->
+        @if (result.TotalPages > 1)
+        {
+            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                <span class="small text-muted">
+                    Page @result.PageNumber of @result.TotalPages
+                </span>
+                <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-secondary" disabled="@(_filter.PageNumber <= 1)"
+                            @onclick="() => ChangePage(_filter.PageNumber - 1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    @for (int p = Math.Max(1, _filter.PageNumber - 2); p <= Math.Min(result.TotalPages, _filter.PageNumber + 2); p++)
+                    {
+                        var page = p;
+                        <button class="btn btn-sm @(page == _filter.PageNumber ? "btn-primary" : "btn-outline-secondary")"
+                                @onclick="() => ChangePage(page)">@page</button>
+                    }
+                    <button class="btn btn-sm btn-outline-secondary" disabled="@(_filter.PageNumber >= result.TotalPages)"
+                            @onclick="() => ChangePage(_filter.PageNumber + 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private LogFilter _filter = new() { PageSize = 100, PageNumber = 1 };
+    private int? _expandedId;
+
+    protected override void OnInitialized()
+    {
+        State.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose() => State.OnStateChanged -= StateHasChanged;
+
+    private void ToggleLevel(LogLevel level)
+    {
+        if (_filter.Levels.Contains(level))
+            _filter.Levels.Remove(level);
+        else
+            _filter.Levels.Add(level);
+        ResetPage();
+    }
+
+    private void ResetPage() => _filter.PageNumber = 1;
+
+    private void ChangePage(int page) => _filter.PageNumber = page;
+
+    private void ClearFilters()
+    {
+        _filter = new LogFilter { PageSize = _filter.PageSize, PageNumber = 1 };
+    }
+
+    private void ToggleDetail(int id) => _expandedId = _expandedId == id ? null : id;
+
+    private static string LevelColor(LogLevel level) => level switch
+    {
+        LogLevel.DEBUG => "#6c757d",
+        LogLevel.INFO  => "#0d6efd",
+        LogLevel.WARN  => "#ffc107",
+        LogLevel.ERROR => "#dc3545",
+        LogLevel.FATAL => "#6f42c1",
+        _ => "#6c757d"
+    };
+}

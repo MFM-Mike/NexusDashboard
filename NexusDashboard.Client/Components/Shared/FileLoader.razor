@@ -1,0 +1,136 @@
+@using NexusDashboard.Client.Services
+@inject DashboardStateService State
+
+@if (ShowButton)
+{
+    <button class="btn btn-primary" @onclick="() => _showModal = true">
+        <i class="bi bi-upload me-2"></i>Load Log File
+    </button>
+}
+else
+{
+    <button class="btn btn-sm btn-outline-primary" @onclick="() => _showModal = true">
+        <i class="bi bi-upload me-1"></i>Load File
+    </button>
+}
+
+@if (_showModal)
+{
+    <div class="modal d-block" tabindex="-1" style="background:rgba(0,0,0,.4)">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Load Log File</h5>
+                    <button class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-3">
+                        <li class="nav-item">
+                            <button class="nav-link @(_tab == 0 ? "active" : "")" @onclick="() => _tab = 0">
+                                <i class="bi bi-upload me-1"></i>Upload
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link @(_tab == 1 ? "active" : "")" @onclick="() => _tab = 1">
+                                <i class="bi bi-folder me-1"></i>Server Path
+                            </button>
+                        </li>
+                    </ul>
+
+                    @if (_tab == 0)
+                    {
+                        <div>
+                            <label class="form-label">Select a log4net log file (.log, .xml, .txt)</label>
+                            <InputFile class="form-control" accept=".log,.xml,.txt" OnChange="HandleFileSelected" />
+                            <div class="form-text">Supports log4net XML format and plain-text PatternLayout.</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <label class="form-label">Absolute path on the server</label>
+                            <input class="form-control" placeholder="/var/log/myapp/app.log" @bind="_serverPath" />
+                        </div>
+                    }
+
+                    @if (_loading)
+                    {
+                        <div class="d-flex align-items-center gap-2 mt-3">
+                            <div class="spinner-border spinner-border-sm text-primary"></div>
+                            <span>Parsing…</span>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(_error))
+                    {
+                        <div class="alert alert-danger mt-3 mb-0">@_error</div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="Close">Cancel</button>
+                    @if (_tab == 1)
+                    {
+                        <button class="btn btn-primary" @onclick="LoadPath" disabled="@_loading">
+                            <i class="bi bi-folder-check me-1"></i>Load
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool ShowButton { get; set; }
+
+    private bool   _showModal;
+    private int    _tab;
+    private string _serverPath = "";
+    private bool   _loading;
+    private string _error = "";
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        _error   = "";
+        _loading = true;
+        StateHasChanged();
+        try
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024); // 50 MB
+            await State.UploadFileAsync(file.Name, stream);
+            Close();
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private void LoadPath()
+    {
+        _error = "";
+        if (string.IsNullOrWhiteSpace(_serverPath)) { _error = "Enter a path."; return; }
+        try
+        {
+            State.LoadFromPath(_serverPath);
+            Close();
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private void Close()
+    {
+        _showModal  = false;
+        _tab        = 0;
+        _serverPath = "";
+        _error      = "";
+    }
+}

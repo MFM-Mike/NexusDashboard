@@ -1,0 +1,40 @@
+html, body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f4f6fb;
+}
+
+/* Sidebar nav active state */
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: rgba(255,255,255,.08);
+    border-radius: 6px;
+}
+
+/* Table row hover */
+.table-hover tbody tr:hover {
+    background-color: #f0f4ff;
+}
+
+/* Subtle danger row tint for rows with exceptions */
+.table-danger-light {
+    background-color: #fff5f5 !important;
+}
+
+/* Remove default card border radius so it looks cleaner */
+.card {
+    border-radius: 10px !important;
+}
+
+/* Compact table font */
+.table-sm td, .table-sm th {
+    font-size: 0.85rem;
+}
+
+/* Progress bars */
+.progress {
+    border-radius: 4px;
+}
+
+pre {
+    border-radius: 6px;
+}

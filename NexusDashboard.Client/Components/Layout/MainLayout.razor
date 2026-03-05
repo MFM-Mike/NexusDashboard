@@ -1,0 +1,70 @@
+@inherits LayoutComponentBase
+@using NexusDashboard.Client.Services
+@inject DashboardStateService State
+
+<div class="d-flex" style="min-height:100vh">
+    <!-- Sidebar -->
+    <nav class="sidebar d-flex flex-column p-3" style="width:260px;min-height:100vh;background:#1a1d23;color:#e0e0e0">
+        <div class="mb-4 d-flex align-items-center gap-2">
+            <i class="bi bi-file-earmark-text fs-4 text-primary"></i>
+            <span class="fw-bold fs-5">NexusDashboard</span>
+        </div>
+        <hr class="border-secondary" />
+        <ul class="nav flex-column gap-1 mb-auto">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/">
+                    <i class="bi bi-speedometer2 me-2"></i>Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/logs">
+                    <i class="bi bi-list-ul me-2"></i>Log Entries
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/analytics">
+                    <i class="bi bi-bar-chart-line me-2"></i>Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/errors">
+                    <i class="bi bi-exclamation-triangle me-2"></i>Errors &amp; Fatals
+                </a>
+            </li>
+        </ul>
+        <hr class="border-secondary" />
+        <div class="small text-muted">
+            @if (State.ActiveFile != null)
+            {
+                <div class="d-flex align-items-center gap-1 mb-1">
+                    <i class="bi bi-file-earmark-check text-success"></i>
+                    <span class="text-truncate" title="@State.ActiveFile.FileInfo.FileName">@State.ActiveFile.FileInfo.FileName</span>
+                </div>
+                <div>@State.ActiveFile.Summary.TotalEntries.ToString("N0") entries</div>
+            }
+            else
+            {
+                <span>No file loaded</span>
+            }
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="flex-grow-1 d-flex flex-column" style="background:#f4f6fb">
+        <main class="flex-grow-1 p-4">
+            @Body
+        </main>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        State.OnStateChanged -= StateHasChanged;
+    }
+}

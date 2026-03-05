@@ -1,0 +1,179 @@
+@page "/"
+@rendermode InteractiveServer
+@using NexusDashboard.Client.Services
+@using NexusDashboard.Shared.Models
+@inject DashboardStateService State
+
+<PageTitle>Overview — NexusDashboard</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Dashboard Overview</h4>
+    <FileLoader />
+</div>
+
+@if (State.ActiveFile == null)
+{
+    <div class="card border-0 shadow-sm text-center py-5">
+        <div class="card-body">
+            <i class="bi bi-cloud-upload fs-1 text-muted mb-3 d-block"></i>
+            <h5 class="text-muted">No log file loaded</h5>
+            <p class="text-muted mb-3">Upload a log4net XML or plain-text log file to get started.</p>
+            <FileLoader ShowButton="true" />
+        </div>
+    </div>
+}
+else
+{
+    var summary = State.ActiveFile.Summary;
+    var file    = State.ActiveFile.FileInfo;
+
+    <!-- KPI Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <KpiCard Title="Total Entries" Value="@summary.TotalEntries.ToString("N0")"
+                     Icon="bi-list-columns" AccentColor="#0d6efd" />
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <KpiCard Title="Errors" Value="@summary.ErrorCount.ToString("N0")"
+                     Icon="bi-x-circle" AccentColor="#dc3545"
+                     SubText="@($"{summary.FatalCount} fatal")" />
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <KpiCard Title="Warnings" Value="@summary.WarnCount.ToString("N0")"
+                     Icon="bi-exclamation-triangle" AccentColor="#ffc107" />
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <KpiCard Title="Unique Loggers" Value="@summary.UniqueLoggers.Count.ToString("N0")"
+                     Icon="bi-diagram-3" AccentColor="#0dcaf0" />
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <!-- File info -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold border-0 pb-0">
+                    <i class="bi bi-file-earmark-text me-2 text-primary"></i>File Info
+                </div>
+                <div class="card-body">
+                    <dl class="row small mb-0">
+                        <dt class="col-5 text-muted">File</dt>
+                        <dd class="col-7 text-truncate" title="@file.FileName">@file.FileName</dd>
+                        <dt class="col-5 text-muted">Size</dt>
+                        <dd class="col-7">@file.FileSizeDisplay</dd>
+                        <dt class="col-5 text-muted">Modified</dt>
+                        <dd class="col-7">@file.LastModified.ToString("g")</dd>
+                        <dt class="col-5 text-muted">Format</dt>
+                        <dd class="col-7">@State.ActiveFile.DetectedFormat</dd>
+                        <dt class="col-5 text-muted">Earliest</dt>
+                        <dd class="col-7">@(summary.EarliestEntry?.ToString("g") ?? "—")</dd>
+                        <dt class="col-5 text-muted">Latest</dt>
+                        <dd class="col-7">@(summary.LatestEntry?.ToString("g") ?? "—")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level breakdown -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold border-0 pb-0">
+                    <i class="bi bi-pie-chart me-2 text-primary"></i>By Level
+                </div>
+                <div class="card-body">
+                    @foreach (var lc in summary.LevelCounts)
+                    {
+                        var pct = summary.TotalEntries > 0 ? (lc.Count * 100.0 / summary.TotalEntries) : 0;
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge me-2" style="background:@lc.Color;min-width:60px">@lc.Level</span>
+                            <div class="flex-grow-1 me-2">
+                                <div class="progress" style="height:8px">
+                                    <div class="progress-bar" style="width:@pct.ToString("F0")%;background:@lc.Color"></div>
+                                </div>
+                            </div>
+                            <span class="small text-muted" style="min-width:50px;text-align:right">@lc.Count.ToString("N0")</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Top loggers -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold border-0 pb-0">
+                    <i class="bi bi-diagram-3 me-2 text-primary"></i>Top Loggers
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush small">
+                        @foreach (var logger in summary.UniqueLoggers.Take(8))
+                        {
+                            var count = State.ActiveFile.Entries.Count(e => e.Logger == logger);
+                            <li class="list-group-item d-flex justify-content-between px-3 py-2">
+                                <span class="text-truncate me-2" title="@logger">@logger</span>
+                                <span class="badge bg-light text-dark">@count</span>
+                            </li>
+                        }
+                        @if (summary.UniqueLoggers.Count > 8)
+                        {
+                            <li class="list-group-item text-muted px-3 py-2">
+                                +@(summary.UniqueLoggers.Count - 8) more loggers
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent errors -->
+    @if (summary.TopErrors.Any())
+    {
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold border-0">
+                <i class="bi bi-exclamation-octagon me-2 text-danger"></i>Recent Errors &amp; Fatals
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width:160px">Timestamp</th>
+                                <th style="width:70px">Level</th>
+                                <th>Logger</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var entry in summary.TopErrors)
+                            {
+                                <tr>
+                                    <td class="small text-muted">@entry.Timestamp.ToString("g")</td>
+                                    <td><LevelBadge Level="entry.Level" /></td>
+                                    <td class="small text-truncate" style="max-width:200px">@entry.Logger</td>
+                                    <td class="small text-truncate" style="max-width:400px" title="@entry.Message">@entry.Message</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(State.ActiveFile.ParseError))
+    {
+        <div class="alert alert-warning mt-3">
+            <i class="bi bi-exclamation-triangle me-2"></i><strong>Parse warning:</strong> @State.ActiveFile.ParseError
+        </div>
+    }
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose() => State.OnStateChanged -= StateHasChanged;
+}
