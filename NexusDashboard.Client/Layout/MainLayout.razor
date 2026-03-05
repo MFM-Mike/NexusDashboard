@@ -1,0 +1,18 @@
+@inherits LayoutComponentBase
+@inject ThemeService Theme
+@implements IDisposable
+
+<div class="app-shell @(Theme.IsDark ? "dark" : "light")">
+    <Sidebar />
+    <div class="main-area">
+        <TopBar />
+        <main class="content-area">
+            @Body
+        </main>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized() => Theme.OnThemeChanged += StateHasChanged;
+    public void Dispose() => Theme.OnThemeChanged -= StateHasChanged;
+}

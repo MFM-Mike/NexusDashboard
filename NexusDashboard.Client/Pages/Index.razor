@@ -1,0 +1,50 @@
+@page "/"
+@inject DashboardDataService DataService
+
+<PageTitle>Overview · Nexus</PageTitle>
+
+@if (_data is null)
+{
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading dashboard…</p>
+    </div>
+}
+else
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Good morning, Alex 👋</h1>
+            <p class="page-subtitle">Here's what's happening across your business today.</p>
+        </div>
+        <div class="date-chip">@DateTime.Now.ToString("dddd, MMMM d yyyy")</div>
+    </div>
+
+    <div class="kpi-grid">
+        @foreach (var card in _data.KpiCards)
+        {
+            <KpiCardComponent Card="card" />
+        }
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-primary">
+            <RevenueChart Data="_data.RevenueData" />
+        </div>
+        <div class="chart-secondary">
+            <CategoryBreakdown Categories="_data.Categories" />
+        </div>
+    </div>
+
+    <TransactionTable Transactions="_data.RecentTransactions" />
+}
+
+@code {
+    private DashboardSummary? _data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(400);
+        _data = await DataService.GetDashboardDataAsync();
+    }
+}

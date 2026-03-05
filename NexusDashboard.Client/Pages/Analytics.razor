@@ -1,0 +1,29 @@
+@page "/analytics"
+
+<PageTitle>Analytics · Nexus</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Analytics</h1>
+        <p class="page-subtitle">Deep-dive into your metrics and trends.</p>
+    </div>
+</div>
+
+<div class="placeholder-grid">
+    @foreach (var label in new[] { "Traffic Sources", "Funnel Analysis", "Cohort Retention", "Session Duration", "Bounce Rate", "Top Pages" })
+    {
+        <div class="placeholder-card">
+            <div class="placeholder-title">@label</div>
+            <div class="placeholder-body shimmer"></div>
+        </div>
+    }
+</div>
+
+<style>
+    .placeholder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .placeholder-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+    .placeholder-title { font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .06em; }
+    .placeholder-body { height: 160px; border-radius: 10px; background: var(--border); }
+    .shimmer { background: linear-gradient(90deg, var(--border) 25%, var(--surface-2) 50%, var(--border) 75%); background-size: 200% 100%; animation: shimmer 1.6s infinite; }
+    @@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+</style>

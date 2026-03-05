@@ -1,0 +1,80 @@
+@if (Data is not null && Data.Any())
+{
+    <div class="chart-wrapper">
+        <div class="chart-header">
+            <div>
+                <h3 class="chart-title">Revenue Overview</h3>
+                <p class="chart-subtitle">Monthly revenue vs expenses · 2024</p>
+            </div>
+            <div class="chart-legend">
+                <span class="legend-dot" style="background:#00E5BE"></span><span>Revenue</span>
+                <span class="legend-dot" style="background:#7B61FF"></span><span>Expenses</span>
+            </div>
+        </div>
+        <svg class="line-chart" viewBox="0 0 760 270" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#00E5BE" stop-opacity="0.25" />
+                    <stop offset="100%" stop-color="#00E5BE" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7B61FF" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#7B61FF" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+
+            @for (int i = 0; i <= 4; i++)
+            {
+                double y = 20 + i * 50;
+                <line x1="50" y1="@y" x2="750" y2="@y"
+                      stroke="var(--grid)" stroke-width="1" stroke-dasharray="4 4" />
+                @((MarkupString)$"<text x=\"40\" y=\"{y + 4}\" text-anchor=\"end\" font-size=\"11\" fill=\"var(--muted)\">{GridLabel(i)}</text>")
+            }
+
+            <polygon points="@AreaPoints(true)"  fill="url(#revGrad)" />
+            <polygon points="@AreaPoints(false)" fill="url(#expGrad)" />
+
+            <polyline points="@LinePoints(true)"
+                      fill="none" stroke="#00E5BE" stroke-width="2.5"
+                      stroke-linejoin="round" stroke-linecap="round" />
+            <polyline points="@LinePoints(false)"
+                      fill="none" stroke="#7B61FF" stroke-width="2.5"
+                      stroke-linejoin="round" stroke-linecap="round" />
+
+            @foreach (var (pt, idx) in Points(true).Select((p, i) => (p, i)))
+            {
+                <circle cx="@pt.x" cy="@pt.y" r="4"
+                        fill="#00E5BE" stroke="var(--surface)" stroke-width="2" />
+                @((MarkupString)$"<text x=\"{pt.x:F1}\" y=\"258\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--muted)\">{Data[idx].Label}</text>")
+            }
+        </svg>
+    </div>
+}
+
+@code {
+    [Parameter] public List<ChartDataPoint>? Data { get; set; }
+
+    const double XStart = 55, XEnd = 745, YTop = 20, YBottom = 220;
+
+    double MaxVal => Data!.Max(d => d.Value);
+    double ScaleX(int i) => XStart + i * (XEnd - XStart) / (Data!.Count - 1);
+    double ScaleY(double v) => YBottom - (v / MaxVal) * (YBottom - YTop);
+
+    IEnumerable<(double x, double y)> Points(bool primary) =>
+        Data!.Select((d, i) => (ScaleX(i), ScaleY(primary ? d.Value : d.SecondaryValue)));
+
+    string LinePoints(bool primary) =>
+        string.Join(" ", Points(primary).Select(p => $"{p.x:F1},{p.y:F1}"));
+
+    string AreaPoints(bool primary)
+    {
+        var pts = Points(primary).ToList();
+        var top = string.Join(" ", pts.Select(p => $"{p.x:F1},{p.y:F1}"));
+        return $"{top} {XEnd:F1},{YBottom} {XStart:F1},{YBottom}";
+    }
+
+    string GridLabel(int i) =>
+        i == 0 ? $"${MaxVal / 1000:F0}k" :
+        i == 4 ? "$0" :
+        $"${MaxVal * (4 - i) / 4 / 1000:F0}k";
+}

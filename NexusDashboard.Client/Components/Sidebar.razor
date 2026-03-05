@@ -1,0 +1,44 @@
+@inject NavigationManager Nav
+
+<nav class="sidebar">
+    <div class="sidebar-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-name">Nexus</span>
+    </div>
+
+    <ul class="nav-list">
+        @foreach (var item in _navItems)
+        {
+            <li>
+                <NavLink href="@item.Href" Match="@item.Match" class="nav-link" ActiveClass="nav-link--active">
+                    <span class="nav-icon">@item.Icon</span>
+                    <span class="nav-label">@item.Label</span>
+                </NavLink>
+            </li>
+        }
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="user-chip">
+            <div class="avatar">AJ</div>
+            <div class="user-info">
+                <span class="user-name">Alex Johnson</span>
+                <span class="user-role">Admin</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code {
+    record NavItem(string Label, string Icon, string Href, NavLinkMatch Match = NavLinkMatch.Prefix);
+
+    private readonly List<NavItem> _navItems = new()
+    {
+        new("Overview",   "◈", "/",          NavLinkMatch.All),
+        new("Analytics",  "◉", "/analytics"),
+        new("Orders",     "◫", "/orders"),
+        new("Customers",  "◎", "/customers"),
+        new("Products",   "▣", "/products"),
+        new("Settings",   "◌", "/settings"),
+    };
+}
