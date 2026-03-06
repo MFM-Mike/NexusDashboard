@@ -1,0 +1,20 @@
+@if (Card is not null)
+{
+    <div class="kpi-card" style="--accent: @Card.AccentColor">
+        <div class="kpi-header">
+            <span class="kpi-title">@Card.Title</span>
+            <span class="kpi-icon">@Card.Icon</span>
+        </div>
+        <div class="kpi-value">@Card.Value</div>
+        <div class="kpi-footer">
+            <span class="kpi-change @(Card.IsPositive ? "positive" : "negative")">
+                @Card.Change
+            </span>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public KpiCard? Card { get; set; }
+    private readonly Random _rand = new(Environment.TickCount);
+}

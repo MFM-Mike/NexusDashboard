@@ -1,0 +1,133 @@
+2026-03-05 08:00:01,012 [1] INFO  Microsoft.Hosting.Lifetime - Application starting
+2026-03-05 08:00:01,088 [1] INFO  Microsoft.Hosting.Lifetime - Hosting environment: Production
+2026-03-05 08:00:01,203 [1] INFO  Microsoft.Hosting.Lifetime - Content root path: /app/MyShop.Api
+2026-03-05 08:00:01,441 [1] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - Request logging middleware registered
+2026-03-05 08:00:01,502 [1] INFO  MyShop.Api.Middleware.RateLimitMiddleware - Rate limiter initialized: 300 req/min per IP, 2000 req/min global
+2026-03-05 08:00:01,618 [1] INFO  Microsoft.Hosting.Lifetime - Route registered: GET /api/products
+2026-03-05 08:00:01,619 [1] INFO  Microsoft.Hosting.Lifetime - Route registered: GET /api/products/{id}
+2026-03-05 08:00:01,620 [1] INFO  Microsoft.Hosting.Lifetime - Route registered: GET /api/products/search
+2026-03-05 08:00:01,621 [1] INFO  Microsoft.Hosting.Lifetime - Route registered: POST /api/cart/{sessionId}/items
+2026-03-05 08:00:01,622 [1] INFO  Microsoft.Hosting.Lifetime - Route registered: POST /api/orders/checkout
+2026-03-05 08:00:01,744 [1] INFO  Microsoft.Hosting.Lifetime - Now listening on: https://0.0.0.0:7000
+2026-03-05 08:00:01,745 [1] INFO  Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2026-03-05 08:01:14,308 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 87ms | 192.168.1.45
+2026-03-05 08:01:22,519 [4] INFO  MyShop.Api.Controllers.ProductsController - Product catalog fetched: 24 items, page 1 of 42
+2026-03-05 08:01:45,772 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-10482 | 200 | 43ms | 192.168.1.45
+2026-03-05 08:02:03,114 [5] INFO  MyShop.Api.Controllers.ProductsController - Product detail fetched: SKU-10482 "Wireless Noise-Cancelling Headphones"
+2026-03-05 08:02:31,887 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=running+shoes&page=1 | 200 | 124ms | 10.0.0.12
+2026-03-05 08:02:31,888 [4] INFO  MyShop.Api.Controllers.ProductsController - Search query="running shoes" returned 18 results in 121ms
+2026-03-05 08:03:05,223 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-A8F2C/items | 201 | 58ms | 10.0.0.12
+2026-03-05 08:03:05,224 [6] INFO  MyShop.Api.Controllers.CartController - Item added to cart sess-A8F2C: SKU-20917 x1, cart total: $89.99
+2026-03-05 08:03:44,009 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=2&pageSize=24 | 200 | 79ms | 203.0.113.77
+2026-03-05 08:04:12,556 [5] INFO  MyShop.Api.Controllers.ProductsController - Product catalog fetched: 24 items, page 2 of 42
+2026-03-05 08:04:38,801 [7] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-30041 | 200 | 39ms | 198.51.100.22
+2026-03-05 08:05:00,444 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-B3D7E/items | 201 | 62ms | 203.0.113.77
+2026-03-05 08:05:00,445 [4] INFO  MyShop.Api.Controllers.CartController - Item added to cart sess-B3D7E: SKU-30041 x2, cart total: $149.98
+2026-03-05 08:05:33,117 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=laptop+stand&page=1 | 200 | 108ms | 192.168.1.102
+2026-03-05 08:05:33,118 [8] INFO  MyShop.Api.Controllers.ProductsController - Search query="laptop stand" returned 7 results in 105ms
+2026-03-05 08:06:14,299 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-99999 | 404 | 12ms | 10.0.0.55
+2026-03-05 08:06:14,300 [3] WARN  MyShop.Api.Controllers.ProductsController - Product not found: SKU-99999 requested by 10.0.0.55
+2026-03-05 08:07:02,812 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 341ms | 10.0.0.12
+2026-03-05 08:07:02,813 [6] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-A8F2C, order ORD-8801 queued
+2026-03-05 08:08:19,004 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24&category=electronics | 200 | 91ms | 203.0.113.88
+2026-03-05 08:09:00,558 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-C5K1L/items | 201 | 55ms | 198.51.100.22
+2026-03-05 08:09:00,559 [9] INFO  MyShop.Api.Controllers.CartController - Item added to cart sess-C5K1L: SKU-10482 x1, cart total: $199.00
+2026-03-05 08:09:48,773 [7] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=bluetooth+speaker | 200 | 115ms | 10.0.0.12
+2026-03-05 08:09:48,774 [7] INFO  MyShop.Api.Controllers.ProductsController - Search query="bluetooth speaker" returned 12 results in 112ms
+2026-03-05 08:10:31,002 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-54321 | 200 | 44ms | 192.168.1.45
+2026-03-05 08:11:05,619 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 318ms | 203.0.113.77
+2026-03-05 08:11:05,620 [4] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-B3D7E, order ORD-8802 queued
+2026-03-05 08:14:22,101 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=3&pageSize=24 | 200 | 84ms | 10.0.0.88
+2026-03-05 08:17:44,380 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-77410 | 200 | 41ms | 198.51.100.55
+2026-03-05 08:21:09,554 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-D9M3N/items | 201 | 60ms | 192.168.1.88
+2026-03-05 08:21:09,555 [5] INFO  MyShop.Api.Controllers.CartController - Item added to cart sess-D9M3N: SKU-77410 x1, cart total: $34.95
+2026-03-05 08:25:37,820 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=yoga+mat | 200 | 97ms | 203.0.113.99
+2026-03-05 08:31:14,007 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 295ms | 192.168.1.88
+2026-03-05 08:31:14,008 [9] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-D9M3N, order ORD-8803 queued
+2026-03-05 08:38:50,312 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24&sort=price_asc | 200 | 102ms | 10.0.0.12
+2026-03-05 08:45:22,771 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-11203 | 200 | 38ms | 192.168.1.45
+2026-03-05 08:52:09,444 [7] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-E2P8Q/items | 201 | 57ms | 10.0.0.55
+2026-03-05 08:57:41,881 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=gaming+headset | 200 | 119ms | 203.0.113.44
+2026-03-05 09:00:18,334 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 93ms | 192.168.1.102
+2026-03-05 09:00:44,102 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 97ms | 10.0.0.12
+2026-03-05 09:01:03,778 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-20917 | 200 | 51ms | 203.0.113.77
+2026-03-05 09:01:19,224 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=2&pageSize=24 | 200 | 88ms | 198.51.100.22
+2026-03-05 09:01:47,509 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=usb+hub | 200 | 131ms | 192.168.1.45
+2026-03-05 09:02:04,117 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-F7R2S/items | 201 | 64ms | 10.0.0.12
+2026-03-05 09:02:22,881 [10] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-30041 | 200 | 46ms | 198.51.100.55
+2026-03-05 09:02:51,003 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 104ms | 203.0.113.88
+2026-03-05 09:03:14,558 [6] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=48 | 200 | 512ms | 10.0.0.77 — response time exceeded 500ms threshold
+2026-03-05 09:03:39,771 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-G1T4U/items | 201 | 71ms | 192.168.1.102
+2026-03-05 09:04:02,334 [4] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=mechanical+keyboard&page=1 | 200 | 547ms | 10.0.0.12 — response time exceeded 500ms threshold
+2026-03-05 09:04:02,335 [4] WARN  MyShop.Api.Controllers.ProductsController - Slow search detected: query="mechanical keyboard" took 543ms, index scan count: 84201
+2026-03-05 09:04:29,004 [11] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-54321 | 200 | 48ms | 203.0.113.99
+2026-03-05 09:05:11,678 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=3&pageSize=24 | 200 | 112ms | 198.51.100.22
+2026-03-05 09:05:44,892 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-88114 | 404 | 11ms | 10.0.0.88
+2026-03-05 09:05:44,893 [9] WARN  MyShop.Api.Controllers.ProductsController - Product not found: SKU-88114 requested by 10.0.0.88
+2026-03-05 09:06:01,220 [10] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-88115 | 404 | 10ms | 10.0.0.88
+2026-03-05 09:06:01,221 [10] WARN  MyShop.Api.Controllers.ProductsController - Product not found: SKU-88115 requested by 10.0.0.88
+2026-03-05 09:06:17,449 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-88116 | 404 | 10ms | 10.0.0.88
+2026-03-05 09:06:17,450 [5] WARN  MyShop.Api.Controllers.ProductsController - Product not found: SKU-88116 (3rd consecutive 404 from IP 10.0.0.88 — possible scraper or bad import batch)
+2026-03-05 09:07:08,003 [6] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24&category=clothing | 200 | 604ms | 192.168.1.200 — response time exceeded 500ms threshold
+2026-03-05 09:08:44,117 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 388ms | 10.0.0.12
+2026-03-05 09:08:44,118 [4] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-F7R2S, order ORD-8818 queued
+2026-03-05 09:09:31,554 [8] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-H4V6W/items | 201 | 532ms | 203.0.113.44 — response time exceeded 500ms threshold
+2026-03-05 09:10:02,771 [11] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=wireless+mouse | 200 | 143ms | 10.0.0.55
+2026-03-05 09:10:45,228 [3] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=4&pageSize=24 | 200 | 689ms | 192.168.1.45 — response time exceeded 500ms threshold
+2026-03-05 09:12:18,004 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-10482 | 200 | 55ms | 198.51.100.22
+2026-03-05 09:15:33,441 [7] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 200 | 821ms | 192.168.1.102 — response time exceeded 500ms threshold
+2026-03-05 09:18:07,882 [4] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=48 | 200 | 734ms | 10.0.0.12 — response time exceeded 500ms threshold
+2026-03-05 09:22:41,117 [6] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=48 | 200 | 912ms | 203.0.113.77 — response time exceeded 500ms threshold
+2026-03-05 09:26:15,330 [10] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-I9X3Y/items | 201 | 1104ms | 198.51.100.88 — response time exceeded 500ms threshold
+2026-03-05 09:28:09,004 [3] WARN  MyShop.Api.Controllers.ProductsController - Database round-trip for GET /api/products took 1247ms; connection pool utilization at 78%
+2026-03-05 09:30:22,771 [5] ERROR MyShop.Api.Controllers.ProductsController - Unhandled exception serving GET /api/products for 10.0.0.12
+System.InvalidOperationException: Timeout waiting for a pooled connection (pool size: 50, active: 50, wait queue: 7)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected)
+   at MyShop.Api.Controllers.ProductsController.GetProductsAsync(Int32 page, Int32 pageSize)
+2026-03-05 09:30:22,773 [5] ERROR MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 500 | 30012ms | 10.0.0.12
+2026-03-05 09:31:04,118 [8] ERROR MyShop.Api.Controllers.ProductsController - Unhandled exception serving GET /api/products for 192.168.1.45
+System.InvalidOperationException: Timeout waiting for a pooled connection (pool size: 50, active: 50, wait queue: 12)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected)
+   at MyShop.Api.Controllers.ProductsController.GetProductsAsync(Int32 page, Int32 pageSize)
+2026-03-05 09:31:04,120 [8] ERROR MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 500 | 30008ms | 192.168.1.45
+2026-03-05 09:31:55,442 [11] ERROR MyShop.Api.Controllers.CartController - Failed to add item to cart sess-J2Z5A: database unavailable
+System.InvalidOperationException: Timeout waiting for a pooled connection (pool size: 50, active: 50, wait queue: 19)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected)
+   at MyShop.Api.Controllers.CartController.AddItemAsync(String sessionId, CartItemRequest request)
+2026-03-05 09:31:55,444 [11] ERROR MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-J2Z5A/items | 503 | 30011ms | 203.0.113.55
+2026-03-05 09:32:44,881 [4] WARN  MyShop.Api.Middleware.RateLimitMiddleware - Rate limit engaged: IP 10.0.0.88 exceeded 300 req/min (current: 347 req/min). Throttling.
+2026-03-05 09:33:01,229 [3] ERROR MyShop.Api.Controllers.OrdersController - POST /api/orders/checkout rejected: downstream order-service unreachable for sess-K8B1C
+System.Net.Http.HttpRequestException: No connection could be made because the target machine actively refused it. (order-service:8080)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Api.Controllers.OrdersController.CheckoutAsync(CheckoutRequest request)
+2026-03-05 09:33:01,231 [3] ERROR MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 502 | 5003ms | 192.168.1.200
+2026-03-05 09:34:17,004 [6] WARN  MyShop.Api.Middleware.RateLimitMiddleware - Global rate limit approaching: 1847 req/min of 2000 limit
+2026-03-05 09:36:08,558 [9] ERROR MyShop.Api.Controllers.ProductsController - Unhandled exception serving GET /api/products/search for 198.51.100.22
+System.InvalidOperationException: Timeout waiting for a pooled connection (pool size: 50, active: 50, wait queue: 23)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected)
+   at MyShop.Api.Controllers.ProductsController.SearchAsync(String query, Int32 page)
+2026-03-05 09:36:08,560 [9] ERROR MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=headphones | 500 | 30009ms | 198.51.100.22
+2026-03-05 09:38:44,117 [5] WARN  MyShop.Api.Middleware.RateLimitMiddleware - Rate limit engaged: IP 203.0.113.77 exceeded 300 req/min (current: 312 req/min). Throttling.
+2026-03-05 09:41:22,003 [7] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - Connection pool utilization dropping: 72% (recovering)
+2026-03-05 09:45:07,334 [4] WARN  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 488ms | 10.0.0.12
+2026-03-05 09:48:33,771 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 221ms | 192.168.1.45
+2026-03-05 09:52:18,442 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=backpack | 200 | 138ms | 203.0.113.44
+2026-03-05 09:55:04,881 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-30041 | 200 | 47ms | 10.0.0.55
+2026-03-05 09:58:29,117 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-L3C7D/items | 201 | 68ms | 198.51.100.88
+2026-03-05 10:00:11,004 [5] INFO  MyShop.Api.Middleware.RateLimitMiddleware - Rate limit lifted for IP 10.0.0.88: traffic normalized
+2026-03-05 10:00:11,005 [5] INFO  MyShop.Api.Middleware.RateLimitMiddleware - Rate limit lifted for IP 203.0.113.77: traffic normalized
+2026-03-05 10:00:44,558 [11] INFO  MyShop.Api.Controllers.ProductsController - Connection pool recovered: utilization 31%, all waiters cleared
+2026-03-05 10:01:22,334 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 89ms | 10.0.0.12
+2026-03-05 10:02:07,771 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-11203 | 200 | 42ms | 192.168.1.45
+2026-03-05 10:03:44,003 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-M5E9F/items | 201 | 59ms | 203.0.113.88
+2026-03-05 10:05:18,881 [8] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=standing+desk | 200 | 122ms | 198.51.100.22
+2026-03-05 10:07:50,117 [9] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 302ms | 10.0.0.12
+2026-03-05 10:07:50,118 [9] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-L3C7D, order ORD-8841 queued
+2026-03-05 10:10:33,224 [4] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=2&pageSize=24 | 200 | 85ms | 192.168.1.102
+2026-03-05 10:13:09,558 [6] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/SKU-77410 | 200 | 40ms | 10.0.0.88
+2026-03-05 10:16:44,003 [3] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/cart/sess-N7G2H/items | 201 | 61ms | 203.0.113.55
+2026-03-05 10:20:17,881 [7] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products/search?q=tablet+case | 200 | 109ms | 198.51.100.55
+2026-03-05 10:24:02,334 [5] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - POST /api/orders/checkout | 202 | 287ms | 192.168.1.88
+2026-03-05 10:24:02,335 [5] INFO  MyShop.Api.Controllers.OrdersController - Checkout accepted for sess-M5E9F, order ORD-8855 queued
+2026-03-05 10:27:48,117 [11] INFO  MyShop.Api.Middleware.RequestLoggingMiddleware - GET /api/products?page=1&pageSize=24 | 200 | 91ms | 10.0.0.12
+2026-03-05 10:29:31,004 [8] INFO  MyShop.Api.Controllers.ProductsController - Health check: connection pool utilization 28%, avg response 94ms, error rate 0.0%

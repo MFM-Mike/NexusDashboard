@@ -1,0 +1,206 @@
+2026-03-05 08:00:01,014 [1] INFO  PaymentGateway.Processing.TransactionProcessor - Gateway initializing. Version=3.7.1, Environment=Production
+2026-03-05 08:00:01,203 [1] INFO  PaymentGateway.Processing.StripeGatewayClient - Stripe client initialized. ApiVersion=2023-10-16, ConnectTimeout=10000ms, ReadTimeout=30000ms
+2026-03-05 08:00:01,441 [1] INFO  PaymentGateway.Processing.PayPalGatewayClient - PayPal client initialized. Environment=Live, ClientId=AZ7k***9mQp, ConnectTimeout=10000ms
+2026-03-05 08:00:01,619 [1] INFO  PaymentGateway.Infrastructure.IdempotencyStore - Idempotency store ready. Backend=Redis, Host=redis-prod-01:6379, TTL=86400s
+2026-03-05 08:00:01,788 [1] INFO  PaymentGateway.Processing.TransactionProcessor - All gateway clients healthy. ReadyForTraffic=true
+2026-03-05 08:00:02,004 [1] DEBUG PaymentGateway.Processing.TransactionProcessor - Worker thread pool started. MinThreads=4, MaxThreads=32
+2026-03-05 08:00:14,332 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10041, Customer=CUST-8821, Amount=49.99 USD, Gateway=Stripe, Last4=4242, Duration=312ms
+2026-03-05 08:00:21,887 [3] DEBUG PaymentGateway.Infrastructure.IdempotencyStore - Idempotency key stored. Key=idem_TXN-10041, TTL=86400s
+2026-03-05 08:00:38,114 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10042, Customer=CUST-3310, Amount=129.00 USD, Gateway=Stripe, Last4=1337, Duration=287ms
+2026-03-05 08:01:02,556 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10043, Customer=CUST-5574, Amount=19.99 USD, Gateway=PayPal, Last4=N/A, Duration=401ms
+2026-03-05 08:01:29,773 [3] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10044, Customer=CUST-9902, Amount=299.00 USD, Gateway=Stripe, Last4=0019, DeclineCode=insufficient_funds
+2026-03-05 08:01:55,210 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10045, Customer=CUST-1140, Amount=75.50 USD, Gateway=Stripe, Last4=5588, Duration=301ms
+2026-03-05 08:02:18,004 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS challenge initiated. TXN=TXN-10046, Customer=CUST-6673, Amount=450.00 USD, AcsUrl=https://acs.bank.example/3ds
+2026-03-05 08:02:18,117 [5] INFO  PaymentGateway.Processing.ThreeDsService - Customer redirected to 3DS authentication. TXN=TXN-10046
+2026-03-05 08:02:44,882 [2] DEBUG PaymentGateway.Infrastructure.IdempotencyStore - Idempotency key checked. Key=idem_TXN-10045, Found=false, Action=proceed
+2026-03-05 08:03:07,441 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10047, Customer=CUST-2255, Amount=89.95 USD, Gateway=Stripe, Last4=7731, Duration=295ms
+2026-03-05 08:03:32,114 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS authentication complete. TXN=TXN-10046, Result=AUTHENTICATED, ECI=05
+2026-03-05 08:03:32,229 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded post-3DS. TXN=TXN-10046, Customer=CUST-6673, Amount=450.00 USD, Gateway=Stripe, Last4=9901, Duration=388ms
+2026-03-05 08:04:01,667 [4] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10048, Customer=CUST-4417, Amount=599.00 USD, Gateway=Stripe, Last4=3344, DeclineCode=card_expired
+2026-03-05 08:04:28,993 [2] INFO  PaymentGateway.Processing.RefundProcessor - Refund initiated. TXN=TXN-10049, OriginalTXN=TXN-10031, Customer=CUST-7723, Amount=49.99 USD, Gateway=Stripe, Reason=customer_request
+2026-03-05 08:04:29,112 [2] DEBUG PaymentGateway.Processing.RefundProcessor - Calling Stripe refund endpoint. ChargeId=ch_3OxP2K2eZvKYlo2C1aBC1234, Amount=4999 cents
+2026-03-05 08:04:29,788 [2] INFO  PaymentGateway.Processing.RefundProcessor - Refund succeeded. TXN=TXN-10049, RefundId=re_3OxP2K2eZvKYlo2C1aBC5678, Duration=676ms
+2026-03-05 08:05:13,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10050, Customer=CUST-8834, Amount=200.00 USD, Gateway=PayPal, Last4=N/A, Duration=412ms
+2026-03-05 08:05:47,334 [6] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe API response. StatusCode=200, RequestId=req_XkL7m9pQv2rT, Latency=291ms
+2026-03-05 08:06:11,871 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10051, Customer=CUST-1028, Amount=34.99 USD, Gateway=Stripe, Last4=8812, Duration=278ms
+2026-03-05 08:06:55,440 [4] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10052, Customer=CUST-3391, Amount=149.00 USD, Gateway=Stripe, Last4=6620, DeclineCode=do_not_honor
+2026-03-05 08:07:19,003 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10053, Customer=CUST-5509, Amount=12.99 USD, Gateway=Stripe, Last4=2277, Duration=265ms
+2026-03-05 08:07:44,556 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS challenge initiated. TXN=TXN-10054, Customer=CUST-9918, Amount=875.00 USD, AcsUrl=https://acs.securebank.example/3ds
+2026-03-05 08:07:44,668 [5] INFO  PaymentGateway.Processing.ThreeDsService - Customer redirected to 3DS authentication. TXN=TXN-10054
+2026-03-05 08:08:03,227 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10055, Customer=CUST-6641, Amount=59.95 USD, Gateway=Stripe, Last4=4499, Duration=312ms
+2026-03-05 08:08:39,114 [3] INFO  PaymentGateway.Processing.RefundProcessor - Refund initiated. TXN=TXN-10056, OriginalTXN=TXN-10038, Customer=CUST-2284, Amount=129.00 USD, Gateway=Stripe, Reason=defective_product
+2026-03-05 08:08:39,891 [3] INFO  PaymentGateway.Processing.RefundProcessor - Refund succeeded. TXN=TXN-10056, RefundId=re_3OxQ1L3fAwLZmp3D2bCD6789, Duration=777ms
+2026-03-05 08:09:07,445 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS authentication complete. TXN=TXN-10054, Result=AUTHENTICATED, ECI=05
+2026-03-05 08:09:07,559 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded post-3DS. TXN=TXN-10054, Customer=CUST-9918, Amount=875.00 USD, Gateway=Stripe, Last4=1193, Duration=421ms
+2026-03-05 08:09:44,002 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10057, Customer=CUST-3347, Amount=99.00 USD, Gateway=PayPal, Last4=N/A, Duration=389ms
+2026-03-05 08:10:22,771 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10058, Customer=CUST-7712, Amount=249.95 USD, Gateway=Stripe, Last4=7763, Duration=301ms
+2026-03-05 08:11:05,334 [6] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10059, Customer=CUST-4456, Amount=39.99 USD, Gateway=Stripe, Last4=5521, DeclineCode=insufficient_funds
+2026-03-05 08:11:48,117 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10060, Customer=CUST-8873, Amount=179.00 USD, Gateway=Stripe, Last4=9934, Duration=288ms
+2026-03-05 08:12:29,003 [2] DEBUG PaymentGateway.Infrastructure.IdempotencyStore - Idempotency key checked. Key=idem_TXN-10060, Found=false, Action=proceed
+2026-03-05 08:13:03,556 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10061, Customer=CUST-2219, Amount=54.99 USD, Gateway=Stripe, Last4=6687, Duration=297ms
+2026-03-05 08:14:17,882 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10062, Customer=CUST-6628, Amount=324.00 USD, Gateway=PayPal, Last4=N/A, Duration=434ms
+2026-03-05 08:15:00,441 [2] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10063, Customer=CUST-5501, Amount=799.00 USD, Gateway=Stripe, Last4=4418, DeclineCode=card_velocity_exceeded
+2026-03-05 08:16:14,114 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10064, Customer=CUST-1193, Amount=29.99 USD, Gateway=Stripe, Last4=3391, Duration=274ms
+2026-03-05 08:17:28,779 [4] INFO  PaymentGateway.Processing.RefundProcessor - Refund initiated. TXN=TXN-10065, OriginalTXN=TXN-10044, Customer=CUST-9902, Amount=15.00 USD, Gateway=Stripe, Reason=partial_refund
+2026-03-05 08:17:29,103 [4] INFO  PaymentGateway.Processing.RefundProcessor - Refund succeeded. TXN=TXN-10065, RefundId=re_3OxR2M4gBxMAnp4E3cDE7890, Duration=324ms
+2026-03-05 08:18:45,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10066, Customer=CUST-3362, Amount=68.50 USD, Gateway=Stripe, Last4=8854, Duration=309ms
+2026-03-05 08:20:02,334 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10067, Customer=CUST-7745, Amount=149.99 USD, Gateway=PayPal, Last4=N/A, Duration=398ms
+2026-03-05 08:21:19,557 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10068, Customer=CUST-4489, Amount=89.00 USD, Gateway=Stripe, Last4=2265, Duration=284ms
+2026-03-05 08:22:44,114 [2] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10069, Customer=CUST-8817, Amount=499.00 USD, Gateway=Stripe, Last4=7709, DeclineCode=stolen_card
+2026-03-05 08:24:01,883 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10070, Customer=CUST-2230, Amount=15.99 USD, Gateway=Stripe, Last4=5543, Duration=261ms
+2026-03-05 08:25:18,441 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10071, Customer=CUST-6694, Amount=399.00 USD, Gateway=Stripe, Last4=1176, Duration=318ms
+2026-03-05 08:26:55,002 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS challenge initiated. TXN=TXN-10072, Customer=CUST-9956, Amount=1200.00 USD, AcsUrl=https://acs.firstnational.example/3ds
+2026-03-05 08:26:55,119 [5] INFO  PaymentGateway.Processing.ThreeDsService - Customer redirected to 3DS authentication. TXN=TXN-10072
+2026-03-05 08:27:41,334 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10073, Customer=CUST-3378, Amount=44.99 USD, Gateway=Stripe, Last4=9921, Duration=291ms
+2026-03-05 08:28:17,778 [5] INFO  PaymentGateway.Processing.ThreeDsService - 3DS authentication complete. TXN=TXN-10072, Result=AUTHENTICATED, ECI=05
+2026-03-05 08:28:17,892 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded post-3DS. TXN=TXN-10072, Customer=CUST-9956, Amount=1200.00 USD, Gateway=Stripe, Last4=6632, Duration=445ms
+2026-03-05 08:29:03,114 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10074, Customer=CUST-7756, Amount=79.00 USD, Gateway=PayPal, Last4=N/A, Duration=376ms
+2026-03-05 08:30:21,556 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10075, Customer=CUST-1167, Amount=199.95 USD, Gateway=Stripe, Last4=4487, Duration=305ms
+2026-03-05 08:31:48,003 [3] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10076, Customer=CUST-5523, Amount=89.99 USD, Gateway=Stripe, Last4=3378, DeclineCode=card_expired
+2026-03-05 08:33:05,779 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10077, Customer=CUST-8890, Amount=259.00 USD, Gateway=Stripe, Last4=8843, Duration=298ms
+2026-03-05 08:34:22,334 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10078, Customer=CUST-2241, Amount=34.50 USD, Gateway=Stripe, Last4=6609, Duration=271ms
+2026-03-05 08:35:50,114 [4] INFO  PaymentGateway.Processing.RefundProcessor - Refund initiated. TXN=TXN-10079, OriginalTXN=TXN-10053, Customer=CUST-5509, Amount=12.99 USD, Gateway=Stripe, Reason=duplicate_charge
+2026-03-05 08:35:50,891 [4] INFO  PaymentGateway.Processing.RefundProcessor - Refund succeeded. TXN=TXN-10079, RefundId=re_3OxS3N5hCyNBoq5F4dEF8901, Duration=777ms
+2026-03-05 08:37:07,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10080, Customer=CUST-6615, Amount=124.99 USD, Gateway=Stripe, Last4=2254, Duration=288ms
+2026-03-05 08:38:33,441 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10081, Customer=CUST-9978, Amount=349.00 USD, Gateway=PayPal, Last4=N/A, Duration=419ms
+2026-03-05 08:40:01,778 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10082, Customer=CUST-3389, Amount=64.99 USD, Gateway=Stripe, Last4=7798, Duration=279ms
+2026-03-05 08:41:29,334 [4] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10083, Customer=CUST-7701, Amount=179.00 USD, Gateway=Stripe, Last4=1132, DeclineCode=insufficient_funds
+2026-03-05 08:42:56,117 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10084, Customer=CUST-4412, Amount=99.95 USD, Gateway=Stripe, Last4=5565, Duration=302ms
+2026-03-05 08:44:14,002 [6] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth nominal. Pending=3, Active=8, Completed=45, Rate=0.8/s
+2026-03-05 08:45:31,556 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10085, Customer=CUST-8856, Amount=219.00 USD, Gateway=Stripe, Last4=9987, Duration=296ms
+2026-03-05 08:46:58,003 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10086, Customer=CUST-2267, Amount=44.00 USD, Gateway=PayPal, Last4=N/A, Duration=388ms
+2026-03-05 08:48:16,334 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10087, Customer=CUST-6630, Amount=169.99 USD, Gateway=Stripe, Last4=3320, Duration=308ms
+2026-03-05 08:49:43,779 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10088, Customer=CUST-9945, Amount=74.50 USD, Gateway=Stripe, Last4=8876, Duration=281ms
+2026-03-05 08:51:00,114 [2] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10089, Customer=CUST-3356, Amount=399.00 USD, Gateway=Stripe, Last4=4453, DeclineCode=do_not_honor
+2026-03-05 08:52:17,441 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10090, Customer=CUST-7789, Amount=29.99 USD, Gateway=Stripe, Last4=6641, Duration=266ms
+2026-03-05 08:53:44,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10091, Customer=CUST-1123, Amount=549.00 USD, Gateway=PayPal, Last4=N/A, Duration=441ms
+2026-03-05 08:55:01,557 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10092, Customer=CUST-5534, Amount=109.95 USD, Gateway=Stripe, Last4=2298, Duration=293ms
+2026-03-05 08:56:28,114 [2] INFO  PaymentGateway.Processing.RefundProcessor - Refund initiated. TXN=TXN-10093, OriginalTXN=TXN-10067, Customer=CUST-7745, Amount=149.99 USD, Gateway=PayPal, Reason=customer_request
+2026-03-05 08:56:29,002 [2] INFO  PaymentGateway.Processing.RefundProcessor - Refund succeeded. TXN=TXN-10093, RefundId=pp_refund_5T8VKJHM2X, Duration=888ms
+2026-03-05 08:57:45,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10094, Customer=CUST-8867, Amount=189.00 USD, Gateway=Stripe, Last4=7754, Duration=311ms
+2026-03-05 08:59:03,779 [3] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth nominal. Pending=5, Active=12, Completed=82, Rate=1.4/s
+2026-03-05 09:00:17,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10095, Customer=CUST-2278, Amount=59.99 USD, Gateway=Stripe, Last4=5510, Duration=289ms
+2026-03-05 09:00:44,334 [4] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth elevated. Pending=9, Active=18, Completed=84, Rate=2.1/s
+2026-03-05 09:01:02,117 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10096, Customer=CUST-6657, Amount=279.00 USD, Gateway=Stripe, Last4=9965, Duration=321ms
+2026-03-05 09:01:28,778 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10097, Customer=CUST-3312, Amount=44.99 USD, Gateway=PayPal, Last4=N/A, Duration=407ms
+2026-03-05 09:01:55,003 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10098, Customer=CUST-9989, Amount=134.50 USD, Gateway=Stripe, Last4=1187, Duration=298ms
+2026-03-05 09:02:19,441 [2] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth elevated. Pending=14, Active=22, Completed=87, Rate=2.8/s
+2026-03-05 09:02:33,114 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10099, Customer=CUST-7723, Amount=89.95 USD, Gateway=Stripe, Last4=4476, Duration=315ms
+2026-03-05 09:02:58,556 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10100, Customer=CUST-1156, Amount=199.00 USD, Gateway=Stripe, Last4=6632, Duration=303ms
+2026-03-05 09:03:21,002 [5] WARN  PaymentGateway.Processing.TransactionProcessor - Transaction processing time exceeded threshold. TXN=TXN-10101, Customer=CUST-5590, Duration=4200ms, Threshold=3000ms, Gateway=Stripe
+2026-03-05 09:03:21,118 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded (slow). TXN=TXN-10101, Customer=CUST-5590, Amount=499.00 USD, Gateway=Stripe, Last4=8821, Duration=4200ms
+2026-03-05 09:03:45,334 [6] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth high. Pending=19, Active=26, Completed=92, Rate=3.1/s
+2026-03-05 09:04:02,778 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10102, Customer=CUST-8834, Amount=24.99 USD, Gateway=PayPal, Last4=N/A, Duration=381ms
+2026-03-05 09:04:27,114 [4] WARN  PaymentGateway.Processing.TransactionProcessor - Transaction processing time exceeded threshold. TXN=TXN-10103, Customer=CUST-2245, Duration=3800ms, Threshold=3000ms, Gateway=Stripe
+2026-03-05 09:04:27,229 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded (slow). TXN=TXN-10103, Customer=CUST-2245, Amount=329.00 USD, Gateway=Stripe, Last4=2243, Duration=3800ms
+2026-03-05 09:04:52,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10104, Customer=CUST-6678, Amount=79.99 USD, Gateway=Stripe, Last4=7787, Duration=334ms
+2026-03-05 09:05:14,441 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10105, Customer=CUST-9912, Amount=149.95 USD, Gateway=Stripe, Last4=5554, Duration=318ms
+2026-03-05 09:05:38,778 [6] DEBUG PaymentGateway.Processing.TransactionProcessor - Throughput metric. WindowSeconds=60, Transactions=21, Avg=316ms, P95=3900ms, P99=4200ms
+2026-03-05 09:06:01,334 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10106, Customer=CUST-3323, Amount=59.00 USD, Gateway=Stripe, Last4=9998, Duration=291ms
+2026-03-05 09:06:27,117 [4] WARN  PaymentGateway.Processing.TransactionProcessor - Transaction processing time exceeded threshold. TXN=TXN-10107, Customer=CUST-7756, Duration=4700ms, Threshold=3000ms, Gateway=Stripe
+2026-03-05 09:06:27,231 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded (slow). TXN=TXN-10107, Customer=CUST-7756, Amount=699.00 USD, Gateway=Stripe, Last4=1109, Duration=4700ms
+2026-03-05 09:06:54,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10108, Customer=CUST-1190, Amount=39.99 USD, Gateway=PayPal, Last4=N/A, Duration=412ms
+2026-03-05 09:07:19,556 [5] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth high. Pending=22, Active=28, Completed=109, Rate=3.4/s
+2026-03-05 09:07:44,114 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10109, Customer=CUST-5567, Amount=259.95 USD, Gateway=Stripe, Last4=3365, Duration=309ms
+2026-03-05 09:08:08,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10110, Customer=CUST-8801, Amount=94.00 USD, Gateway=Stripe, Last4=6698, Duration=287ms
+2026-03-05 09:09:33,778 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10111, Customer=CUST-2289, Amount=179.99 USD, Gateway=Stripe, Last4=8810, Duration=314ms
+2026-03-05 09:10:57,002 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10112, Customer=CUST-6641, Amount=49.00 USD, Gateway=PayPal, Last4=N/A, Duration=389ms
+2026-03-05 09:12:21,441 [2] DEBUG PaymentGateway.Processing.TransactionProcessor - Throughput metric. WindowSeconds=60, Transactions=18, Avg=342ms, P95=4700ms, P99=4700ms
+2026-03-05 09:13:45,114 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10113, Customer=CUST-9934, Amount=299.00 USD, Gateway=Stripe, Last4=4421, Duration=298ms
+2026-03-05 09:15:09,557 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10114, Customer=CUST-3367, Amount=119.95 USD, Gateway=Stripe, Last4=2276, Duration=311ms
+2026-03-05 09:16:33,002 [5] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10115, Customer=CUST-7712, Amount=549.00 USD, Gateway=Stripe, Last4=7743, DeclineCode=card_velocity_exceeded
+2026-03-05 09:17:57,334 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10116, Customer=CUST-1178, Amount=84.99 USD, Gateway=Stripe, Last4=5532, Duration=304ms
+2026-03-05 09:19:21,778 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10117, Customer=CUST-4489, Amount=449.00 USD, Gateway=PayPal, Last4=N/A, Duration=427ms
+2026-03-05 09:21:00,114 [3] DEBUG PaymentGateway.Processing.TransactionProcessor - Queue depth normalizing. Pending=11, Active=19, Completed=128, Rate=2.2/s
+2026-03-05 09:22:34,441 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10118, Customer=CUST-8823, Amount=139.00 USD, Gateway=Stripe, Last4=9954, Duration=288ms
+2026-03-05 09:24:08,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10119, Customer=CUST-2256, Amount=19.99 USD, Gateway=Stripe, Last4=3387, Duration=272ms
+2026-03-05 09:25:42,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10120, Customer=CUST-6683, Amount=379.95 USD, Gateway=Stripe, Last4=1143, Duration=317ms
+2026-03-05 09:27:16,778 [3] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10121, Customer=CUST-9967, Amount=129.00 USD, Gateway=Stripe, Last4=6609, DeclineCode=insufficient_funds
+2026-03-05 09:28:50,114 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10122, Customer=CUST-3334, Amount=229.00 USD, Gateway=PayPal, Last4=N/A, Duration=401ms
+2026-03-05 09:30:14,441 [2] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe API response latency elevated. Latency=2100ms, Endpoint=/v1/charges, RequestId=req_Ym8n0qRw3sU
+2026-03-05 09:30:47,003 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10123, Customer=CUST-7790, Amount=64.99 USD, Gateway=Stripe, Last4=8865, Duration=2380ms
+2026-03-05 09:31:22,334 [3] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe API response latency elevated. Latency=3100ms, Endpoint=/v1/charges, RequestId=req_Zn9o1rSx4tV
+2026-03-05 09:31:59,778 [6] WARN  PaymentGateway.Processing.StripeGatewayClient - Stripe API response time critical. Latency=4800ms, Endpoint=/v1/charges, RequestId=req_Ao0p2sTy5uW, ConsecutiveSlowRequests=3
+2026-03-05 09:32:33,114 [2] ERROR PaymentGateway.Processing.TransactionProcessor - Charge failed for TXN-10124. Network error connecting to Stripe API. Customer=CUST-1145, Amount=189.00 USD
+2026-03-05 09:33:14,227 [6] ERROR PaymentGateway.Processing.TransactionProcessor - Charge failed for TXN-10125. Customer=CUST-5578, Amount=299.00 USD, Gateway=Stripe
+Stripe.StripeException: Request failed: connect ETIMEDOUT 54.187.174.169:443
+   at Stripe.StripeClient.RequestAsync(HttpMethod method, String path, BaseOptions options, IStripeClient client)
+   at Stripe.ChargeService.CreateAsync(ChargeCreateOptions options, RequestOptions requestOptions)
+   at PaymentGateway.Processing.StripeGatewayClient.ChargeAsync(String customerId, Decimal amount, String currency)
+   at PaymentGateway.Processing.TransactionProcessor.ProcessAsync(Transaction txn)
+2026-03-05 09:33:15,112 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Falling back to PayPal for TXN-10125. Customer=CUST-5578, Amount=299.00 USD
+2026-03-05 09:33:15,891 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded via fallback. TXN=TXN-10125, Customer=CUST-5578, Amount=299.00 USD, Gateway=PayPal, Last4=N/A, Duration=779ms
+2026-03-05 09:33:47,334 [4] ERROR PaymentGateway.Processing.StripeGatewayClient - Stripe connectivity failure confirmed. ConsecutiveTimeouts=3, CircuitBreaker=OPEN
+Stripe.StripeException: Request failed: connect ETIMEDOUT 54.187.174.169:443
+   at Stripe.StripeClient.RequestAsync(HttpMethod method, String path, BaseOptions options, IStripeClient client)
+   at Stripe.ChargeService.CreateAsync(ChargeCreateOptions options, RequestOptions requestOptions)
+   at PaymentGateway.Processing.StripeGatewayClient.HealthCheckAsync()
+2026-03-05 09:33:48,002 [4] INFO  PaymentGateway.Processing.PayPalGatewayClient - Routing all new transactions to PayPal. Reason=StripeCircuitBreakerOpen
+2026-03-05 09:34:12,441 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10126, Customer=CUST-8878, Amount=99.00 USD, Gateway=PayPal, Last4=N/A, Duration=421ms
+2026-03-05 09:34:38,778 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10127, Customer=CUST-2234, Amount=59.99 USD, Gateway=PayPal, Last4=N/A, Duration=398ms
+2026-03-05 09:35:04,114 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Retrying Stripe transaction via PayPal. TXN=TXN-10124, Customer=CUST-1145, Amount=189.00 USD
+2026-03-05 09:35:04,903 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded on retry. TXN=TXN-10124, Customer=CUST-1145, Amount=189.00 USD, Gateway=PayPal, Duration=789ms
+2026-03-05 09:35:29,334 [4] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe circuit breaker state. State=OPEN, OpenedAt=09:33:47, RetryAfter=09:43:47
+2026-03-05 09:36:01,002 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10128, Customer=CUST-6645, Amount=449.95 USD, Gateway=PayPal, Last4=N/A, Duration=411ms
+2026-03-05 09:36:27,441 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10129, Customer=CUST-9901, Amount=79.00 USD, Gateway=PayPal, Last4=N/A, Duration=387ms
+2026-03-05 09:37:03,778 [6] ERROR PaymentGateway.Processing.StripeGatewayClient - Stripe health probe failed. Attempt=1/5
+Stripe.StripeException: Request failed: connect ETIMEDOUT 54.187.174.169:443
+   at Stripe.StripeClient.RequestAsync(HttpMethod method, String path, BaseOptions options, IStripeClient client)
+   at PaymentGateway.Processing.StripeGatewayClient.HealthCheckAsync()
+2026-03-05 09:37:54,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10130, Customer=CUST-3301, Amount=224.00 USD, Gateway=PayPal, Last4=N/A, Duration=432ms
+2026-03-05 09:38:30,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10131, Customer=CUST-7767, Amount=39.99 USD, Gateway=PayPal, Last4=N/A, Duration=401ms
+2026-03-05 09:39:06,779 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10132, Customer=CUST-1112, Amount=159.95 USD, Gateway=PayPal, Last4=N/A, Duration=418ms
+2026-03-05 09:39:43,114 [5] ERROR PaymentGateway.Processing.StripeGatewayClient - Stripe health probe failed. Attempt=2/5
+Stripe.StripeException: Request failed: connect ETIMEDOUT 54.187.174.169:443
+   at Stripe.StripeClient.RequestAsync(HttpMethod method, String path, BaseOptions options, IStripeClient client)
+   at PaymentGateway.Processing.StripeGatewayClient.HealthCheckAsync()
+2026-03-05 09:40:20,441 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10133, Customer=CUST-4456, Amount=89.99 USD, Gateway=PayPal, Last4=N/A, Duration=396ms
+2026-03-05 09:40:57,002 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10134, Customer=CUST-8889, Amount=319.00 USD, Gateway=PayPal, Last4=N/A, Duration=409ms
+2026-03-05 09:41:33,334 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10135, Customer=CUST-2223, Amount=54.99 USD, Gateway=PayPal, Last4=N/A, Duration=388ms
+2026-03-05 09:42:09,778 [6] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe health probe latency improving. Latency=2800ms, Attempt=3/5
+2026-03-05 09:42:46,114 [5] DEBUG PaymentGateway.Processing.StripeGatewayClient - Stripe health probe latency improving. Latency=1200ms, Attempt=4/5
+2026-03-05 09:43:47,002 [2] INFO  PaymentGateway.Processing.StripeGatewayClient - Stripe health probe succeeded. Latency=280ms, Attempt=5/5, CircuitBreaker=HALF_OPEN
+2026-03-05 09:44:14,441 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10136, Customer=CUST-6612, Amount=139.00 USD, Gateway=Stripe, Last4=3376, Duration=301ms
+2026-03-05 09:44:15,003 [4] INFO  PaymentGateway.Processing.StripeGatewayClient - Test charge succeeded. CircuitBreaker=CLOSED, ResumingNormalRouting=true
+2026-03-05 09:44:30,334 [3] INFO  PaymentGateway.Processing.PayPalGatewayClient - Dual-gateway routing resumed. StripeWeight=0.7, PayPalWeight=0.3
+2026-03-05 09:45:07,779 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10137, Customer=CUST-9978, Amount=249.95 USD, Gateway=Stripe, Last4=8832, Duration=289ms
+2026-03-05 09:45:44,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10138, Customer=CUST-3345, Amount=69.00 USD, Gateway=PayPal, Last4=N/A, Duration=412ms
+2026-03-05 09:46:21,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10139, Customer=CUST-7734, Amount=499.00 USD, Gateway=Stripe, Last4=5587, Duration=298ms
+2026-03-05 09:47:58,117 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10140, Customer=CUST-1167, Amount=124.99 USD, Gateway=Stripe, Last4=1154, Duration=315ms
+2026-03-05 09:49:35,441 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10141, Customer=CUST-5589, Amount=84.00 USD, Gateway=PayPal, Last4=N/A, Duration=397ms
+2026-03-05 09:51:12,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10142, Customer=CUST-8856, Amount=359.95 USD, Gateway=Stripe, Last4=6643, Duration=308ms
+2026-03-05 09:52:49,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10143, Customer=CUST-2290, Amount=44.99 USD, Gateway=Stripe, Last4=9976, Duration=274ms
+2026-03-05 09:54:26,778 [3] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10144, Customer=CUST-6623, Amount=299.00 USD, Gateway=Stripe, Last4=4409, DeclineCode=insufficient_funds
+2026-03-05 09:56:03,114 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10145, Customer=CUST-9956, Amount=189.00 USD, Gateway=Stripe, Last4=7721, Duration=296ms
+2026-03-05 09:57:40,441 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10146, Customer=CUST-3378, Amount=79.95 USD, Gateway=PayPal, Last4=N/A, Duration=421ms
+2026-03-05 09:59:17,002 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10147, Customer=CUST-7701, Amount=219.00 USD, Gateway=Stripe, Last4=2265, Duration=307ms
+2026-03-05 10:00:01,334 [1] INFO  PaymentGateway.Settlement.SettlementBatchRunner - Daily settlement batch initiated. BatchId=SETTLE-20260305-001, TransactionCount=147, TotalAmount=28441.32 USD, CutoffTime=2026-03-05T09:59:59Z
+2026-03-05 10:00:02,117 [1] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Processing settlement group. Gateway=Stripe, Count=104, Amount=21983.45 USD
+2026-03-05 10:00:02,891 [1] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Processing settlement group. Gateway=PayPal, Count=43, Amount=6457.87 USD
+2026-03-05 10:00:18,334 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Stripe settlement confirmed. TXN=TXN-10041, SettlementRef=stl_3OxP1J1eYuJXkn1B0aAB1111
+2026-03-05 10:00:34,779 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Stripe settlement confirmed. TXN=TXN-10042, SettlementRef=stl_3OxP1J1eYuJXkn1B0aAB2222
+2026-03-05 10:00:51,002 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - PayPal settlement confirmed. TXN=TXN-10043, SettlementRef=pp_settle_7U9WLKIN3Y
+2026-03-05 10:01:07,334 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Stripe settlement confirmed. TXN=TXN-10045, SettlementRef=stl_3OxP1J1eYuJXkn1B0aAB3333
+2026-03-05 10:02:44,117 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Settled 25 of 147 transactions. ElapsedSeconds=163, EstimatedRemaining=631s
+2026-03-05 10:05:19,002 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Settled 60 of 147 transactions. ElapsedSeconds=318, EstimatedRemaining=394s
+2026-03-05 10:08:04,334 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Settled 95 of 147 transactions. ElapsedSeconds=483, EstimatedRemaining=235s
+2026-03-05 10:10:49,779 [7] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Settled 130 of 147 transactions. ElapsedSeconds=648, EstimatedRemaining=89s
+2026-03-05 10:13:02,114 [1] INFO  PaymentGateway.Settlement.SettlementBatchRunner - Settlement batch complete. BatchId=SETTLE-20260305-001, Settled=147, Failed=0, TotalAmount=28441.32 USD, Duration=781s
+2026-03-05 10:13:03,002 [1] DEBUG PaymentGateway.Settlement.SettlementBatchRunner - Settlement report generated. ReportPath=/reports/settlement/SETTLE-20260305-001.json
+2026-03-05 10:14:11,334 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10148, Customer=CUST-4423, Amount=109.00 USD, Gateway=Stripe, Last4=3354, Duration=291ms
+2026-03-05 10:14:48,778 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10149, Customer=CUST-8890, Amount=274.95 USD, Gateway=PayPal, Last4=N/A, Duration=418ms
+2026-03-05 10:15:01,114 [1] INFO  PaymentGateway.Processing.StripeGatewayClient - Stripe connection fully restored. SuccessfulRequests=12, FailedRequests=0, WindowMinutes=5
+2026-03-05 10:15:02,002 [1] INFO  PaymentGateway.Processing.PayPalGatewayClient - Dual-gateway routing restored. StripeWeight=0.7, PayPalWeight=0.3
+2026-03-05 10:15:26,334 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10150, Customer=CUST-2267, Amount=54.99 USD, Gateway=Stripe, Last4=8876, Duration=287ms
+2026-03-05 10:16:04,779 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10151, Customer=CUST-6651, Amount=189.00 USD, Gateway=Stripe, Last4=6609, Duration=303ms
+2026-03-05 10:17:43,002 [2] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10152, Customer=CUST-9923, Amount=429.95 USD, Gateway=PayPal, Last4=N/A, Duration=431ms
+2026-03-05 10:19:22,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10153, Customer=CUST-3356, Amount=34.99 USD, Gateway=Stripe, Last4=4487, Duration=278ms
+2026-03-05 10:21:01,778 [3] INFO  PaymentGateway.Infrastructure.IdempotencyStore - Reconciliation check started. Window=last24h, KeyCount=1247
+2026-03-05 10:21:04,114 [3] INFO  PaymentGateway.Infrastructure.IdempotencyStore - Reconciliation check passed. DuplicatesDetected=0, OrphanedKeys=2, CleanedUp=2
+2026-03-05 10:22:40,441 [5] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10154, Customer=CUST-7789, Amount=149.00 USD, Gateway=Stripe, Last4=2243, Duration=298ms
+2026-03-05 10:24:19,002 [2] WARN  PaymentGateway.Processing.TransactionProcessor - Card declined. TXN=TXN-10155, Customer=CUST-1134, Amount=219.00 USD, Gateway=Stripe, Last4=5521, DeclineCode=card_expired
+2026-03-05 10:25:58,334 [4] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10156, Customer=CUST-5567, Amount=94.99 USD, Gateway=Stripe, Last4=9932, Duration=294ms
+2026-03-05 10:27:37,779 [6] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10157, Customer=CUST-8812, Amount=339.00 USD, Gateway=PayPal, Last4=N/A, Duration=437ms
+2026-03-05 10:29:16,114 [3] INFO  PaymentGateway.Processing.TransactionProcessor - Charge succeeded. TXN=TXN-10158, Customer=CUST-2278, Amount=69.99 USD, Gateway=Stripe, Last4=7765, Duration=281ms
+2026-03-05 10:29:58,441 [1] DEBUG PaymentGateway.Processing.TransactionProcessor - Gateway status nominal. TotalToday=158, SuccessRate=96.8%, AvgDuration=341ms, ActiveThreads=7
+2026-03-05 10:30:00,002 [1] INFO  PaymentGateway.Processing.TransactionProcessor - Hourly heartbeat. Uptime=02:30:00, TransactionsProcessed=158, TotalVolume=35614.47 USD, GatewayStatus=HEALTHY

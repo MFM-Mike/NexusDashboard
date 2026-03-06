@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "NexusDashboard.Api",
+      "runtimeExecutable": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "runtimeArgs": ["run", "--project", "D:\\Claude\\NexusDashboard\\NexusDashboard.Api\\NexusDashboard.Api.csproj", "--launch-profile", "NexusDashboard.Api"],
+      "port": 5000
+    },
+    {
+      "name": "NexusDashboard.Client",
+      "runtimeExecutable": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "runtimeArgs": ["run", "--project", "D:\\Claude\\NexusDashboard\\NexusDashboard.Client\\NexusDashboard.Client.csproj", "--launch-profile", "NexusDashboard.Client"],
+      "port": 5001
+    }
+  ]
+}

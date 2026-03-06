@@ -1,10 +1,26 @@
-# .NET
+# .NET build output
 bin/
 obj/
 out/
+
+# Visual Studio
 .vs/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
 packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
+
+# OS
 .DS_Store
 Thumbs.db

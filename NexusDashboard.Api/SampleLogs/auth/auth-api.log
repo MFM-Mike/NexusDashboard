@@ -1,0 +1,195 @@
+2026-03-05 08:00:01,042 [1] INFO  Microsoft.Hosting.Lifetime - Application starting
+2026-03-05 08:00:01,118 [1] INFO  Microsoft.Hosting.Lifetime - Hosting environment: Production
+2026-03-05 08:00:01,203 [1] INFO  AuthService.Api.Controllers.AuthController - AuthController initialized
+2026-03-05 08:00:01,391 [1] INFO  AuthService.Security.JwtValidator - Loading RSA private key from key store: /etc/nexus/keys/auth-rsa-2026-01.pem
+2026-03-05 08:00:01,477 [1] INFO  AuthService.Security.JwtValidator - RSA-2048 key loaded successfully. Key ID: kid-20260101-a3f9
+2026-03-05 08:00:01,512 [1] INFO  AuthService.Security.JwtValidator - JWKS endpoint registered at /.well-known/jwks.json
+2026-03-05 08:00:01,598 [1] INFO  AuthService.Infrastructure.RedisSessionStore - Connecting to Redis cluster: redis-cluster.internal:6379
+2026-03-05 08:00:01,744 [1] INFO  AuthService.Infrastructure.RedisSessionStore - Redis connection established. Pool size: 20. Ping: 2ms
+2026-03-05 08:00:01,801 [1] INFO  AuthService.Infrastructure.RedisSessionStore - Session store ready. Keyspace: nexus:sessions:
+2026-03-05 08:00:01,892 [1] INFO  Microsoft.Hosting.Lifetime - Now listening on: https://localhost:7000
+2026-03-05 08:00:01,901 [1] INFO  Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2026-03-05 08:00:14,233 [3] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+2026-03-05 08:00:14,291 [3] DEBUG AuthService.Services.LoginService - Credential validation started for user: j.hartwell@company.com
+2026-03-05 08:00:14,388 [3] DEBUG AuthService.Services.LoginService - Password hash verified for user: j.hartwell@company.com
+2026-03-05 08:00:14,412 [3] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, expiry=3600s
+2026-03-05 08:00:14,431 [3] INFO  AuthService.Services.TokenService - Access token issued. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, kid=kid-20260101-a3f9, exp=2026-03-05T09:00:14Z
+2026-03-05 08:00:14,448 [3] DEBUG AuthService.Services.TokenService - Refresh token stored in Redis. key=nexus:sessions:7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, ttl=604800s
+2026-03-05 08:00:14,461 [3] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=j.hartwell@company.com ip=10.0.4.22 duration=228ms
+2026-03-05 08:02:37,891 [2] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusDesktopClient/4.2.1
+2026-03-05 08:02:37,944 [2] DEBUG AuthService.Services.LoginService - Credential validation started for user: m.okonkwo@company.com
+2026-03-05 08:02:38,012 [2] DEBUG AuthService.Services.LoginService - Password hash verified for user: m.okonkwo@company.com
+2026-03-05 08:02:38,034 [2] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, expiry=3600s
+2026-03-05 08:02:38,051 [2] INFO  AuthService.Services.TokenService - Access token issued. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, kid=kid-20260101-a3f9, exp=2026-03-05T09:02:38Z
+2026-03-05 08:02:38,067 [2] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=m.okonkwo@company.com ip=10.0.2.115 duration=176ms
+2026-03-05 08:07:52,104 [4] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 08:07:52,148 [4] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 08:07:52,173 [4] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, expiry=3600s
+2026-03-05 08:07:52,189 [4] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 duration=85ms
+2026-03-05 08:11,23,554 [5] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+2026-03-05 08:11:23,602 [5] DEBUG AuthService.Services.LoginService - Credential validation started for user: priya.nair@company.com
+2026-03-05 08:11:23,688 [5] DEBUG AuthService.Services.LoginService - Password hash verified for user: priya.nair@company.com
+2026-03-05 08:11:23,711 [5] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, expiry=3600s
+2026-03-05 08:11:23,729 [5] INFO  AuthService.Services.TokenService - Access token issued. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, kid=kid-20260101-a3f9, exp=2026-03-05T09:11:23Z
+2026-03-05 08:11:23,744 [5] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=priya.nair@company.com ip=10.0.8.77 duration=190ms
+2026-03-05 08:18:05,312 [6] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/oauth/callback received. provider=google, state=ok
+2026-03-05 08:18:05,388 [6] INFO  AuthService.Services.LoginService - OAuth login via Google. user=t.bergstrom@company.com user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 08:18:05,402 [6] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752, expiry=3600s
+2026-03-05 08:18:05,421 [6] INFO  AuthService.Api.Controllers.AuthController - OAuth login successful. user=t.bergstrom@company.com ip=10.0.1.204 duration=109ms
+2026-03-05 08:24,39,887 [3] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 08:24:39,931 [3] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 08:24:39,954 [3] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 duration=67ms
+2026-03-05 08:31:11,201 [7] DEBUG AuthService.Api.Controllers.AuthController - DELETE /auth/logout received. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 08:31:11,244 [7] DEBUG AuthService.Infrastructure.RedisSessionStore - Deleting session. key=nexus:sessions:c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 08:31:11,261 [7] INFO  AuthService.Api.Controllers.AuthController - Logout successful. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938 ip=10.0.8.77 duration=60ms
+2026-03-05 08:34,58,776 [2] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: Mozilla/5.0 (X11; Linux x86_64)
+2026-03-05 08:34:58,821 [2] DEBUG AuthService.Services.LoginService - Credential validation started for user: s.walsh@company.com
+2026-03-05 08:34:58,908 [2] DEBUG AuthService.Services.LoginService - Password hash verified for user: s.walsh@company.com
+2026-03-05 08:34:58,929 [2] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063, expiry=3600s
+2026-03-05 08:34:58,946 [2] INFO  AuthService.Services.TokenService - Access token issued. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063, kid=kid-20260101-a3f9, exp=2026-03-05T09:34:58Z
+2026-03-05 08:34:58,961 [2] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=s.walsh@company.com ip=10.0.3.188 duration=185ms
+2026-03-05 08:43,22,134 [8] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 08:43:22,179 [8] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 08:43:22,202 [8] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752 duration=68ms
+2026-03-05 08:51,07,448 [4] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusMobileApp/2.9.0 iOS
+2026-03-05 08:51:07,493 [4] DEBUG AuthService.Services.LoginService - Credential validation started for user: k.lundqvist@company.com
+2026-03-05 08:51:07,578 [4] DEBUG AuthService.Services.LoginService - Password hash verified for user: k.lundqvist@company.com
+2026-03-05 08:51:07,601 [4] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174, expiry=3600s
+2026-03-05 08:51:07,619 [4] INFO  AuthService.Services.TokenService - Access token issued. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174, kid=kid-20260101-a3f9, exp=2026-03-05T09:51:07Z
+2026-03-05 08:51:07,636 [4] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=k.lundqvist@company.com ip=10.0.7.55 duration=188ms
+2026-03-05 08:57,44,912 [6] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 08:57:44,957 [6] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 08:57:44,979 [6] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063 duration=67ms
+2026-03-05 09:00:03,221 [1] WARN  AuthService.Services.LoginService - Failed login attempt. user=admin@company.com ip=45.33.32.156 attempt=1 reason=InvalidPassword
+2026-03-05 09:00:07,884 [1] WARN  AuthService.Services.LoginService - Failed login attempt. user=admin@company.com ip=45.33.32.156 attempt=2 reason=InvalidPassword
+2026-03-05 09:00:11,447 [2] WARN  AuthService.Services.LoginService - Failed login attempt. user=admin@company.com ip=45.33.32.156 attempt=3 reason=InvalidPassword
+2026-03-05 09:00:15,103 [2] WARN  AuthService.Services.LoginService - Failed login attempt. user=admin@company.com ip=45.33.32.156 attempt=4 reason=InvalidPassword
+2026-03-05 09:00:18,762 [3] WARN  AuthService.Services.LoginService - Failed login attempt. user=admin@company.com ip=45.33.32.156 attempt=5 reason=InvalidPassword
+2026-03-05 09:00:18,801 [3] WARN  AuthService.Services.AccountLockoutService - Account locked. user=admin@company.com ip=45.33.32.156 lockout_duration=900s lockout_until=2026-03-05T09:15:18Z failed_attempts=5
+2026-03-05 09:00:22,334 [4] WARN  AuthService.Services.LoginService - Failed login attempt. user=root@company.com ip=45.33.32.156 attempt=1 reason=InvalidPassword
+2026-03-05 09:00:25,991 [4] WARN  AuthService.Services.LoginService - Failed login attempt. user=root@company.com ip=45.33.32.156 attempt=2 reason=InvalidPassword
+2026-03-05 09:00:29,554 [5] WARN  AuthService.Services.LoginService - Failed login attempt. user=root@company.com ip=45.33.32.156 attempt=3 reason=InvalidPassword
+2026-03-05 09:00:33,218 [5] WARN  AuthService.Services.LoginService - Failed login attempt. user=root@company.com ip=45.33.32.156 attempt=4 reason=InvalidPassword
+2026-03-05 09:00:36,872 [6] WARN  AuthService.Services.LoginService - Failed login attempt. user=root@company.com ip=45.33.32.156 attempt=5 reason=InvalidPassword
+2026-03-05 09:00:36,911 [6] WARN  AuthService.Services.AccountLockoutService - Account locked. user=root@company.com ip=45.33.32.156 lockout_duration=900s lockout_until=2026-03-05T09:15:36Z failed_attempts=5
+2026-03-05 09:00:40,477 [7] WARN  AuthService.Services.LoginService - Failed login attempt. user=administrator@company.com ip=45.33.32.156 attempt=1 reason=InvalidPassword
+2026-03-05 09:00:44,133 [7] WARN  AuthService.Services.LoginService - Failed login attempt. user=administrator@company.com ip=45.33.32.156 attempt=2 reason=InvalidPassword
+2026-03-05 09:00:47,789 [8] WARN  AuthService.Services.LoginService - Failed login attempt. user=administrator@company.com ip=45.33.32.156 attempt=3 reason=InvalidPassword
+2026-03-05 09:00:51,445 [8] WARN  AuthService.Services.LoginService - Failed login attempt. user=administrator@company.com ip=45.33.32.156 attempt=4 reason=InvalidPassword
+2026-03-05 09:00:55,102 [1] WARN  AuthService.Services.LoginService - Failed login attempt. user=administrator@company.com ip=45.33.32.156 attempt=5 reason=InvalidPassword
+2026-03-05 09:00:55,141 [1] WARN  AuthService.Services.AccountLockoutService - Account locked. user=administrator@company.com ip=45.33.32.156 lockout_duration=900s lockout_until=2026-03-05T09:15:55Z failed_attempts=5
+2026-03-05 09:01:02,888 [2] WARN  AuthService.Services.LoginService - High-frequency login failures detected from ip=45.33.32.156. Requests in last 60s: 17. Threshold: 10
+2026-03-05 09:01:04,231 [3] WARN  AuthService.Services.LoginService - Failed login attempt. user=sysadmin@company.com ip=45.33.32.156 attempt=1 reason=InvalidPassword
+2026-03-05 09:01:07,885 [3] WARN  AuthService.Services.LoginService - Failed login attempt. user=sysadmin@company.com ip=45.33.32.156 attempt=2 reason=InvalidPassword
+2026-03-05 09:01:11,541 [4] WARN  AuthService.Services.LoginService - Failed login attempt. user=sysadmin@company.com ip=45.33.32.156 attempt=3 reason=InvalidPassword
+2026-03-05 09:01:18,204 [4] WARN  AuthService.Services.LoginService - Failed login attempt. user=sysadmin@company.com ip=45.33.32.156 attempt=4 reason=InvalidPassword
+2026-03-05 09:01:22,862 [5] WARN  AuthService.Services.LoginService - Failed login attempt. user=sysadmin@company.com ip=45.33.32.156 attempt=5 reason=InvalidPassword
+2026-03-05 09:01:22,901 [5] WARN  AuthService.Services.AccountLockoutService - Account locked. user=sysadmin@company.com ip=45.33.32.156 lockout_duration=900s lockout_until=2026-03-05T09:16:22Z failed_attempts=5
+2026-03-05 09:04,17,558 [6] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusDesktopClient/4.2.1 (legitimate user during attack window)
+2026-03-05 09:04,17,601 [6] DEBUG AuthService.Services.LoginService - Credential validation started for user: j.hartwell@company.com
+2026-03-05 09:04,17,689 [6] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=j.hartwell@company.com ip=10.0.4.22 duration=131ms
+2026-03-05 09:07,44,321 [7] WARN  AuthService.Services.LoginService - Failed login attempt. user=devops@company.com ip=45.33.32.156 attempt=1 reason=InvalidPassword
+2026-03-05 09:07,47,981 [7] WARN  AuthService.Services.LoginService - Failed login attempt. user=devops@company.com ip=45.33.32.156 attempt=2 reason=InvalidPassword
+2026-03-05 09:07,51,644 [8] WARN  AuthService.Services.LoginService - Failed login attempt. user=devops@company.com ip=45.33.32.156 attempt=3 reason=InvalidPassword
+2026-03-05 09:07,55,308 [8] WARN  AuthService.Services.LoginService - Failed login attempt. user=devops@company.com ip=45.33.32.156 attempt=4 reason=InvalidPassword
+2026-03-05 09:07,58,971 [1] WARN  AuthService.Services.LoginService - Failed login attempt. user=devops@company.com ip=45.33.32.156 attempt=5 reason=InvalidPassword
+2026-03-05 09:07,58,012 [1] WARN  AuthService.Services.AccountLockoutService - Account locked. user=devops@company.com ip=45.33.32.156 lockout_duration=900s lockout_until=2026-03-05T09:22:59Z failed_attempts=5
+2026-03-05 09:20:14,778 [2] WARN  AuthService.Services.AccountLockoutService - IP address blocked due to sustained brute force activity. ip=45.33.32.156 total_failed_attempts=31 block_duration=86400s
+2026-03-05 09:20:15,102 [2] INFO  AuthService.Services.AccountLockoutService - Lockout notification dispatched. user=admin@company.com channel=email
+2026-03-05 09:20:15,418 [2] INFO  AuthService.Services.AccountLockoutService - Lockout notification dispatched. user=root@company.com channel=email
+2026-03-05 09:20:15,731 [2] INFO  AuthService.Services.AccountLockoutService - Lockout notification dispatched. user=administrator@company.com channel=email
+2026-03-05 09:20:16,044 [2] INFO  AuthService.Services.AccountLockoutService - Lockout notification dispatched. user=sysadmin@company.com channel=email
+2026-03-05 09:20:16,357 [2] INFO  AuthService.Services.AccountLockoutService - Lockout notification dispatched. user=devops@company.com channel=email
+2026-03-05 09:21,03,881 [3] WARN  AuthService.Api.Controllers.AuthController - Rate limiting enforced for ip=45.33.32.156. All requests returning HTTP 429.
+2026-03-05 09:22,41,204 [4] INFO  AuthService.Api.Controllers.AuthController - Rate limit check: ip=45.33.32.156 blocked=true, returning 429 Too Many Requests
+2026-03-05 09:25,19,003 [5] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174
+2026-03-05 09:25,19,048 [5] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174
+2026-03-05 09:25,19,071 [5] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174 duration=68ms
+2026-03-05 09:29,55,664 [6] DEBUG AuthService.Api.Controllers.AuthController - DELETE /auth/logout received. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 09:29,55,708 [6] INFO  AuthService.Api.Controllers.AuthController - Logout successful. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 ip=10.0.2.115 duration=44ms
+2026-03-05 09:35,00,112 [1] INFO  AuthService.Security.JwtValidator - Key rotation initiated. Generating new RSA-2048 key pair.
+2026-03-05 09:35,01,884 [1] INFO  AuthService.Security.JwtValidator - New RSA key generated. New Key ID: kid-20260305-b7e2
+2026-03-05 09:35,01,991 [1] INFO  AuthService.Security.JwtValidator - New key written to key store: /etc/nexus/keys/auth-rsa-2026-03.pem
+2026-03-05 09:35,02,108 [1] INFO  AuthService.Security.JwtValidator - JWKS endpoint updated. Active keys: [kid-20260101-a3f9, kid-20260305-b7e2]
+2026-03-05 09:35,02,214 [1] INFO  AuthService.Security.JwtValidator - Old key kid-20260101-a3f9 remains valid for token validation. Grace period: 900s (until 09:50:02Z)
+2026-03-05 09:35,02,331 [1] INFO  AuthService.Services.TokenService - New token issuance switched to key kid-20260305-b7e2
+2026-03-05 09:35,03,002 [2] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+2026-03-05 09:35,03,048 [2] DEBUG AuthService.Services.LoginService - Credential validation started for user: m.okonkwo@company.com
+2026-03-05 09:35,03,134 [2] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, expiry=3600s
+2026-03-05 09:35,03,152 [2] INFO  AuthService.Services.TokenService - Access token issued. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, kid=kid-20260305-b7e2, exp=2026-03-05T10:35:03Z
+2026-03-05 09:35,03,169 [2] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=m.okonkwo@company.com ip=10.0.2.115 duration=167ms
+2026-03-05 09:40,28,441 [3] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 09:40,28,487 [3] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 09:40,28,511 [3] INFO  AuthService.Api.Controllers.TokenController - Token refreshed with new key. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, kid=kid-20260305-b7e2 duration=70ms
+2026-03-05 09:46,12,883 [4] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusDesktopClient/4.2.1
+2026-03-05 09:46,12,928 [4] DEBUG AuthService.Services.LoginService - Credential validation started for user: priya.nair@company.com
+2026-03-05 09:46,13,014 [4] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, expiry=3600s
+2026-03-05 09:46,13,031 [4] INFO  AuthService.Services.TokenService - Access token issued. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, kid=kid-20260305-b7e2, exp=2026-03-05T10:46:13Z
+2026-03-05 09:46,13,048 [4] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=priya.nair@company.com ip=10.0.8.77 duration=165ms
+2026-03-05 09:50,02,441 [1] INFO  AuthService.Security.JwtValidator - Grace period expired. Removing old key from validation set. key=kid-20260101-a3f9
+2026-03-05 09:50,02,558 [1] INFO  AuthService.Security.JwtValidator - JWKS endpoint updated. Active keys: [kid-20260305-b7e2]
+2026-03-05 09:50,18,774 [5] ERROR AuthService.Services.TokenService - Failed to validate token. Token signed with unknown key kid=kid-20260101-a3f9
+System.Security.Cryptography.CryptographicException: Key ID 'kid-20260101-a3f9' not found in active JWKS. Possible key rotation issue.
+   at AuthService.Security.JwtValidator.ResolveSigningKey(String kid)
+   at AuthService.Security.JwtValidator.ValidateSignature(String token)
+   at AuthService.Services.TokenService.ValidateAccessToken(String token)
+2026-03-05 09:50,22,331 [6] ERROR AuthService.Services.TokenService - Failed to validate token. Token signed with unknown key kid=kid-20260101-a3f9
+System.Security.Cryptography.CryptographicException: Key ID 'kid-20260101-a3f9' not found in active JWKS. Possible key rotation issue.
+   at AuthService.Security.JwtValidator.ResolveSigningKey(String kid)
+   at AuthService.Security.JwtValidator.ValidateSignature(String token)
+   at AuthService.Services.TokenService.ValidateAccessToken(String token)
+2026-03-05 09:50,29,008 [7] ERROR AuthService.Services.TokenService - Failed to validate token. Token signed with unknown key kid=kid-20260101-a3f9
+System.Security.Cryptography.CryptographicException: Key ID 'kid-20260101-a3f9' not found in active JWKS. Possible key rotation issue.
+   at AuthService.Security.JwtValidator.ResolveSigningKey(String kid)
+   at AuthService.Security.JwtValidator.ValidateSignature(String token)
+   at AuthService.Services.TokenService.ValidateAccessToken(String token)
+2026-03-05 09:50,34,551 [8] ERROR AuthService.Api.Controllers.TokenController - Token refresh failed for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541. Returning 401 Unauthorized.
+2026-03-05 09:50,38,114 [1] ERROR AuthService.Api.Controllers.TokenController - Token refresh failed for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752. Returning 401 Unauthorized.
+2026-03-05 09:50,42,669 [2] ERROR AuthService.Api.Controllers.TokenController - Token refresh failed for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063. Returning 401 Unauthorized.
+2026-03-05 09:50,47,222 [3] ERROR AuthService.Services.TokenService - Failed to validate token. Token signed with unknown key kid=kid-20260101-a3f9
+System.Security.Cryptography.CryptographicException: Key ID 'kid-20260101-a3f9' not found in active JWKS. Possible key rotation issue.
+   at AuthService.Security.JwtValidator.ResolveSigningKey(String kid)
+   at AuthService.Security.JwtValidator.ValidateSignature(String token)
+   at AuthService.Services.TokenService.ValidateAccessToken(String token)
+2026-03-05 09:51,04,881 [4] WARN  AuthService.Security.JwtValidator - Elevated 401 error rate detected. 6 token validation failures in last 60s. Possible key rotation regression.
+2026-03-05 09:51,09,334 [5] ERROR AuthService.Api.Controllers.TokenController - Token refresh failed for user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174. Returning 401 Unauthorized.
+2026-03-05 09:51,14,778 [5] INFO  AuthService.Security.JwtValidator - Rollback initiated. Re-loading key kid-20260101-a3f9 from backup store.
+2026-03-05 09:51,16,221 [5] INFO  AuthService.Security.JwtValidator - Key kid-20260101-a3f9 restored to validation set.
+2026-03-05 09:51,16,338 [5] INFO  AuthService.Security.JwtValidator - JWKS endpoint updated. Active keys: [kid-20260101-a3f9, kid-20260305-b7e2]
+2026-03-05 09:51,17,004 [6] INFO  AuthService.Services.TokenService - Key rotation rollback complete. Both keys now active. Will re-attempt planned rotation at 10:35:00Z.
+2026-03-05 09:55,31,441 [7] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 09:55,31,487 [7] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 09:55,31,511 [7] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, kid=kid-20260101-a3f9 duration=76ms
+2026-03-05 09:58,09,003 [8] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusMobileApp/2.9.0 Android
+2026-03-05 09:58,09,048 [8] DEBUG AuthService.Services.LoginService - Credential validation started for user: t.bergstrom@company.com
+2026-03-05 09:58,09,134 [8] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752, expiry=3600s
+2026-03-05 09:58,09,151 [8] INFO  AuthService.Services.TokenService - Access token issued. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752, kid=kid-20260101-a3f9, exp=2026-03-05T10:58:09Z
+2026-03-05 09:58,09,168 [8] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=t.bergstrom@company.com ip=10.0.5.133 duration=165ms
+2026-03-05 10:02,44,551 [1] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 10:02,44,596 [1] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 10:02,44,619 [1] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938 duration=68ms
+2026-03-05 10:07,19,224 [2] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+2026-03-05 10:07,19,271 [2] DEBUG AuthService.Services.LoginService - Credential validation started for user: s.walsh@company.com
+2026-03-05 10:07,19,357 [2] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063, expiry=3600s
+2026-03-05 10:07,19,374 [2] INFO  AuthService.Services.TokenService - Access token issued. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063, kid=kid-20260101-a3f9, exp=2026-03-05T11:07:19Z
+2026-03-05 10:07,19,391 [2] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=s.walsh@company.com ip=10.0.3.188 duration=167ms
+2026-03-05 10:11,52,667 [3] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 10:11,52,712 [3] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 10:11,52,735 [3] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 duration=68ms
+2026-03-05 10:15,07,118 [4] DEBUG AuthService.Api.Controllers.AuthController - DELETE /auth/logout received. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 10:15,07,163 [4] DEBUG AuthService.Infrastructure.RedisSessionStore - Deleting session. key=nexus:sessions:e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 10:15,07,179 [4] INFO  AuthService.Api.Controllers.AuthController - Logout successful. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063 ip=10.0.3.188 duration=61ms
+2026-03-05 10:18,33,441 [5] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/login received. User-Agent: NexusDesktopClient/4.2.1
+2026-03-05 10:18,33,487 [5] DEBUG AuthService.Services.LoginService - Credential validation started for user: k.lundqvist@company.com
+2026-03-05 10:18,33,573 [5] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174, expiry=3600s
+2026-03-05 10:18,33,590 [5] INFO  AuthService.Services.TokenService - Access token issued. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174, kid=kid-20260101-a3f9, exp=2026-03-05T11:18:33Z
+2026-03-05 10:18,33,607 [5] INFO  AuthService.Api.Controllers.AuthController - Login successful. user=k.lundqvist@company.com ip=10.0.7.55 duration=166ms
+2026-03-05 10:22,48,882 [6] DEBUG AuthService.Api.Controllers.TokenController - POST /auth/token/refresh received. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 10:22,48,928 [6] DEBUG AuthService.Services.TokenService - Refresh token validated from Redis. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 10:22,48,951 [6] INFO  AuthService.Api.Controllers.TokenController - Token refreshed. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752 duration=69ms
+2026-03-05 10:26,15,334 [7] DEBUG AuthService.Api.Controllers.AuthController - POST /auth/oauth/callback received. provider=microsoft, state=ok
+2026-03-05 10:26,15,411 [7] INFO  AuthService.Services.LoginService - OAuth login via Microsoft. user=j.hartwell@company.com user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 10:26,15,428 [7] DEBUG AuthService.Services.TokenService - Issuing JWT for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, expiry=3600s
+2026-03-05 10:26,15,447 [7] INFO  AuthService.Api.Controllers.AuthController - OAuth login successful. user=j.hartwell@company.com ip=10.0.4.22 duration=113ms
+2026-03-05 10:29,58,001 [8] INFO  AuthService.Infrastructure.RedisSessionStore - Session store health check passed. Active sessions: 7, Memory used: 2.1MB
+2026-03-05 10:30,00,334 [1] INFO  Microsoft.Hosting.Lifetime - Auth API operating normally. All services healthy.

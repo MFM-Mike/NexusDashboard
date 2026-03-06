@@ -1,0 +1,61 @@
+@page "/"
+@inject LogDataService DataService
+@implements IDisposable
+
+<PageTitle>Overview · Nexus Log Analyzer</PageTitle>
+
+@if (DataService.IsLoading || !DataService.IsLoaded)
+{
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>@(DataService.IsLoading ? "Parsing log data…" : "Loading sample log data…")</p>
+    </div>
+}
+else
+{
+    var s = DataService.CurrentData!.Summary;
+
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Log Overview</h1>
+            <p class="page-subtitle">
+                @s.TotalEntries.ToString("N0") entries
+                · @s.UniqueLoggers.Count loggers
+                · @s.FirstEntry?.ToString("yyyy-MM-dd HH:mm:ss") → @s.LastEntry?.ToString("HH:mm:ss")
+            </p>
+        </div>
+        <div class="date-chip">@DateTime.Now.ToString("dddd, MMMM d yyyy")</div>
+    </div>
+
+    <div class="kpi-grid">
+        @foreach (var card in s.KpiCards)
+        {
+            <KpiCardComponent Card="card" />
+        }
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-primary">
+            <LogTimeline Data="s.TimelineData" />
+        </div>
+        <div class="chart-secondary">
+            <LogLevelBreakdown Levels="s.LevelBreakdown" />
+        </div>
+    </div>
+
+    <LoggerStatsTable TopLoggers="s.TopLoggers" />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        DataService.OnDataChanged += StateHasChanged;
+        if (!DataService.IsLoaded)
+        {
+            await Task.Delay(400);
+            await DataService.LoadSampleAsync();
+        }
+    }
+
+    public void Dispose() => DataService.OnDataChanged -= StateHasChanged;
+}

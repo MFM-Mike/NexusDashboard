@@ -1,0 +1,43 @@
+@inject NavigationManager Nav
+
+<nav class="sidebar">
+    <div class="sidebar-brand">
+        <span class="brand-icon">⬡</span>
+        <div>
+            <div class="brand-name">Nexus</div>
+            <div class="brand-sub">Log Analyzer</div>
+        </div>
+    </div>
+
+    <ul class="nav-list">
+        @foreach (var item in _navItems)
+        {
+            <li>
+                <NavLink href="@item.Href" Match="@item.Match" class="nav-link" ActiveClass="nav-link--active">
+                    <span class="nav-icon">@item.Icon</span>
+                    <span class="nav-label">@item.Label</span>
+                </NavLink>
+            </li>
+        }
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-hint">
+            <span class="hint-icon">💡</span>
+            <span class="hint-text">Go to Log Viewer to paste your own log4net output.</span>
+        </div>
+    </div>
+</nav>
+
+@code {
+    record NavItem(string Label, string Icon, string Href, NavLinkMatch Match = NavLinkMatch.Prefix);
+
+    private readonly List<NavItem> _navItems = new()
+    {
+        new("Overview",   "◈", "/",        NavLinkMatch.All),
+        new("Library",    "⊞", "/library"),
+        new("Log Viewer", "≡", "/viewer"),
+        new("Analyze",    "◉", "/analyze"),
+        new("Settings",   "◌", "/settings"),
+    };
+}

@@ -1,0 +1,119 @@
+2026-03-05 08:00:01,334 [1] INFO  MyShop.Inventory.Cache.ProductCacheManager - Initializing product cache (Redis: redis-prod.internal:6379)
+2026-03-05 08:00:01,558 [1] INFO  MyShop.Inventory.Cache.ProductCacheManager - Redis connection established. Warming cache from DB...
+2026-03-05 08:00:02,441 [1] INFO  MyShop.Inventory.Cache.ProductCacheManager - Cache warm-up complete: 1847 SKUs loaded in 883ms
+2026-03-05 08:00:02,554 [1] INFO  MyShop.Inventory.Services.StockService - StockService initialized. Total tracked SKUs: 1847
+2026-03-05 08:00:02,668 [1] INFO  MyShop.Inventory.Services.ReservationService - ReservationService initialized. Active reservations on startup: 14
+2026-03-05 08:00:02,771 [1] INFO  MyShop.Inventory.Services.ReorderService - ReorderService initialized. Reorder thresholds loaded for 1847 SKUs
+2026-03-05 08:00:02,882 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job scheduled: every 30 minutes (next run: 08:30)
+2026-03-05 08:01:19,004 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-10482 "Wireless Noise-Cancelling Headphones" (stock: 42)
+2026-03-05 08:01:47,117 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-20917 "USB-C Charging Cable 2m" (stock: 318)
+2026-03-05 08:02:05,228 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 7)
+2026-03-05 08:03:08,441 [4] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11001, SKU-20917 x1, sess-A8F2C, TTL: 15min
+2026-03-05 08:04:41,558 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 7)
+2026-03-05 08:05:03,771 [5] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11002, SKU-30041 x2, sess-B3D7E, TTL: 15min
+2026-03-05 08:05:03,772 [5] INFO  MyShop.Inventory.Services.StockService - SKU-30041 reserved stock updated: 7 → 5 on-hand, 2 reserved
+2026-03-05 08:06:12,004 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-44801 "Bamboo Cutting Board Set" — fetching from DB
+2026-03-05 08:06:12,228 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-44801 (stock: 93, TTL: 300s)
+2026-03-05 08:07:44,334 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-10482 "Wireless Noise-Cancelling Headphones" (stock: 42)
+2026-03-05 08:09:02,441 [7] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11003, SKU-10482 x1, sess-C5K1L, TTL: 15min
+2026-03-05 08:09:02,442 [7] INFO  MyShop.Inventory.Services.StockService - SKU-10482 reserved stock updated: 42 → 41 on-hand, 1 reserved
+2026-03-05 08:11:55,558 [4] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-54321 "Stainless Steel Water Bottle" (stock: 211)
+2026-03-05 08:14:09,771 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-65512 "Resistance Band Set" — fetching from DB
+2026-03-05 08:14:10,004 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-65512 (stock: 57, TTL: 300s)
+2026-03-05 08:16:33,117 [8] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-77410 "Leather Wallet RFID" (stock: 129)
+2026-03-05 08:18:22,228 [5] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11004, SKU-77410 x1, sess-D9M3N, TTL: 15min
+2026-03-05 08:21:44,334 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-20917 "USB-C Charging Cable 2m" (stock: 318)
+2026-03-05 08:24:09,441 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-11203 "Portable Bluetooth Speaker" (stock: 65)
+2026-03-05 08:27:33,558 [9] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-80035 "Ceramic Mug Set (4-pack)" — fetching from DB
+2026-03-05 08:27:33,771 [9] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-80035 (stock: 28, TTL: 300s)
+2026-03-05 08:30:01,004 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job started
+2026-03-05 08:30:01,117 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Checking 14 pre-existing reservations for expiry
+2026-03-05 08:30:01,334 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Released 3 expired reservations (SKU-10482 x1, SKU-44205 x2, SKU-91330 x1)
+2026-03-05 08:30:01,441 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job complete: 3 released, 11 retained. Next run: 09:00
+2026-03-05 08:32:15,558 [4] INFO  MyShop.Inventory.Services.ReservationService - Reservation RSV-11001 confirmed: sess-A8F2C, ORD-8801, SKU-20917 x1 → committed
+2026-03-05 08:32:15,559 [4] INFO  MyShop.Inventory.Services.StockService - SKU-20917 stock committed: 318 → 317
+2026-03-05 08:36:48,771 [7] INFO  MyShop.Inventory.Services.ReservationService - Reservation RSV-11002 confirmed: sess-B3D7E, ORD-8802, SKU-30041 x2 → committed
+2026-03-05 08:36:48,772 [7] INFO  MyShop.Inventory.Services.StockService - SKU-30041 stock committed: 7 → 5 (on-hand), reservation cleared
+2026-03-05 08:36:48,773 [7] WARN  MyShop.Inventory.Services.StockService - SKU-30041 "Ergonomic Office Chair" below reorder threshold: 5 on-hand (threshold: 10)
+2026-03-05 08:36:48,882 [7] INFO  MyShop.Inventory.Services.ReorderService - Reorder notification queued for SKU-30041 (on-hand: 5, threshold: 10, reorder qty: 25)
+2026-03-05 08:44:22,004 [5] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-54321 "Stainless Steel Water Bottle" (stock: 211)
+2026-03-05 08:50:07,117 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-65512 "Resistance Band Set" (stock: 57)
+2026-03-05 08:54:39,228 [8] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11005, SKU-65512 x1, sess-E2P8Q, TTL: 15min
+2026-03-05 08:58:17,334 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-11203 "Portable Bluetooth Speaker" (stock: 65)
+2026-03-05 09:00:03,441 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-10482 "Wireless Noise-Cancelling Headphones" (stock: 41)
+2026-03-05 09:01:31,558 [4] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job started
+2026-03-05 09:01:31,772 [4] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Released 2 expired reservations (RSV-11003 SKU-10482 x1, RSV-11004 SKU-77410 x1)
+2026-03-05 09:01:31,881 [4] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job complete: 2 released, 9 retained. Next run: 09:30
+2026-03-05 09:03:47,004 [9] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 5)
+2026-03-05 09:04:12,117 [10] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11006, SKU-30041 x1, sess-F7R2S, TTL: 15min
+2026-03-05 09:04:12,118 [10] INFO  MyShop.Inventory.Services.StockService - SKU-30041 reserved stock updated: 5 → 4 on-hand, 1 reserved
+2026-03-05 09:04:12,119 [10] WARN  MyShop.Inventory.Services.StockService - SKU-30041 "Ergonomic Office Chair" still below reorder threshold (4 on-hand). Reorder pending fulfillment.
+2026-03-05 09:07:29,228 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-91448 "Foam Roller Pro" — fetching from DB
+2026-03-05 09:07:29,441 [3] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-91448 (stock: 8, TTL: 300s)
+2026-03-05 09:07:29,442 [3] WARN  MyShop.Inventory.Services.StockService - SKU-91448 "Foam Roller Pro" below reorder threshold: 8 on-hand (threshold: 15)
+2026-03-05 09:07:29,554 [3] INFO  MyShop.Inventory.Services.ReorderService - Reorder notification queued for SKU-91448 (on-hand: 8, threshold: 15, reorder qty: 30)
+2026-03-05 09:09:54,771 [5] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-11203 "Portable Bluetooth Speaker" (stock: 65)
+2026-03-05 09:11:03,882 [7] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-10091 "Protein Powder Vanilla 2kg" — fetching from DB
+2026-03-05 09:11:04,004 [7] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-10091 (stock: 11, TTL: 300s)
+2026-03-05 09:11:04,005 [7] WARN  MyShop.Inventory.Services.StockService - SKU-10091 "Protein Powder Vanilla 2kg" below reorder threshold: 11 on-hand (threshold: 20)
+2026-03-05 09:11:04,117 [7] INFO  MyShop.Inventory.Services.ReorderService - Reorder notification queued for SKU-10091 (on-hand: 11, threshold: 20, reorder qty: 50)
+2026-03-05 09:14:38,228 [8] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-80035 "Ceramic Mug Set (4-pack)" (stock: 28)
+2026-03-05 09:17:11,334 [2] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11007, SKU-80035 x2, sess-G1T4U, TTL: 15min
+2026-03-05 09:17:11,335 [2] INFO  MyShop.Inventory.Services.StockService - SKU-80035 reserved stock updated: 28 → 26 on-hand, 2 reserved
+2026-03-05 09:20:44,441 [6] WARN  MyShop.Inventory.Services.StockService - SKU-80035 "Ceramic Mug Set (4-pack)" below reorder threshold: 26 on-hand (threshold: 30)
+2026-03-05 09:20:44,554 [6] INFO  MyShop.Inventory.Services.ReorderService - Reorder notification queued for SKU-80035 (on-hand: 26, threshold: 30, reorder qty: 60)
+2026-03-05 09:23:09,771 [10] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11008, SKU-91448 x1, sess-H4V6W, TTL: 15min
+2026-03-05 09:23:09,772 [10] INFO  MyShop.Inventory.Services.StockService - SKU-91448 reserved stock updated: 8 → 7 on-hand, 1 reserved
+2026-03-05 09:30:03,004 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job started
+2026-03-05 09:30:03,117 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Released 1 expired reservation (RSV-11005 SKU-65512 x1)
+2026-03-05 09:30:03,228 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job complete: 1 released, 8 retained. Next run: 10:00
+2026-03-05 09:31:44,334 [4] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11009, SKU-91448 x1, sess-I9X3Y, TTL: 15min
+2026-03-05 09:31:44,335 [4] INFO  MyShop.Inventory.Services.StockService - SKU-91448 reserved stock updated: 7 → 6 on-hand, 1 reserved (2 total reserved)
+2026-03-05 09:32:57,441 [9] INFO  MyShop.Inventory.Services.ReservationService - Reservation request: RSV-11010, SKU-30041 x1, sess-J2Z5A
+2026-03-05 09:32:57,442 [9] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 4, reserved: 1)
+2026-03-05 09:32:57,558 [9] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11010, SKU-30041 x1, sess-J2Z5A, TTL: 15min (available: 3)
+2026-03-05 09:33:29,771 [11] INFO  MyShop.Inventory.Services.ReservationService - Reservation request: RSV-11011, SKU-30041 x2, sess-K8B1C
+2026-03-05 09:33:29,772 [11] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 4, reserved: 2)
+2026-03-05 09:33:29,773 [11] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11011, SKU-30041 x2, sess-K8B1C, TTL: 15min (available: 1)
+2026-03-05 09:34:02,882 [6] INFO  MyShop.Inventory.Services.ReservationService - Reservation request: RSV-11012, SKU-30041 x1, sess-L3C7D
+2026-03-05 09:34:02,883 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-30041 "Ergonomic Office Chair" (stock: 4, reserved: 4)
+2026-03-05 09:34:02,884 [6] WARN  MyShop.Inventory.Services.ReservationService - Stock insufficient for RSV-11012: SKU-30041 requested x1, but 0 unreserved units available
+2026-03-05 09:34:02,885 [6] INFO  MyShop.Inventory.Services.ReservationService - RSV-11012 queued as PENDING_AVAILABILITY for sess-L3C7D
+2026-03-05 09:35:41,004 [3] WARN  MyShop.Inventory.Services.ReservationService - Concurrent reservation conflict detected on SKU-30041: RSV-11010 and RSV-11011 both held last 2 units simultaneously for 65ms before RSV-11011 committed first
+2026-03-05 09:35:41,005 [3] INFO  MyShop.Inventory.Services.ReservationService - RSV-11010 (sess-J2Z5A) rolled back: SKU-30041 x1 released, reservation cancelled
+2026-03-05 09:35:41,117 [3] INFO  MyShop.Inventory.Services.StockService - SKU-30041 rollback: 1 unit released back to available
+2026-03-05 09:36:18,228 [8] WARN  MyShop.Inventory.Services.ReservationService - Concurrent reservation conflict detected on SKU-91448: RSV-11008 and RSV-11009 may overlap on last 2 units
+2026-03-05 09:36:18,334 [8] INFO  MyShop.Inventory.Services.ReservationService - Conflict resolved via timestamp: RSV-11008 (earlier) retained, RSV-11009 validated (sufficient stock remains: 5 on-hand)
+2026-03-05 09:38:55,441 [4] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-10091 "Protein Powder Vanilla 2kg" (stock: 11)
+2026-03-05 09:38:55,442 [4] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11013, SKU-10091 x2, sess-M5E9F, TTL: 15min
+2026-03-05 09:38:55,443 [4] INFO  MyShop.Inventory.Services.StockService - SKU-10091 reserved stock updated: 11 → 9 on-hand, 2 reserved
+2026-03-05 09:41:19,558 [10] WARN  MyShop.Inventory.Services.ReservationService - RSV-11012 (sess-L3C7D, SKU-30041 x1) has been PENDING_AVAILABILITY for 7 minutes. No stock freed yet.
+2026-03-05 09:44:07,771 [2] INFO  MyShop.Inventory.Services.ReservationService - Reservation RSV-11011 confirmed: sess-K8B1C, ORD-8837, SKU-30041 x2 → committed
+2026-03-05 09:44:07,772 [2] INFO  MyShop.Inventory.Services.StockService - SKU-30041 stock committed: 4 → 2 (on-hand), 2 units sold
+2026-03-05 09:44:07,773 [2] WARN  MyShop.Inventory.Services.StockService - SKU-30041 "Ergonomic Office Chair" critically low: 2 on-hand, 1 pending reservation (RSV-11012)
+2026-03-05 09:44:08,004 [2] INFO  MyShop.Inventory.Services.ReservationService - RSV-11012 promoted from PENDING_AVAILABILITY: 1 unit now available for sess-L3C7D
+2026-03-05 09:49:33,117 [5] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-11203 "Portable Bluetooth Speaker" (stock: 65)
+2026-03-05 09:53:47,228 [7] INFO  MyShop.Inventory.Services.ReservationService - Reservation RSV-11006 confirmed: sess-F7R2S, ORD-8818, SKU-30041 x1 → committed
+2026-03-05 09:53:47,229 [7] INFO  MyShop.Inventory.Services.StockService - SKU-30041 stock committed: 2 → 1 (on-hand)
+2026-03-05 09:53:47,230 [7] WARN  MyShop.Inventory.Services.StockService - SKU-30041 "Ergonomic Office Chair" stock critically low: 1 unit remaining
+2026-03-05 09:58:12,334 [9] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-77410 "Leather Wallet RFID" (stock: 129)
+2026-03-05 10:00:04,441 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job started
+2026-03-05 10:00:04,558 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Checking 8 active reservations for expiry
+2026-03-05 10:00:04,771 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Released 4 expired reservations: RSV-11007 (SKU-80035 x2), RSV-11008 (SKU-91448 x1), RSV-11009 (SKU-91448 x1), RSV-11013 (SKU-10091 x2)
+2026-03-05 10:00:04,882 [1] INFO  MyShop.Inventory.Services.StockService - Stock levels reconciled post-cleanup: SKU-80035 +2, SKU-91448 +2, SKU-10091 +2
+2026-03-05 10:00:04,994 [1] INFO  MyShop.Inventory.Jobs.ReservationCleanupJob - Cleanup job complete: 4 released, 4 retained. Next run: 10:30
+2026-03-05 10:02:28,117 [6] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-10482 "Wireless Noise-Cancelling Headphones" (stock: 41)
+2026-03-05 10:04:53,228 [3] INFO  MyShop.Inventory.Services.ReservationService - Reservation created: RSV-11014, SKU-10482 x1, sess-N7G2H, TTL: 15min
+2026-03-05 10:04:53,229 [3] INFO  MyShop.Inventory.Services.StockService - SKU-10482 reserved stock updated: 41 → 40 on-hand, 1 reserved
+2026-03-05 10:07:14,334 [8] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-54321 "Stainless Steel Water Bottle" (stock: 211)
+2026-03-05 10:10:41,441 [10] INFO  MyShop.Inventory.Services.ReorderService - Reorder acknowledged: SKU-30041, PO-20048 issued (25 units, ETA: 2026-03-08)
+2026-03-05 10:10:41,554 [10] INFO  MyShop.Inventory.Services.ReorderService - Reorder acknowledged: SKU-91448, PO-20049 issued (30 units, ETA: 2026-03-07)
+2026-03-05 10:10:41,667 [10] INFO  MyShop.Inventory.Services.ReorderService - Reorder acknowledged: SKU-10091, PO-20050 issued (50 units, ETA: 2026-03-09)
+2026-03-05 10:10:41,780 [10] INFO  MyShop.Inventory.Services.ReorderService - Reorder acknowledged: SKU-80035, PO-20051 issued (60 units, ETA: 2026-03-07)
+2026-03-05 10:14:19,004 [2] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-65512 "Resistance Band Set" (stock: 57)
+2026-03-05 10:18:07,117 [5] INFO  MyShop.Inventory.Services.ReservationService - Reservation RSV-11014 confirmed: sess-N7G2H, ORD-8867, SKU-10482 x1 → committed
+2026-03-05 10:18:07,118 [5] INFO  MyShop.Inventory.Services.StockService - SKU-10482 stock committed: 41 → 40 (on-hand), reservation cleared
+2026-03-05 10:21:33,228 [4] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache HIT for SKU-44801 "Bamboo Cutting Board Set" (stock: 93)
+2026-03-05 10:24:58,334 [7] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache MISS for SKU-31110 "Canvas Tote Bag Large" — fetching from DB
+2026-03-05 10:24:58,558 [7] DEBUG MyShop.Inventory.Cache.ProductCacheManager - Cache SET for SKU-31110 (stock: 204, TTL: 300s)
+2026-03-05 10:28:14,771 [9] INFO  MyShop.Inventory.Services.StockService - Hourly reconciliation complete: 1847 SKUs checked, 4 reorders pending, 4 active reservations, total reserved value: $647.80

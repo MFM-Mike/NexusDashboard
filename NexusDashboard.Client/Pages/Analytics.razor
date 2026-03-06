@@ -1,0 +1,160 @@
+@page "/viewer"
+@inject LogDataService DataService
+@implements IDisposable
+
+<PageTitle>Log Viewer · Nexus</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Log Viewer</h1>
+        <p class="page-subtitle">Browse, filter, and search log entries</p>
+    </div>
+    <button class="btn-primary" @onclick="() => _showPaste = !_showPaste">
+        @(_showPaste ? "✕ Close" : "⊕ Paste Log")
+    </button>
+</div>
+
+@if (_showPaste)
+{
+    <div class="paste-panel">
+        <p class="paste-hint">Paste log4net output below. The standard pattern is:<br />
+            <code>%date [%thread] %-5level %logger - %message%newline%exception</code>
+        </p>
+        <textarea class="paste-area" @bind="_pasteContent" placeholder="2024-03-05 10:23:45,123 [1] INFO  MyApp.Service - Message here&#10;2024-03-05 10:23:46,456 [2] ERROR MyApp.Data - Something failed&#10;System.Exception: details..."></textarea>
+        <div class="paste-actions">
+            <button class="btn-primary" @onclick="DoParse" disabled="@(string.IsNullOrWhiteSpace(_pasteContent) || DataService.IsLoading)">
+                @(DataService.IsLoading ? "Parsing…" : "Parse Log")
+            </button>
+            <button class="btn-ghost" @onclick="LoadSample">Load Sample Data</button>
+            <span class="paste-hint-sm">@DataService.CurrentData?.Entries.Count.ToString("N0") entries loaded</span>
+        </div>
+    </div>
+}
+
+@if (DataService.IsLoading)
+{
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Parsing…</p>
+    </div>
+}
+else if (!DataService.IsLoaded)
+{
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading sample data…</p>
+    </div>
+}
+else
+{
+    <div class="filter-bar">
+        <!-- Level toggles -->
+        <div class="level-filters">
+            @foreach (var lvl in _allLevels)
+            {
+                bool active = _selectedLevels.Contains(lvl);
+                <button class="level-toggle @lvl.ToLower() @(active ? "active" : "")"
+                        @onclick="() => ToggleLevel(lvl)">
+                    @lvl
+                </button>
+            }
+        </div>
+
+        <!-- Source toggles — only shown when bundle has multiple sources -->
+        @if (_sources.Count > 1)
+        {
+            <div class="source-filters">
+                @for (int i = 0; i < _sources.Count; i++)
+                {
+                    var src = _sources[i];
+                    var idx = i % 6;
+                    bool srcActive = _selectedSources.Contains(src);
+                    <button class="source-toggle source-@idx @(srcActive ? "active" : "")"
+                            @onclick="() => ToggleSource(src)">
+                        @src
+                    </button>
+                }
+            </div>
+        }
+
+        <input class="filter-search" type="text" placeholder="⌕  Search messages or logger…"
+               @bind="_searchText" @bind:event="oninput" />
+        <select class="filter-select" @bind="_selectedLogger">
+            <option value="">All loggers</option>
+            @foreach (var logger in _loggers)
+            {
+                <option value="@logger">@logger</option>
+            }
+        </select>
+        <button class="btn-ghost small" @onclick="ResetFilters">Reset</button>
+    </div>
+
+    <LogTable Entries="_filtered" AllSources="_sources" />
+}
+
+@code {
+    private bool   _showPaste = false;
+    private string _pasteContent = "";
+    private string _searchText = "";
+    private string _selectedLogger = "";
+    private HashSet<string> _selectedLevels  = new() { "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" };
+    private HashSet<string> _selectedSources = new();
+    private static readonly string[] _allLevels = { "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" };
+    private List<string> _loggers = new();
+    private List<string> _sources = new();
+
+    private IEnumerable<LogEntry> _filtered =>
+        DataService.CurrentData?.Entries
+            .Where(e => _selectedLevels.Contains(e.Level))
+            .Where(e => _selectedSources.Count == 0 || _selectedSources.Contains(e.Source))
+            .Where(e => string.IsNullOrEmpty(_selectedLogger) || e.Logger == _selectedLogger)
+            .Where(e => string.IsNullOrEmpty(_searchText)    ||
+                        e.Message.Contains(_searchText, StringComparison.OrdinalIgnoreCase) ||
+                        e.Logger.Contains(_searchText,  StringComparison.OrdinalIgnoreCase))
+        ?? Enumerable.Empty<LogEntry>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        DataService.OnDataChanged += Refresh;
+        if (!DataService.IsLoaded)
+            await DataService.LoadSampleAsync();
+        else
+            RefreshMeta();
+    }
+
+    private void Refresh() { RefreshMeta(); StateHasChanged(); }
+
+    private void RefreshMeta()
+    {
+        _loggers = DataService.CurrentData?.Summary.UniqueLoggers ?? new();
+        _sources = DataService.CurrentData?.Summary.Sources ?? new();
+        // If sources changed (new bundle loaded), reset source filter
+        _selectedSources = new HashSet<string>(_sources);
+    }
+
+    private void ToggleLevel(string lvl)  { if (!_selectedLevels.Remove(lvl))  _selectedLevels.Add(lvl); }
+    private void ToggleSource(string src) { if (!_selectedSources.Remove(src)) _selectedSources.Add(src); }
+
+    private void ResetFilters()
+    {
+        _selectedLevels  = new() { "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" };
+        _selectedSources = new HashSet<string>(_sources);
+        _searchText      = "";
+        _selectedLogger  = "";
+    }
+
+    private async Task DoParse()
+    {
+        if (string.IsNullOrWhiteSpace(_pasteContent)) return;
+        await DataService.ParseAsync(_pasteContent);
+        _showPaste = false;
+    }
+
+    private async Task LoadSample()
+    {
+        await DataService.LoadSampleAsync();
+        _showPaste = false;
+    }
+
+    public void Dispose() => DataService.OnDataChanged -= Refresh;
+}

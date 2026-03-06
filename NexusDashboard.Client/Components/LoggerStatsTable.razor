@@ -1,0 +1,58 @@
+@using NexusDashboard.Shared.Models
+
+@if (TopLoggers is not null && TopLoggers.Any())
+{
+    <div class="table-card">
+        <div class="chart-header">
+            <h3 class="chart-title">Top Loggers</h3>
+            <button class="btn-ghost">by volume</button>
+        </div>
+        <div class="table-scroll">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Logger</th>
+                        <th>Full Name</th>
+                        <th>Entries</th>
+                        <th>Errors</th>
+                        <th>Error Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var stat in TopLoggers)
+                    {
+                        <tr>
+                            <td class="tx-id">@stat.ShortLogger</td>
+                            <td class="log-logger-full" title="@stat.Logger">@stat.Logger</td>
+                            <td>@stat.Count.ToString("N0")</td>
+                            <td>
+                                @if (stat.ErrorCount > 0)
+                                {
+                                    <span class="level-badge level-error">@stat.ErrorCount</span>
+                                }
+                                else
+                                {
+                                    <span class="muted-text">—</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="error-rate-row">
+                                    <div class="error-rate-bar">
+                                        <div class="error-rate-fill" style="width: @Math.Min(100, stat.ErrorRate).ToString("F0")%"></div>
+                                    </div>
+                                    <span class="error-rate-label @(stat.ErrorRate > 20 ? "high" : stat.ErrorRate > 5 ? "mid" : "low")">
+                                        @stat.ErrorRate.ToString("F1")%
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public List<LoggerStat>? TopLoggers { get; set; }
+}

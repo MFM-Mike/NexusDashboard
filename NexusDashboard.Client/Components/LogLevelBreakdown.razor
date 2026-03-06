@@ -1,0 +1,53 @@
+@if (Levels is not null && Levels.Any())
+{
+    <div class="category-card">
+        <div class="chart-header">
+            <h3 class="chart-title">Level Breakdown</h3>
+            <p class="chart-subtitle">Distribution of log levels</p>
+        </div>
+        <div class="donut-layout">
+            <svg viewBox="0 0 160 160" class="donut-svg">
+                @{
+                    double offset = 0;
+                    const double r    = 60;
+                    double       circ = 2 * Math.PI * r;
+                    int          total = (int)Levels.Sum(l => l.Value);
+                }
+                @foreach (var lvl in Levels)
+                {
+                    double dash       = (lvl.Percentage / 100.0) * circ;
+                    double gap        = circ - dash;
+                    double dashOffset = -(offset / 100.0 * circ);
+                    <circle cx="80" cy="80" r="@r"
+                            fill="none"
+                            stroke="@lvl.Color"
+                            stroke-width="22"
+                            stroke-dasharray="@(dash.ToString("F2")) @(gap.ToString("F2"))"
+                            stroke-dashoffset="@(dashOffset.ToString("F2"))"
+                            transform="rotate(-90 80 80)" />
+                    offset += lvl.Percentage;
+                }
+                @((MarkupString)$"<text x=\"80\" y=\"76\" text-anchor=\"middle\" class=\"donut-label-main\">{total:N0}</text>")
+                @((MarkupString)"<text x=\"80\" y=\"94\" text-anchor=\"middle\" class=\"donut-label-sub\">entries</text>")
+            </svg>
+
+            <ul class="category-list">
+                @foreach (var lvl in Levels)
+                {
+                    <li class="category-row">
+                        <span class="cat-dot" style="background: @lvl.Color"></span>
+                        <span class="cat-name">
+                            <span class="level-badge-sm level-@lvl.Name.ToLower()">@lvl.Name</span>
+                        </span>
+                        <span class="cat-pct">@lvl.Percentage.ToString("F1")%</span>
+                        <span class="cat-val">@((int)lvl.Value)</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public List<CategoryData>? Levels { get; set; }
+}

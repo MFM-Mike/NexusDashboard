@@ -1,0 +1,50 @@
+@if (Categories is not null)
+{
+    <div class="category-card">
+        <div class="chart-header">
+            <h3 class="chart-title">Revenue by Category</h3>
+            <p class="chart-subtitle">Breakdown this quarter</p>
+        </div>
+        <div class="donut-layout">
+            <svg viewBox="0 0 160 160" class="donut-svg">
+                @{
+                    double offset = 0;
+                    const double r = 60;
+                    double circ = 2 * Math.PI * r;
+                }
+                @foreach (var cat in Categories)
+                {
+                    double dash = (cat.Percentage / 100.0) * circ;
+                    double gap  = circ - dash;
+                    double dashOffset = -(offset / 100.0 * circ);
+                    <circle cx="80" cy="80" r="@r"
+                            fill="none"
+                            stroke="@cat.Color"
+                            stroke-width="22"
+                            stroke-dasharray="@(dash.ToString("F2")) @(gap.ToString("F2"))"
+                            stroke-dashoffset="@(dashOffset.ToString("F2"))"
+                            transform="rotate(-90 80 80)" />
+                    offset += cat.Percentage;
+                }
+                @((MarkupString)"<text x=\"80\" y=\"76\" text-anchor=\"middle\" class=\"donut-label-main\">100%</text>")
+                @((MarkupString)"<text x=\"80\" y=\"94\" text-anchor=\"middle\" class=\"donut-label-sub\">covered</text>")
+            </svg>
+
+            <ul class="category-list">
+                @foreach (var cat in Categories)
+                {
+                    <li class="category-row">
+                        <span class="cat-dot" style="background: @cat.Color"></span>
+                        <span class="cat-name">@cat.Name</span>
+                        <span class="cat-pct">@cat.Percentage.ToString("F1")%</span>
+                        <span class="cat-val">$@((cat.Value / 1000).ToString("F0"))k</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public List<CategoryData>? Categories { get; set; }
+}

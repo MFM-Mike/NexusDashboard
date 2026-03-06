@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcp-registry__search_mcp_registry",
+      "Bash(gh --version)",
+      "Bash(git --version)",
+      "Bash(winget --version)",
+      "Bash(winget install --id GitHub.cli)",
+      "Bash(gh repo list MFM-Mike --limit 20)",
+      "Bash(cmd /c \"gh repo list MFM-Mike --limit 20 2>&1\")",
+      "Bash(cmd /c \"gh repo list MFM-Mike --limit 20\")",
+      "Bash(cmd /c \"where gh\")",
+      "Bash(cmd /c \"echo %PATH%\")",
+      "Bash(tr ';' '\\\\n')",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo list MFM-Mike --limit 20)"
+    ]
+  }
+}

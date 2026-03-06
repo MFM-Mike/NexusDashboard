@@ -1,0 +1,167 @@
+2026-03-05 08:00:02,114 [1] INFO  UserService.Controllers.ProfileController - UserService starting up
+2026-03-05 08:00:02,231 [1] INFO  UserService.Infrastructure.UserRepository - Initializing PostgreSQL connection pool. Host: pg-primary.internal:5432, Pool size: 25
+2026-03-05 08:00:02,589 [1] INFO  UserService.Infrastructure.UserRepository - PostgreSQL connection pool ready. Ping: 4ms. Max connections: 25
+2026-03-05 08:00:02,701 [1] INFO  UserService.Infrastructure.EmailSender - Loading email templates from /etc/nexus/email-templates/
+2026-03-05 08:00:02,814 [1] INFO  UserService.Infrastructure.EmailSender - Templates loaded: [password-reset, email-verify, lockout-notify, mfa-enrolled, welcome]. Provider: SendGrid
+2026-03-05 08:00:02,902 [1] INFO  UserService.Controllers.ProfileController - UserService started successfully
+2026-03-05 08:00,18,334 [2] DEBUG UserService.Controllers.ProfileController - GET /users/7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541/profile received
+2026-03-05 08:00,18,378 [2] DEBUG UserService.Infrastructure.UserRepository - Fetching profile for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 08:00,18,451 [2] DEBUG UserService.Services.UserProfileService - Profile loaded. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541, display_name=James Hartwell, email=j.hartwell@company.com
+2026-03-05 08:00,18,467 [2] DEBUG UserService.Controllers.ProfileController - Profile response returned. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 duration=133ms
+2026-03-05 08:04,55,112 [3] DEBUG UserService.Controllers.ProfileController - GET /users/a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924/profile received
+2026-03-05 08:04,55,157 [3] DEBUG UserService.Infrastructure.UserRepository - Fetching profile for user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 08:04,55,228 [3] DEBUG UserService.Services.UserProfileService - Profile loaded. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, display_name=Mele Okonkwo, email=m.okonkwo@company.com
+2026-03-05 08:04,55,244 [3] DEBUG UserService.Controllers.ProfileController - Profile response returned. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 duration=132ms
+2026-03-05 08:09,33,778 [4] DEBUG UserService.Controllers.ProfileController - PUT /users/c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938/profile received
+2026-03-05 08:09,33,821 [4] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 08:09,33,904 [4] DEBUG UserService.Infrastructure.UserRepository - Writing profile update for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 08:09,33,981 [4] INFO  UserService.Services.UserProfileService - Profile updated. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, fields=[phone_number, timezone] duration=203ms
+2026-03-05 08:14,07,334 [5] DEBUG UserService.Controllers.ProfileController - GET /users/d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752/profile received
+2026-03-05 08:14,07,379 [5] DEBUG UserService.Infrastructure.UserRepository - Fetching profile for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 08:14,07,451 [5] DEBUG UserService.Services.UserProfileService - Profile loaded. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752, display_name=Tobias Bergstrom, email=t.bergstrom@company.com
+2026-03-05 08:14,07,467 [5] DEBUG UserService.Controllers.ProfileController - Profile response returned. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752 duration=133ms
+2026-03-05 08:18,41,889 [6] DEBUG UserService.Controllers.PasswordController - POST /users/7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541/password/change received
+2026-03-05 08:18,41,934 [6] DEBUG UserService.Services.PasswordResetService - Validating current password for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 08:18,42,018 [6] DEBUG UserService.Services.PasswordResetService - New password validated: length OK, complexity OK, not in breach list
+2026-03-05 08:18,42,088 [6] DEBUG UserService.Infrastructure.UserRepository - Password hash updated for user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541
+2026-03-05 08:18,42,121 [6] INFO  UserService.Services.PasswordResetService - Password changed successfully. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 ip=10.0.4.22 duration=232ms
+2026-03-05 08:23,19,441 [7] DEBUG UserService.Controllers.ProfileController - GET /users/e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063/profile received
+2026-03-05 08:23,19,487 [7] DEBUG UserService.Infrastructure.UserRepository - Fetching profile for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 08:23,19,558 [7] DEBUG UserService.Services.UserProfileService - Profile loaded. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063, display_name=Siobhan Walsh, email=s.walsh@company.com
+2026-03-05 08:23,19,574 [7] DEBUG UserService.Controllers.ProfileController - Profile response returned. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063 duration=133ms
+2026-03-05 08:28,05,223 [8] DEBUG UserService.Controllers.ProfileController - GET /users/f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174/profile received
+2026-03-05 08:28,05,268 [8] DEBUG UserService.Infrastructure.UserRepository - Fetching profile for user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174
+2026-03-05 08:28,05,339 [8] DEBUG UserService.Services.UserProfileService - Profile loaded. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174, display_name=Karin Lundqvist, email=k.lundqvist@company.com
+2026-03-05 08:28,05,355 [8] DEBUG UserService.Controllers.ProfileController - Profile response returned. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174 duration=132ms
+2026-03-05 08:33,48,001 [2] DEBUG UserService.Controllers.ProfileController - PUT /users/a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924/profile received
+2026-03-05 08:33,48,047 [2] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 08:33,48,131 [2] DEBUG UserService.Infrastructure.UserRepository - Writing profile update for user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924
+2026-03-05 08:33,48,208 [2] INFO  UserService.Services.UserProfileService - Profile updated. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924, fields=[display_name, avatar_url] duration=207ms
+2026-03-05 08:38,22,556 [3] DEBUG UserService.Controllers.ProfileController - GET /users/7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541/profile received
+2026-03-05 08:38,22,601 [3] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 duration=12ms
+2026-03-05 08:43,55,887 [4] DEBUG UserService.Controllers.ProfileController - GET /users/c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938/profile received
+2026-03-05 08:43,55,932 [4] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938 duration=11ms
+2026-03-05 08:49,11,334 [5] DEBUG UserService.Controllers.PasswordController - POST /users/e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063/password/change received
+2026-03-05 08:49,11,378 [5] DEBUG UserService.Services.PasswordResetService - Validating current password for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063
+2026-03-05 08:49,11,421 [5] WARN  UserService.Services.PasswordResetService - Current password validation failed for user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063. Incorrect current password provided.
+2026-03-05 08:54,38,779 [6] DEBUG UserService.Controllers.ProfileController - GET /users/d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752/profile received
+2026-03-05 08:54,38,824 [6] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752 duration=12ms
+2026-03-05 08:58,02,112 [7] DEBUG UserService.Services.MfaService - GET /users/f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174/mfa/totp/setup received
+2026-03-05 08:58,02,157 [7] INFO  UserService.Services.MfaService - TOTP setup initiated. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174. QR code generated.
+2026-03-05 09:03,27,441 [8] DEBUG UserService.Services.MfaService - POST /users/f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174/mfa/totp/verify received
+2026-03-05 09:03,27,487 [8] DEBUG UserService.Services.MfaService - Verifying TOTP code for user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174
+2026-03-05 09:03,27,511 [8] INFO  UserService.Services.MfaService - TOTP verified and MFA enrolled. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174
+2026-03-05 09:08,54,006 [1] DEBUG UserService.Controllers.ProfileController - GET /users/a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924/profile received
+2026-03-05 09:08,54,052 [1] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 duration=11ms
+2026-03-05 09:14,18,334 [2] DEBUG UserService.Controllers.ProfileController - GET /users/7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541/profile received
+2026-03-05 09:14,18,379 [2] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 duration=12ms
+2026-03-05 09:20,33,778 [3] DEBUG UserService.Controllers.ProfileController - PUT /users/d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752/profile received
+2026-03-05 09:20,33,822 [3] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 09:20,33,905 [3] DEBUG UserService.Infrastructure.UserRepository - Writing profile update for user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752
+2026-03-05 09:20,33,981 [3] INFO  UserService.Services.UserProfileService - Profile updated. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752, fields=[preferred_language] duration=203ms
+2026-03-05 09:30,01,112 [4] DEBUG UserService.Controllers.PasswordController - POST /users/b82f3e91-6c1a-4d7b-9e5f-34a0c2d8e641/password/reset/request received
+2026-03-05 09:30,01,157 [4] INFO  UserService.Services.PasswordResetService - Password reset requested. user=l.chen@company.com ip=10.0.6.201
+2026-03-05 09:30,01,241 [4] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to l.chen@company.com via SendGrid
+2026-03-05 09:30,01,889 [4] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched. user=l.chen@company.com message_id=sg-201a3f
+2026-03-05 09:30,14,334 [5] DEBUG UserService.Controllers.PasswordController - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/password/reset/request received
+2026-03-05 09:30,14,378 [5] INFO  UserService.Services.PasswordResetService - Password reset requested. user=r.patel@company.com ip=10.0.9.44
+2026-03-05 09:30,14,461 [5] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to r.patel@company.com via SendGrid
+2026-03-05 09:30,15,102 [5] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched. user=r.patel@company.com message_id=sg-201b7c
+2026-03-05 09:30,27,889 [6] DEBUG UserService.Controllers.PasswordController - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/password/reset/request received
+2026-03-05 09:30,27,934 [6] INFO  UserService.Services.PasswordResetService - Password reset requested. user=h.yamamoto@company.com ip=10.0.11.87
+2026-03-05 09:30,28,018 [6] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to h.yamamoto@company.com via SendGrid
+2026-03-05 09:30,28,669 [6] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched. user=h.yamamoto@company.com message_id=sg-201c2d
+2026-03-05 09:30,44,001 [7] DEBUG UserService.Controllers.PasswordController - POST /users/2e96f4ca-3g5h-4d1e-0c9f-67d3h2g4e075/password/reset/request received
+2026-03-05 09:30,44,047 [7] INFO  UserService.Services.PasswordResetService - Password reset requested. user=a.nkosi@company.com ip=10.0.14.163
+2026-03-05 09:30,44,130 [7] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to a.nkosi@company.com via SendGrid
+2026-03-05 09:30,45,221 [7] WARN  UserService.Infrastructure.EmailSender - SendGrid API response delayed. Retrying... user=a.nkosi@company.com attempt=1 latency=1091ms
+2026-03-05 09:30,46,774 [7] WARN  UserService.Infrastructure.EmailSender - SendGrid API response delayed. Retrying... user=a.nkosi@company.com attempt=2 latency=1553ms
+2026-03-05 09:30,48,886 [7] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched after retry. user=a.nkosi@company.com message_id=sg-201d9e attempt=3
+2026-03-05 09:31,03,334 [8] DEBUG UserService.Controllers.PasswordController - POST /users/3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186/password/reset/request received
+2026-03-05 09:31,03,378 [8] INFO  UserService.Services.PasswordResetService - Password reset requested. user=c.dubois@company.com ip=10.0.12.55
+2026-03-05 09:31,03,461 [8] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to c.dubois@company.com via SendGrid
+2026-03-05 09:31,04,113 [8] WARN  UserService.Infrastructure.EmailSender - SendGrid API response delayed. Retrying... user=c.dubois@company.com attempt=1 latency=652ms
+2026-03-05 09:31,05,556 [8] WARN  UserService.Infrastructure.EmailSender - SendGrid API response delayed. Retrying... user=c.dubois@company.com attempt=2 latency=1443ms
+2026-03-05 09:31,07,224 [8] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched after retry. user=c.dubois@company.com message_id=sg-201e4f attempt=3
+2026-03-05 09:31,22,667 [1] WARN  UserService.Infrastructure.EmailSender - Elevated email delivery latency detected. SendGrid p95 latency: 1820ms (threshold: 500ms). Possible provider degradation.
+2026-03-05 09:32,11,889 [2] DEBUG UserService.Controllers.PasswordController - POST /users/4g18h6ec-5i7j-4f3g-2e1h-89f5j4i6g297/password/reset/request received
+2026-03-05 09:32,11,934 [2] INFO  UserService.Services.PasswordResetService - Password reset requested. user=m.volkov@company.com ip=10.0.16.99
+2026-03-05 09:32,12,018 [2] DEBUG UserService.Infrastructure.EmailSender - Dispatching password reset email to m.volkov@company.com via SendGrid
+2026-03-05 09:32,13,779 [2] WARN  UserService.Infrastructure.EmailSender - SendGrid API response delayed. Retrying... user=m.volkov@company.com attempt=1 latency=1761ms
+2026-03-05 09:32,15,114 [2] INFO  UserService.Infrastructure.EmailSender - Password reset email dispatched after retry. user=m.volkov@company.com message_id=sg-201f0a attempt=2
+2026-03-05 09:33,40,224 [3] INFO  UserService.Infrastructure.EmailSender - SendGrid latency normalizing. p95 latency: 410ms
+2026-03-05 09:35,07,112 [4] DEBUG UserService.Controllers.PasswordController - POST /users/b82f3e91-6c1a-4d7b-9e5f-34a0c2d8e641/password/reset/confirm received
+2026-03-05 09:35,07,157 [4] DEBUG UserService.Services.PasswordResetService - Validating reset token for user_id=b82f3e91-6c1a-4d7b-9e5f-34a0c2d8e641
+2026-03-05 09:35,07,241 [4] DEBUG UserService.Services.PasswordResetService - New password validated: length OK, complexity OK, not in breach list
+2026-03-05 09:35,07,314 [4] DEBUG UserService.Infrastructure.UserRepository - Password hash updated for user_id=b82f3e91-6c1a-4d7b-9e5f-34a0c2d8e641
+2026-03-05 09:35,07,338 [4] INFO  UserService.Services.PasswordResetService - Password reset completed. user=l.chen@company.com duration=226ms
+2026-03-05 09:40,18,779 [5] DEBUG UserService.Controllers.ProfileController - GET /users/c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938/profile received
+2026-03-05 09:40,18,823 [5] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938 duration=12ms
+2026-03-05 09:44,33,334 [6] DEBUG UserService.Controllers.ProfileController - GET /users/e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063/profile received
+2026-03-05 09:44,33,378 [6] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063 duration=11ms
+2026-03-05 09:50,01,006 [7] DEBUG UserService.Services.MfaService - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/mfa/totp/verify received
+2026-03-05 09:50,01,051 [7] DEBUG UserService.Services.MfaService - Verifying TOTP code for user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853
+2026-03-05 09:50,01,074 [7] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853, attempt=1. Code may be expired or device clock skew too large.
+2026-03-05 09:50,14,889 [8] DEBUG UserService.Services.MfaService - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/mfa/totp/verify received
+2026-03-05 09:50,14,934 [8] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853, attempt=2.
+2026-03-05 09:50,28,441 [1] DEBUG UserService.Services.MfaService - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/mfa/totp/verify received
+2026-03-05 09:50,28,487 [1] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853, attempt=3. Advising user to resync authenticator app.
+2026-03-05 09:52,07,334 [2] DEBUG UserService.Services.MfaService - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/mfa/totp/verify received
+2026-03-05 09:52,07,378 [2] DEBUG UserService.Services.MfaService - Verifying TOTP code for user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964
+2026-03-05 09:52,07,401 [2] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, attempt=1 ip=45.33.32.156.
+2026-03-05 09:52,19,889 [3] DEBUG UserService.Services.MfaService - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/mfa/totp/verify received
+2026-03-05 09:52,19,934 [3] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, attempt=2 ip=45.33.32.156.
+2026-03-05 09:52,31,223 [4] DEBUG UserService.Services.MfaService - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/mfa/totp/verify received
+2026-03-05 09:52,31,268 [4] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, attempt=3 ip=45.33.32.156.
+2026-03-05 09:52,43,556 [5] DEBUG UserService.Services.MfaService - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/mfa/totp/verify received
+2026-03-05 09:52,43,601 [5] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, attempt=4 ip=45.33.32.156.
+2026-03-05 09:52,55,889 [6] DEBUG UserService.Services.MfaService - POST /users/1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964/mfa/totp/verify received
+2026-03-05 09:52,55,934 [6] WARN  UserService.Services.MfaService - Invalid TOTP code submitted. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, attempt=5 ip=45.33.32.156.
+2026-03-05 09:52,56,001 [6] WARN  UserService.Services.MfaService - Possible account takeover attempt detected. user_id=1d85e3b9-2f4g-4c0d-9b8e-56c2g1f3d964, email=h.yamamoto@company.com, ip=45.33.32.156. 5 consecutive MFA failures. MFA temporarily suspended. Security team notified.
+2026-03-05 09:53,04,334 [7] INFO  UserService.Infrastructure.EmailSender - Security alert email dispatched. user=h.yamamoto@company.com, message_id=sg-202a7b
+2026-03-05 10:00,11,667 [8] DEBUG UserService.Controllers.ProfileController - PUT /users/3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186/profile received
+2026-03-05 10:00,11,712 [8] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186
+2026-03-05 10:00,11,734 [8] ERROR UserService.Services.UserProfileService - Unhandled exception during profile update. user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at UserService.Services.UserProfileService.BuildProfileUpdatePayload(UserProfile profile)
+   at UserService.Services.UserProfileService.UpdateProfile(Guid userId, ProfileUpdateRequest request)
+   at UserService.Controllers.ProfileController.UpdateProfile(Guid userId, ProfileUpdateRequest request)
+2026-03-05 10:00,11,761 [8] ERROR UserService.Controllers.ProfileController - Returning HTTP 500 for user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186. display_name field is null in database record.
+2026-03-05 10:01,38,002 [1] DEBUG UserService.Controllers.ProfileController - PUT /users/2e96f4ca-3g5h-4d1e-0c9f-67d3h2g4e075/profile received
+2026-03-05 10:01,38,047 [1] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=2e96f4ca-3g5h-4d1e-0c9f-67d3h2g4e075
+2026-03-05 10:01,38,069 [1] ERROR UserService.Services.UserProfileService - Unhandled exception during profile update. user_id=2e96f4ca-3g5h-4d1e-0c9f-67d3h2g4e075
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at UserService.Services.UserProfileService.BuildProfileUpdatePayload(UserProfile profile)
+   at UserService.Services.UserProfileService.UpdateProfile(Guid userId, ProfileUpdateRequest request)
+   at UserService.Controllers.ProfileController.UpdateProfile(Guid userId, ProfileUpdateRequest request)
+2026-03-05 10:01,38,092 [1] ERROR UserService.Controllers.ProfileController - Returning HTTP 500 for user_id=2e96f4ca-3g5h-4d1e-0c9f-67d3h2g4e075. display_name field is null in database record.
+2026-03-05 10:01,55,334 [2] WARN  UserService.Services.UserProfileService - NullReferenceException pattern detected on display_name field for multiple users. Flagging for hotfix. Affected users: [3f07g5db, 2e96f4ca]
+2026-03-05 10:02,44,778 [3] INFO  UserService.Services.UserProfileService - Hotfix deployment initiated. Version: 2.7.1-hotfix-null-displayname
+2026-03-05 10:05,01,223 [4] INFO  UserService.Services.UserProfileService - Hotfix deployed. Null display_name guard added to BuildProfileUpdatePayload. Version: 2.7.1-hotfix-null-displayname
+2026-03-05 10:05,03,112 [4] DEBUG UserService.Controllers.ProfileController - PUT /users/3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186/profile received (retry after hotfix)
+2026-03-05 10:05,03,157 [4] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186
+2026-03-05 10:05,03,241 [4] DEBUG UserService.Infrastructure.UserRepository - Writing profile update for user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186
+2026-03-05 10:05,03,318 [4] INFO  UserService.Services.UserProfileService - Profile updated (post-hotfix). user_id=3f07g5db-4h6i-4e2f-1d0g-78e4i3h5f186, fields=[preferred_language, notifications_enabled] duration=206ms
+2026-03-05 10:07,28,889 [5] DEBUG UserService.Controllers.ProfileController - GET /users/a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924/profile received
+2026-03-05 10:07,28,934 [5] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=a91e4b7c-2f6d-4c8e-b2a0-55f1d3e8c924 duration=12ms
+2026-03-05 10:10,15,334 [6] DEBUG UserService.Controllers.ProfileController - GET /users/7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541/profile received
+2026-03-05 10:10,15,378 [6] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=7f3a1c2d-8b4e-4f9a-a3d1-29c8e7f0b541 duration=11ms
+2026-03-05 10:13,47,667 [7] DEBUG UserService.Services.MfaService - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/mfa/totp/setup received (re-enrollment after clock resync)
+2026-03-05 10:13,47,712 [7] INFO  UserService.Services.MfaService - TOTP setup initiated. user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853. QR code generated.
+2026-03-05 10:15,22,001 [8] DEBUG UserService.Services.MfaService - POST /users/0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853/mfa/totp/verify received
+2026-03-05 10:15,22,047 [8] INFO  UserService.Services.MfaService - TOTP verified and MFA enrolled. user_id=0c74d2a8-1e3f-4b9c-8a7d-45b1f0e2c853
+2026-03-05 10:17,58,334 [1] DEBUG UserService.Controllers.PasswordController - POST /users/4g18h6ec-5i7j-4f3g-2e1h-89f5j4i6g297/password/reset/confirm received
+2026-03-05 10:17,58,378 [1] DEBUG UserService.Services.PasswordResetService - Validating reset token for user_id=4g18h6ec-5i7j-4f3g-2e1h-89f5j4i6g297
+2026-03-05 10:17,58,461 [1] DEBUG UserService.Services.PasswordResetService - New password validated: length OK, complexity OK, not in breach list
+2026-03-05 10:17,58,534 [1] INFO  UserService.Services.PasswordResetService - Password reset completed. user=m.volkov@company.com duration=200ms
+2026-03-05 10:20,41,889 [2] DEBUG UserService.Controllers.ProfileController - GET /users/e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063/profile received
+2026-03-05 10:20,41,934 [2] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=e5f9b326-4d8a-4c1e-a7f2-99g1d2e4f063 duration=11ms
+2026-03-05 10:23,14,223 [3] DEBUG UserService.Controllers.ProfileController - PUT /users/c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938/profile received
+2026-03-05 10:23,14,268 [3] DEBUG UserService.Services.UserProfileService - Validating profile update for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 10:23,14,352 [3] DEBUG UserService.Infrastructure.UserRepository - Writing profile update for user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938
+2026-03-05 10:23,14,428 [3] INFO  UserService.Services.UserProfileService - Profile updated. user_id=c3d7f821-9a0b-4e3f-8d5c-11e2a4b6f938, fields=[bio] duration=205ms
+2026-03-05 10:26,55,112 [4] DEBUG UserService.Controllers.ProfileController - GET /users/d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752/profile received
+2026-03-05 10:26,55,157 [4] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=d4e8a215-3c7f-4b2a-9e6d-88f0c1d3e752 duration=12ms
+2026-03-05 10:29,07,445 [5] DEBUG UserService.Controllers.ProfileController - GET /users/f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174/profile received
+2026-03-05 10:29,07,490 [5] DEBUG UserService.Services.UserProfileService - Profile loaded from cache. user_id=f6a0c437-5e9b-4d2f-b8g3-00h2e3f5g174 duration=11ms
+2026-03-05 10:30,00,001 [6] INFO  UserService.Controllers.ProfileController - UserService operating normally. All systems healthy. Hotfix 2.7.1 stable.

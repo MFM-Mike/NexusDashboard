@@ -1,0 +1,25 @@
+@inject ThemeService Theme
+
+<header class="topbar">
+    <div class="topbar-left">
+        <div class="breadcrumb">
+            <span class="breadcrumb-root">Nexus</span>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">Overview</span>
+        </div>
+        <div class="search-box">
+            <span class="search-icon">⌕</span>
+            <input type="text" placeholder="Search anything..." class="search-input" />
+            <kbd class="search-kbd">⌘K</kbd>
+        </div>
+    </div>
+    <div class="topbar-right">
+        <button class="icon-btn" title="Notifications">
+            <span>🔔</span>
+            <span class="badge">4</span>
+        </button>
+        <button class="icon-btn" @onclick="Theme.Toggle" title="Toggle theme">
+            @(Theme.IsDark ? "☀️" : "🌙")
+        </button>
+    </div>
+</header>

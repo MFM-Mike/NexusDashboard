@@ -1,0 +1,144 @@
+2026-03-05 08:00:02,114 [1] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce ingestor initializing. OAuth endpoint: https://login.salesforce.com/services/oauth2/token
+2026-03-05 08:00:02,381 [1] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - OAuth token acquired. Instance URL: https://nexusorg.my.salesforce.com. Token expires in 3600s
+2026-03-05 08:00:02,512 [1] INFO  DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Stripe webhook receiver starting. Listening on 0.0.0.0:8443, endpoint: /webhooks/stripe
+2026-03-05 08:00:02,603 [1] INFO  DataPipeline.Ingestion.Sources.CustomWebhookReceiver - Custom webhook receiver starting. Listening on 0.0.0.0:8444, endpoint: /webhooks/custom
+2026-03-05 08:00:02,714 [1] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema registry loaded. 14 schemas registered: [salesforce_account_v3, salesforce_opportunity_v2, stripe_charge, stripe_refund, stripe_subscription, custom_order, custom_fulfillment, custom_return, ...]
+2026-03-05 08:00:02,891 [1] INFO  DataPipeline.Ingestion.Dedup.DedupFilter - Dedup cache initialized. Capacity: 500000 entries. TTL: 24h. Current entries: 47312 (loaded from Redis)
+2026-03-05 08:00:03,012 [1] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Ingestion queue connected. Broker: rabbitmq://rabbit-01.internal:5672/pipeline. Queue depth at startup: 0
+2026-03-05 08:00:03,201 [1] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Initial poll starting. Watermark: 2026-03-04 22:00:00 UTC. Fetching records modified since watermark
+2026-03-05 08:00:04,883 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - SOQL executed: SELECT Id, AccountId, Name, AnnualRevenue, Industry, LastModifiedDate FROM Account WHERE LastModifiedDate > 2026-03-04T22:00:00Z ORDER BY LastModifiedDate ASC LIMIT 2000
+2026-03-05 08:00:06,142 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 312 records. Fetch latency: 1259ms
+2026-03-05 08:00:06,198 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v3. Records: 312. Violations: 0
+2026-03-05 08:00:06,241 [3] DEBUG DataPipeline.Ingestion.Dedup.DedupFilter - Dedup check: 312 records in, 309 unique, 3 duplicates discarded. Keys checked: Account.Id
+2026-03-05 08:00:06,319 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 309 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 08:00:07,002 [4] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - SOQL executed: SELECT Id, AccountId, Name, StageName, Amount, CloseDate, LastModifiedDate FROM Opportunity WHERE LastModifiedDate > 2026-03-04T22:00:00Z ORDER BY LastModifiedDate ASC LIMIT 2000
+2026-03-05 08:00:08,774 [4] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_opportunity. Batch size: 87 records. Fetch latency: 1772ms
+2026-03-05 08:00:08,812 [4] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_opportunity_v2. Records: 87. Violations: 0
+2026-03-05 08:00:08,831 [4] DEBUG DataPipeline.Ingestion.Dedup.DedupFilter - Dedup check: 87 records in, 87 unique, 0 duplicates discarded. Keys checked: Opportunity.Id
+2026-03-05 08:00:08,877 [4] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 87 records from source salesforce_opportunity. Queue: pipeline.ingest.salesforce
+2026-03-05 08:00:09,100 [1] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Initial poll complete. Total records ingested: 396. Watermark advanced to 2026-03-05 08:00:00 UTC
+2026-03-05 08:05:01,003 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #2 starting. Source: salesforce_account. Watermark: 2026-03-05 08:00:00 UTC
+2026-03-05 08:05:03,441 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 41 records. Fetch latency: 2438ms
+2026-03-05 08:05:03,488 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v3. Records: 41. Violations: 0
+2026-03-05 08:05:03,511 [3] DEBUG DataPipeline.Ingestion.Dedup.DedupFilter - Dedup check: 41 records in, 41 unique, 0 duplicates discarded
+2026-03-05 08:05:03,554 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 41 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 08:07:14,228 [5] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA2C2eZvKYlo2C8bNJk3Rt. Type: charge.succeeded. Amount: $149.00
+2026-03-05 08:07:14,241 [5] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: stripe_charge. Records: 1. Violations: 0
+2026-03-05 08:07:14,255 [5] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source stripe_charge. Queue: pipeline.ingest.stripe
+2026-03-05 08:10:01,004 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #3 starting. Watermark: 2026-03-05 08:05:00 UTC
+2026-03-05 08:10:04,117 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 28 records. Fetch latency: 3113ms
+2026-03-05 08:10:04,143 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Deprecated field 'Phone' used in source salesforce_account_v3. Field will be removed in schema v4. Affected records: 6
+2026-03-05 08:10:04,162 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v3. Records: 28. Violations: 0 (1 deprecation warning)
+2026-03-05 08:10:04,188 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 28 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 08:18:33,702 [6] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA4F2eZvKYlo2CB8VmnO2p. Type: customer.subscription.updated. Customer: cus_Qm8nAp3Xr7
+2026-03-05 08:18:33,718 [6] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: stripe_subscription. Records: 1. Violations: 0
+2026-03-05 08:18:33,731 [6] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source stripe_subscription. Queue: pipeline.ingest.stripe
+2026-03-05 08:20:01,011 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #4 starting. Watermark: 2026-03-05 08:15:00 UTC
+2026-03-05 08:20:03,889 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_opportunity. Batch size: 19 records. Fetch latency: 2878ms
+2026-03-05 08:20:03,921 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Deprecated field 'ForecastCategoryName' used in source salesforce_opportunity_v2. Field will be removed in schema v3. Affected records: 19
+2026-03-05 08:20:03,944 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 19 records from source salesforce_opportunity. Queue: pipeline.ingest.salesforce
+2026-03-05 08:34:51,009 [7] DEBUG DataPipeline.Ingestion.Sources.CustomWebhookReceiver - Webhook received. Source: order-management-system. Event type: order.created. Payload size: 4.2 KB
+2026-03-05 08:34:51,027 [7] DEBUG DataPipeline.Ingestion.Sources.CustomWebhookReceiver - Parsed 1 order record. Order ID: ORD-20260305-88421. Customer: cust_9918273
+2026-03-05 08:34:51,044 [7] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: custom_order. Records: 1. Violations: 0
+2026-03-05 08:34:51,059 [7] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source custom_order. Queue: pipeline.ingest.custom
+2026-03-05 08:45:01,007 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #7 starting. Watermark: 2026-03-05 08:40:00 UTC
+2026-03-05 08:45:03,312 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 53 records. Fetch latency: 2305ms
+2026-03-05 08:45:03,341 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v3. Records: 53. Violations: 0
+2026-03-05 08:45:03,369 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 53 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 08:52:17,441 [8] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA9T2eZvKYlo2CWqRhm1Nz. Type: charge.refunded. Amount: $89.00. Customer: cus_Qm4jBx9Yt2
+2026-03-05 08:52:17,457 [8] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: stripe_refund. Records: 1. Violations: 0
+2026-03-05 08:52:17,471 [8] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source stripe_refund. Queue: pipeline.ingest.stripe
+2026-03-05 09:00:01,009 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #9 starting. Watermark: 2026-03-05 08:55:00 UTC
+2026-03-05 09:00:05,227 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 34 records. Fetch latency: 4218ms
+2026-03-05 09:00:05,281 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Expected field: 'AccountId' (string), received field: 'account_id' (string). Schema version drift suspected
+2026-03-05 09:00:05,284 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Expected field: 'AnnualRevenue' (decimal), received field: 'annual_revenue' (decimal). Schema version drift suspected
+2026-03-05 09:00:05,287 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Expected field: 'LastModifiedDate' (datetime), received field: 'last_modified_date' (datetime). Schema version drift suspected
+2026-03-05 09:00:05,312 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API appears to have changed field naming convention from PascalCase to snake_case. Activating fallback schema mapping: salesforce_account_v3_snake_compat
+2026-03-05 09:00:05,398 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Fallback schema mapping applied. Source: salesforce_account_v3_snake_compat. Records remapped: 34. Mapping success: 31, Skipped (unresolvable): 3
+2026-03-05 09:00:05,421 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - 3 records skipped due to unresolvable field mapping. First skipped record ID: 0015g00000XnRmGAAV
+2026-03-05 09:00:05,447 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 31 records from source salesforce_account (3 skipped). Queue: pipeline.ingest.salesforce
+2026-03-05 09:05:01,013 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #10 starting. Watermark: 2026-03-05 09:00:00 UTC
+2026-03-05 09:05:04,892 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_opportunity. Batch size: 22 records. Fetch latency: 3879ms
+2026-03-05 09:05:04,934 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_opportunity. Expected field: 'AccountId', received field: 'account_id'. Applying fallback mapping: salesforce_opportunity_v2_snake_compat
+2026-03-05 09:05:04,981 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Fallback schema mapping applied. Source: salesforce_opportunity_v2_snake_compat. Records remapped: 22. Mapping success: 22, Skipped: 0
+2026-03-05 09:05:05,004 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 22 records from source salesforce_opportunity. Queue: pipeline.ingest.salesforce
+2026-03-05 09:10:01,003 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #11 starting. Watermark: 2026-03-05 09:05:00 UTC
+2026-03-05 09:10:04,771 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Expected field: 'AccountId', received field: 'account_id'. Applying fallback mapping (cached)
+2026-03-05 09:10:05,018 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Fallback schema mapping applied. Source: salesforce_account_v3_snake_compat. Records remapped: 17. Mapping success: 16, Skipped: 1
+2026-03-05 09:10:05,041 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 16 records from source salesforce_account (1 skipped). Queue: pipeline.ingest.salesforce
+2026-03-05 09:21:08,334 [9] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqBK12eZvKYlo2CjHmRp9Wq. Type: charge.succeeded. Amount: $299.00
+2026-03-05 09:21:08,349 [9] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqBK12eZvKYlo2CjHmRp9Wq. First seen: 2026-03-05 08:03:44. Source: Stripe retry delivery
+2026-03-05 09:22:41,118 [10] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA2C2eZvKYlo2C8bNJk3Rt. Type: charge.succeeded. Amount: $149.00
+2026-03-05 09:22:41,133 [10] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqA2C2eZvKYlo2C8bNJk3Rt. First seen: 2026-03-05 08:07:14. Source: Stripe retry delivery
+2026-03-05 09:23:17,881 [11] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA4F2eZvKYlo2CB8VmnO2p. Type: customer.subscription.updated
+2026-03-05 09:23:17,896 [11] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqA4F2eZvKYlo2CB8VmnO2p. First seen: 2026-03-05 08:18:33. Source: Stripe retry delivery
+2026-03-05 09:24:02,441 [9] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqBR42eZvKYlo2C0pTmA8Vb. Type: charge.succeeded. Amount: $74.50
+2026-03-05 09:24:02,456 [9] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqBR42eZvKYlo2C0pTmA8Vb. First seen: 2026-03-05 08:31:09. Source: Stripe retry delivery
+2026-03-05 09:24:58,007 [9] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqBV72eZvKYlo2CnXqLk3Ms. Type: invoice.payment_succeeded. Amount: $1200.00
+2026-03-05 09:24:58,022 [9] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqBV72eZvKYlo2CnXqLk3Ms. First seen: 2026-03-05 08:44:31. Source: Stripe retry delivery
+2026-03-05 09:25:44,312 [12] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Dedup cache utilization at 68% capacity (340000 / 500000 entries). Stripe retry storm inflating cache. Consider increasing TTL purge frequency
+2026-03-05 09:26:11,778 [10] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqA9T2eZvKYlo2CWqRhm1Nz. Type: charge.refunded. Amount: $89.00
+2026-03-05 09:26:11,793 [10] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqA9T2eZvKYlo2CWqRhm1Nz. First seen: 2026-03-05 08:52:17. Source: Stripe retry delivery
+2026-03-05 09:27:03,551 [11] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqBZ92eZvKYlo2CVnQmP4Jd. Type: charge.succeeded. Amount: $450.00
+2026-03-05 09:27:03,566 [11] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Duplicate event detected, skipped. Event ID: evt_1PqBZ92eZvKYlo2CVnQmP4Jd. First seen: 2026-03-05 08:59:02. Source: Stripe retry delivery
+2026-03-05 09:31:19,884 [12] WARN  DataPipeline.Ingestion.Dedup.DedupFilter - Dedup cache utilization at 87% capacity (435000 / 500000 entries). Approaching limit. Emergency TTL purge scheduled in 300s. Ingestion may be impacted if limit reached
+2026-03-05 09:35:01,006 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #13 starting. Watermark: 2026-03-05 09:30:00 UTC
+2026-03-05 09:35:03,419 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Applying fallback mapping (cached)
+2026-03-05 09:35:03,612 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 24 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 09:40:01,011 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #14 starting. Watermark: 2026-03-05 09:35:00 UTC
+2026-03-05 09:40:06,887 [3] ERROR DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API request failed. HTTP 429 Too Many Requests. Retry-After: 60s. Poll aborted
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 429 (Too Many Requests).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.FetchBatchAsync(String objectName, DateTimeOffset watermark)
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.PollAsync()
+2026-03-05 09:40:07,003 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - Entering exponential backoff. Attempt 1/5. Next retry in 60s
+2026-03-05 09:41:07,441 [3] ERROR DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API request failed. HTTP 429 Too Many Requests. Retry-After: 60s. Attempt 2/5
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 429 (Too Many Requests).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.FetchBatchAsync(String objectName, DateTimeOffset watermark)
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.PollAsync()
+2026-03-05 09:41:07,504 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - Backoff: attempt 2/5. Next retry in 120s
+2026-03-05 09:43:07,992 [3] ERROR DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API request failed. HTTP 429 Too Many Requests. Attempt 3/5
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 429 (Too Many Requests).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.FetchBatchAsync(String objectName, DateTimeOffset watermark)
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.PollAsync()
+2026-03-05 09:43:08,041 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - Backoff: attempt 3/5. Next retry in 240s
+2026-03-05 09:44:11,221 [12] INFO  DataPipeline.Ingestion.Dedup.DedupFilter - Emergency TTL purge completed. Entries removed: 112400. Cache now at 64% capacity (322600 / 500000 entries)
+2026-03-05 09:47:08,114 [3] ERROR DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API request failed. HTTP 429 Too Many Requests. Attempt 4/5
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 429 (Too Many Requests).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.FetchBatchAsync(String objectName, DateTimeOffset watermark)
+   at DataPipeline.Ingestion.Sources.SalesforceIngestor.PollAsync()
+2026-03-05 09:47:08,181 [3] WARN  DataPipeline.Ingestion.Sources.SalesforceIngestor - Backoff: attempt 4/5. Next retry in 480s
+2026-03-05 09:55:09,004 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce API rate limit lifted. HTTP 200 OK received. Resuming ingestion
+2026-03-05 09:55:09,117 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Catchup poll starting. Watermark gap: 09:35:00 - 09:55:00 UTC (20 minutes). Estimating backlog
+2026-03-05 09:55:11,882 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Catchup batch received. Source: salesforce_account. Batch size: 184 records (20-minute backlog). Fetch latency: 2765ms
+2026-03-05 09:55:11,924 [3] WARN  DataPipeline.Ingestion.Validation.SchemaValidator - Schema mismatch detected. Source: salesforce_account. Applying fallback mapping (cached)
+2026-03-05 09:55:12,198 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Fallback schema mapping applied. Records remapped: 184. Mapping success: 181, Skipped: 3
+2026-03-05 09:55:12,241 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 181 records from source salesforce_account (catchup). Queue: pipeline.ingest.salesforce
+2026-03-05 10:00:03,441 [5] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Updating schema registry. Adding new mapping entry: salesforce_account_v4 (snake_case). Registering as canonical schema for Salesforce Account
+2026-03-05 10:00:03,512 [5] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema registry updated. salesforce_account_v4 registered. Fallback mapping salesforce_account_v3_snake_compat will be deprecated
+2026-03-05 10:00:03,531 [5] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Schema mapping updated successfully. Future polls will use salesforce_account_v4 directly. No fallback required
+2026-03-05 10:05:01,004 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #17 starting. Watermark: 2026-03-05 10:00:00 UTC. Using schema: salesforce_account_v4
+2026-03-05 10:05:03,788 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 67 records. Fetch latency: 2784ms
+2026-03-05 10:05:03,814 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v4. Records: 67. Violations: 0
+2026-03-05 10:05:03,839 [3] DEBUG DataPipeline.Ingestion.Dedup.DedupFilter - Dedup check: 67 records in, 67 unique, 0 duplicates discarded
+2026-03-05 10:05:03,862 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 67 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 10:10:01,007 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #18 starting. Watermark: 2026-03-05 10:05:00 UTC
+2026-03-05 10:10:04,112 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_opportunity. Batch size: 31 records. Fetch latency: 3105ms
+2026-03-05 10:10:04,141 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_opportunity_v2. Records: 31. Violations: 0
+2026-03-05 10:10:04,168 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 31 records from source salesforce_opportunity. Queue: pipeline.ingest.salesforce
+2026-03-05 10:14:28,991 [9] DEBUG DataPipeline.Ingestion.Sources.StripeWebhookReceiver - Webhook received. Event ID: evt_1PqCM82eZvKYlo2CPmTnB7Yw. Type: charge.succeeded. Amount: $599.00
+2026-03-05 10:14:29,007 [9] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: stripe_charge. Records: 1. Violations: 0
+2026-03-05 10:14:29,021 [9] DEBUG DataPipeline.Ingestion.Dedup.DedupFilter - Dedup check: 1 records in, 1 unique, 0 duplicates discarded
+2026-03-05 10:14:29,034 [9] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source stripe_charge. Queue: pipeline.ingest.stripe
+2026-03-05 10:20:01,003 [3] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Scheduled poll #19 starting. Watermark: 2026-03-05 10:15:00 UTC
+2026-03-05 10:20:03,671 [3] DEBUG DataPipeline.Ingestion.Sources.SalesforceIngestor - Salesforce response received. Source: salesforce_account. Batch size: 44 records. Fetch latency: 2668ms
+2026-03-05 10:20:03,699 [3] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: salesforce_account_v4. Records: 44. Violations: 0
+2026-03-05 10:20:03,722 [3] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 44 records from source salesforce_account. Queue: pipeline.ingest.salesforce
+2026-03-05 10:25:44,118 [7] DEBUG DataPipeline.Ingestion.Sources.CustomWebhookReceiver - Webhook received. Source: order-management-system. Event type: order.fulfilled. Payload size: 2.8 KB
+2026-03-05 10:25:44,133 [7] INFO  DataPipeline.Ingestion.Validation.SchemaValidator - Schema validation passed. Source: custom_fulfillment. Records: 1. Violations: 0
+2026-03-05 10:25:44,148 [7] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Enqueued 1 records from source custom_fulfillment. Queue: pipeline.ingest.custom
+2026-03-05 10:29:58,441 [1] INFO  DataPipeline.Ingestion.Sources.SalesforceIngestor - Ingestion service health check OK. Polls completed this hour: 19. Total records ingested: 1184. Skipped: 8. Dedup cache: 58% capacity
+2026-03-05 10:29:58,502 [1] INFO  DataPipeline.Ingestion.Queue.IngestionQueue - Queue health check OK. Messages published: 1184. Queue depths - pipeline.ingest.salesforce: 14, pipeline.ingest.stripe: 0, pipeline.ingest.custom: 2

@@ -1,0 +1,106 @@
+2026-03-05 08:00:04,117 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Export service starting. Version: 2.9.1. Environment: production
+2026-03-05 08:00:04,334 [1] INFO  DataPipeline.Export.Destinations.BiToolExporter - BI tool connection established. Host: metabase.internal:3000. Auth: service-account. Dataset: nexus_dw
+2026-03-05 08:00:04,611 [1] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API client initialized. Endpoint: https://api.partner-analytics.io/v2/ingest. Timeout: 30s. Retry policy: 3 attempts, exponential backoff
+2026-03-05 08:00:04,884 [1] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 client initialized. Bucket: nexus-dw-archive-prod. Region: us-east-1. KMS key: alias/nexus-archive-2026
+2026-03-05 08:00:05,112 [1] INFO  DataPipeline.Export.Queue.ExportQueue - Export queue initialized. Pending exports at startup: 0. Scheduled jobs loaded: 7
+2026-03-05 08:00:05,228 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Scheduled job registered: daily_revenue_summary (cron: 0 8 * * *). Next run: 2026-03-05 08:00:00
+2026-03-05 08:00:05,241 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Scheduled job registered: hourly_transaction_feed (cron: 0 * * * *). Next run: 2026-03-05 08:00:00
+2026-03-05 08:00:05,254 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Scheduled job registered: partner_sync_15min (cron: */15 * * * *). Next run: 2026-03-05 08:00:00
+2026-03-05 08:00:05,267 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Scheduled job registered: s3_archive_hourly (cron: 5 * * * *). Next run: 2026-03-05 08:05:00
+2026-03-05 08:00:31,441 [2] INFO  DataPipeline.Export.Destinations.BiToolExporter - Generating report: daily_revenue_summary. Query: dw.fact_salesforce_accounts JOIN dw.fact_stripe_charges. Date: 2026-03-04
+2026-03-05 08:00:34,118 [2] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report daily_revenue_summary generated. Rows: 4218. Duration: 2687ms. Pushing to Metabase dataset ID: 114
+2026-03-05 08:00:35,771 [2] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report daily_revenue_summary pushed to BI tool. Status: 200 OK. API response time: 1653ms
+2026-03-05 08:00:41,334 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Generating report: hourly_transaction_feed (hour: 07:00-08:00 UTC). Source table: dw.fact_stripe_charges
+2026-03-05 08:00:43,881 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed (07:00) generated. Rows: 312. Duration: 2547ms
+2026-03-05 08:00:44,441 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed pushed to BI tool. Status: 200 OK. API response time: 560ms
+2026-03-05 08:01:02,117 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting. Sending records modified since: 2026-03-05 07:45:00 UTC
+2026-03-05 08:01:03,441 [4] DEBUG DataPipeline.Export.Destinations.PartnerApiExporter - Preparing payload. Records: 87. Serialization: JSON Lines. Payload size: 214 KB
+2026-03-05 08:01:04,884 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete. Records pushed: 87. API response time: 1443ms. Status: 202 Accepted
+2026-03-05 08:05:01,334 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 archive job starting. Archiving dw.fact_salesforce_accounts for date: 2026-03-04
+2026-03-05 08:05:04,118 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Exporting data to Parquet. Table: dw.fact_salesforce_accounts. Rows: 18441. Estimated size: 7.2 MB
+2026-03-05 08:05:07,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: salesforce_accounts_20260304.parquet. Size: 6.8 MB. Rows: 18441
+2026-03-05 08:05:10,772 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete. File: salesforce_accounts_20260304.parquet. Bucket: nexus-dw-archive-prod. Key: year=2026/month=03/day=04/salesforce_accounts_20260304.parquet. Duration: 3331ms
+2026-03-05 08:05:11,334 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - Archiving dw.fact_stripe_charges for date: 2026-03-04
+2026-03-05 08:05:13,441 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: stripe_charges_20260304.parquet. Size: 2.1 MB. Rows: 5882
+2026-03-05 08:05:16,118 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete. File: stripe_charges_20260304.parquet. Bucket: nexus-dw-archive-prod. Key: year=2026/month=03/day=04/stripe_charges_20260304.parquet. Duration: 2677ms
+2026-03-05 08:15:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting. Sending records modified since: 2026-03-05 08:00:00 UTC
+2026-03-05 08:15:03,118 [4] DEBUG DataPipeline.Export.Destinations.PartnerApiExporter - Preparing payload. Records: 141. Payload size: 347 KB
+2026-03-05 08:15:04,771 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete. Records pushed: 141. API response time: 1653ms. Status: 202 Accepted
+2026-03-05 08:30:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting. Sending records modified since: 2026-03-05 08:15:00 UTC
+2026-03-05 08:30:03,884 [4] DEBUG DataPipeline.Export.Destinations.PartnerApiExporter - Preparing payload. Records: 98. Payload size: 241 KB
+2026-03-05 08:30:05,221 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete. Records pushed: 98. API response time: 1337ms. Status: 202 Accepted
+2026-03-05 09:00:41,334 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Generating report: hourly_transaction_feed (hour: 08:00-09:00 UTC). Source table: dw.fact_stripe_charges
+2026-03-05 09:00:44,118 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed (08:00) generated. Rows: 491. Duration: 2784ms
+2026-03-05 09:00:45,441 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed pushed to BI tool. Status: 200 OK. API response time: 1323ms
+2026-03-05 09:05:01,334 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 archive job starting. Archiving hourly snapshot for hour 08:00 UTC
+2026-03-05 09:05:04,441 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: salesforce_accounts_20260305_0800.parquet. Size: 1.4 MB. Rows: 3621
+2026-03-05 09:05:07,118 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete. File: salesforce_accounts_20260305_0800.parquet. Bucket: nexus-dw-archive-prod. Duration: 2677ms
+2026-03-05 09:05:08,441 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: stripe_events_20260305_0800.parquet. Size: 0.8 MB. Rows: 1247
+2026-03-05 09:05:10,881 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete. File: stripe_events_20260305_0800.parquet. Bucket: nexus-dw-archive-prod. Duration: 2440ms
+2026-03-05 09:15:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting. Sending records modified since: 2026-03-05 09:00:00 UTC
+2026-03-05 09:15:03,884 [4] DEBUG DataPipeline.Export.Destinations.PartnerApiExporter - Preparing payload. Records: 118. Payload size: 290 KB
+2026-03-05 09:15:05,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete. Records pushed: 118. API response time: 1557ms. Status: 202 Accepted
+2026-03-05 09:30:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting. Sending records modified since: 2026-03-05 09:15:00 UTC
+2026-03-05 09:30:04,118 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 1/3. Retrying in 5s
+2026-03-05 09:30:09,441 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 2/3. Retrying in 15s
+2026-03-05 09:30:24,118 [4] ERROR DataPipeline.Export.Destinations.PartnerApiExporter - Partner API sync failed after 3 attempts. Payload (Records: 74, 182 KB) added to retry queue
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 503 (Service Unavailable).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Export.Destinations.PartnerApiExporter.PushBatchAsync(ExportPayload payload)
+   at DataPipeline.Export.Destinations.PartnerApiExporter.SyncAsync(DateTimeOffset since)
+2026-03-05 09:30:24,334 [4] INFO  DataPipeline.Export.Queue.ExportQueue - Payload queued for retry. Job: partner_sync. Records: 74. Queue depth: 1. Next retry: 2026-03-05 09:35:24
+2026-03-05 09:35:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting (scheduled). Sending records modified since: 2026-03-05 09:30:00 UTC
+2026-03-05 09:35:03,118 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 1/3. Retrying in 5s
+2026-03-05 09:35:08,441 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 2/3. Retrying in 15s
+2026-03-05 09:35:23,884 [4] ERROR DataPipeline.Export.Destinations.PartnerApiExporter - Partner API sync failed after 3 attempts. Payload (Records: 53, 130 KB) added to retry queue
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 503 (Service Unavailable).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at DataPipeline.Export.Destinations.PartnerApiExporter.PushBatchAsync(ExportPayload payload)
+   at DataPipeline.Export.Destinations.PartnerApiExporter.SyncAsync(DateTimeOffset since)
+2026-03-05 09:35:24,007 [4] INFO  DataPipeline.Export.Queue.ExportQueue - Payload queued for retry. Job: partner_sync. Records: 53. Queue depth: 2. Next retry: 2026-03-05 09:40:24
+2026-03-05 09:35:24,118 [4] WARN  DataPipeline.Export.Queue.ExportQueue - Export queue backing up. Depth: 2 jobs (127 records pending). Partner API appears unavailable
+2026-03-05 09:45:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting (retry queue). Payload: 74 records (from 09:30)
+2026-03-05 09:45:03,884 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 1/3. Retrying in 5s
+2026-03-05 09:45:08,441 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 2/3. Retrying in 15s
+2026-03-05 09:45:23,118 [4] WARN  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API returned 503 Service Unavailable. Attempt 3/3 exhausted. Job moved to dead-letter queue
+2026-03-05 09:45:23,334 [4] INFO  DataPipeline.Export.Queue.ExportQueue - Export queue depth: 3 jobs (180 total records). Dead-letter queue depth: 1 job (74 records)
+2026-03-05 09:50:01,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 archive job starting. Archiving hourly snapshot for hour 09:00 UTC
+2026-03-05 09:50:03,884 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: salesforce_accounts_20260305_0900.parquet. Size: 1.1 MB. Rows: 2814
+2026-03-05 09:50:04,441 [5] WARN  DataPipeline.Export.Destinations.S3Archiver - S3 PutObject throttled. Bucket: nexus-dw-archive-prod. Key: salesforce_accounts_20260305_0900.parquet. Retry 1/3 in 2s
+2026-03-05 09:50:06,884 [5] WARN  DataPipeline.Export.Destinations.S3Archiver - S3 PutObject throttled. Bucket: nexus-dw-archive-prod. Key: salesforce_accounts_20260305_0900.parquet. Retry 2/3 in 8s
+2026-03-05 09:50:14,441 [5] ERROR DataPipeline.Export.Destinations.S3Archiver - S3 PutObject failed after 3 retries. File: salesforce_accounts_20260305_0900.parquet (1.1 MB). Upload aborted
+com.amazonaws.services.s3.model.AmazonS3Exception: Please reduce your request rate. (Service: Amazon S3; Status Code: 503; Error Code: SlowDown)
+   at DataPipeline.Export.Destinations.S3Archiver.UploadWithRetryAsync(String key, Stream data)
+   at DataPipeline.Export.Destinations.S3Archiver.ArchiveTableAsync(String table, DateTimeOffset hour)
+2026-03-05 09:50:14,668 [5] INFO  DataPipeline.Export.Queue.ExportQueue - S3 upload failure queued for retry. File: salesforce_accounts_20260305_0900.parquet. Retry scheduled: 2026-03-05 09:55:00
+2026-03-05 09:50:15,441 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: stripe_events_20260305_0900.parquet. Size: 0.4 MB. Rows: 612
+2026-03-05 09:50:16,118 [5] WARN  DataPipeline.Export.Destinations.S3Archiver - S3 PutObject throttled. Key: stripe_events_20260305_0900.parquet. Retry 1/3 in 2s
+2026-03-05 09:50:18,441 [5] WARN  DataPipeline.Export.Destinations.S3Archiver - S3 PutObject throttled. Key: stripe_events_20260305_0900.parquet. Retry 2/3 in 8s
+2026-03-05 09:50:26,884 [5] ERROR DataPipeline.Export.Destinations.S3Archiver - S3 PutObject failed after 3 retries. File: stripe_events_20260305_0900.parquet (0.4 MB). Upload aborted
+com.amazonaws.services.s3.model.AmazonS3Exception: Please reduce your request rate. (Service: Amazon S3; Status Code: 503; Error Code: SlowDown)
+   at DataPipeline.Export.Destinations.S3Archiver.UploadWithRetryAsync(String key, Stream data)
+   at DataPipeline.Export.Destinations.S3Archiver.ArchiveTableAsync(String table, DateTimeOffset hour)
+2026-03-05 09:50:27,118 [5] INFO  DataPipeline.Export.Queue.ExportQueue - S3 upload failure queued for retry. File: stripe_events_20260305_0900.parquet. Retry scheduled: 2026-03-05 09:55:00
+2026-03-05 10:00:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner API status check. GET https://api.partner-analytics.io/v2/health -> 200 OK. Partner API appears recovered
+2026-03-05 10:00:02,118 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Flushing retry queue. 3 jobs pending (180 records + 74 dead-letter). Reprocessing in FIFO order
+2026-03-05 10:00:04,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Retry job 1/4: pushing 74 records (from dead-letter, originally 09:30). Payload size: 182 KB
+2026-03-05 10:00:06,118 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete (retry). Records pushed: 74. API response time: 1677ms. Status: 202 Accepted
+2026-03-05 10:00:07,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Retry job 2/4: pushing 53 records (from 09:35). Payload size: 130 KB
+2026-03-05 10:00:09,118 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete (retry). Records pushed: 53. API response time: 1677ms. Status: 202 Accepted
+2026-03-05 10:00:10,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Retry job 3/4: pushing 53 records (from 09:45 scheduled). Payload size: 130 KB
+2026-03-05 10:00:12,118 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete (retry). Records pushed: 53. API response time: 1677ms. Status: 202 Accepted
+2026-03-05 10:00:13,441 [4] INFO  DataPipeline.Export.Queue.ExportQueue - Retry queue flushed. All queued partner API exports delivered. Queue depth: 0
+2026-03-05 10:00:41,334 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Generating report: hourly_transaction_feed (hour: 09:00-10:00 UTC)
+2026-03-05 10:00:44,118 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed (09:00) generated. Rows: 378. Duration: 2784ms
+2026-03-05 10:00:45,441 [3] INFO  DataPipeline.Export.Destinations.BiToolExporter - Report hourly_transaction_feed pushed to BI tool. Status: 200 OK. API response time: 1323ms
+2026-03-05 10:05:01,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 retry upload starting. File: salesforce_accounts_20260305_0900.parquet (1.1 MB)
+2026-03-05 10:05:04,118 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete (retry). File: salesforce_accounts_20260305_0900.parquet. Bucket: nexus-dw-archive-prod. Duration: 2677ms
+2026-03-05 10:05:05,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 retry upload starting. File: stripe_events_20260305_0900.parquet (0.4 MB)
+2026-03-05 10:05:07,118 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete (retry). File: stripe_events_20260305_0900.parquet. Bucket: nexus-dw-archive-prod. Duration: 1677ms
+2026-03-05 10:05:08,334 [5] INFO  DataPipeline.Export.Queue.ExportQueue - S3 retry queue flushed. All pending archive uploads delivered
+2026-03-05 10:15:01,441 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync job starting (scheduled). Records since 10:00 UTC. Records: 112. Payload size: 275 KB
+2026-03-05 10:15:03,884 [4] INFO  DataPipeline.Export.Destinations.PartnerApiExporter - Partner sync complete. Records pushed: 112. API response time: 1441ms. Status: 202 Accepted
+2026-03-05 10:05:14,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 archive job starting. Archiving hourly snapshot for hour 10:00 UTC
+2026-03-05 10:05:17,118 [5] DEBUG DataPipeline.Export.Destinations.S3Archiver - Parquet file created. File: salesforce_accounts_20260305_1000.parquet. Size: 1.3 MB. Rows: 3341
+2026-03-05 10:05:20,441 [5] INFO  DataPipeline.Export.Destinations.S3Archiver - S3 upload complete. File: salesforce_accounts_20260305_1000.parquet. Bucket: nexus-dw-archive-prod. Duration: 3323ms
+2026-03-05 10:30:01,334 [1] INFO  DataPipeline.Export.Schedulers.ReportScheduler - Export service health check OK. Reports generated: 4. Partner API records pushed: 667 (127 via retry queue). S3 files uploaded: 7 (2 via retry). Active failures: 0

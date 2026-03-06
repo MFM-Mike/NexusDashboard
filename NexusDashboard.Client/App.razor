@@ -1,0 +1,14 @@
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(NexusDashboard.Client.Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found · Nexus</PageTitle>
+        <LayoutView Layout="@typeof(NexusDashboard.Client.Layout.MainLayout)">
+            <div class="loading-state">
+                <p>404 — Nothing here.</p>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>

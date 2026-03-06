@@ -1,0 +1,102 @@
+@page "/library"
+@inject LogDataService DataService
+@inject NavigationManager Nav
+@implements IDisposable
+
+<PageTitle>Library · Nexus Log Analyzer</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Log Library</h1>
+        <p class="page-subtitle">Select an application bundle to load its logs</p>
+    </div>
+</div>
+
+@if (!DataService.BundlesLoaded)
+{
+    <div class="loading-state"><div class="spinner"></div><p>Loading bundles…</p></div>
+}
+else
+{
+    <div class="bundle-grid">
+        @foreach (var bundle in DataService.Bundles)
+        {
+            var isActive  = DataService.ActiveBundleId == bundle.Id;
+            var isLoading = DataService.IsLoading && DataService.ActiveBundleId == bundle.Id;
+
+            <div class="bundle-card @(isActive ? "active" : "")">
+                <div class="bundle-card-header">
+                    <span class="bundle-icon">@bundle.Icon</span>
+                    <div class="bundle-meta">
+                        <h2 class="bundle-name">@bundle.Name</h2>
+                        <span class="bundle-entry-count">~@bundle.ApproxEntries entries</span>
+                    </div>
+                    @if (isActive)
+                    {
+                        <span class="bundle-active-badge">Active</span>
+                    }
+                </div>
+
+                <p class="bundle-description">@bundle.Description</p>
+                <p class="bundle-scenario">@bundle.Scenario</p>
+
+                <div class="bundle-sources">
+                    @foreach (var src in bundle.Sources)
+                    {
+                        <span class="source-pill">@src</span>
+                    }
+                </div>
+
+                <button class="btn-load-bundle @(isActive ? "btn-active" : "")"
+                        disabled="@(DataService.IsLoading)"
+                        @onclick="() => LoadBundle(bundle.Id)">
+                    @if (isLoading)
+                    {
+                        <span class="btn-spinner"></span>
+                        <span>Loading…</span>
+                    }
+                    else if (isActive)
+                    {
+                        <span>↗ View in Log Viewer</span>
+                    }
+                    else
+                    {
+                        <span>⊕ Load Bundle</span>
+                    }
+                </button>
+            </div>
+        }
+    </div>
+
+    <div class="library-upload-row">
+        <div class="library-upload-card">
+            <span class="bundle-icon">📂</span>
+            <div>
+                <div class="bundle-name">Your Own Logs</div>
+                <div class="bundle-description">Paste log4net output directly in the Log Viewer.</div>
+            </div>
+            <a href="/viewer" class="btn-upload-own">Open Log Viewer →</a>
+        </div>
+    </div>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        DataService.OnDataChanged += StateHasChanged;
+        await DataService.FetchBundlesAsync();
+    }
+
+    public void Dispose() => DataService.OnDataChanged -= StateHasChanged;
+
+    private async Task LoadBundle(string id)
+    {
+        if (DataService.ActiveBundleId == id && DataService.IsLoaded)
+        {
+            Nav.NavigateTo("/viewer");
+            return;
+        }
+        await DataService.LoadBundleAsync(id);
+        Nav.NavigateTo("/viewer");
+    }
+}
