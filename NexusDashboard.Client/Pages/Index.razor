@@ -1,27 +1,34 @@
 @page "/"
-@inject DashboardDataService DataService
+@inject LogDataService DataService
+@implements IDisposable
 
-<PageTitle>Overview · Nexus</PageTitle>
+<PageTitle>Overview · Nexus Log Analyzer</PageTitle>
 
-@if (_data is null)
+@if (DataService.IsLoading || !DataService.IsLoaded)
 {
     <div class="loading-state">
         <div class="spinner"></div>
-        <p>Loading dashboard…</p>
+        <p>@(DataService.IsLoading ? "Parsing log data…" : "Loading sample log data…")</p>
     </div>
 }
 else
 {
+    var s = DataService.CurrentData!.Summary;
+
     <div class="page-header">
         <div>
-            <h1 class="page-title">Good morning, Alex 👋</h1>
-            <p class="page-subtitle">Here's what's happening across your business today.</p>
+            <h1 class="page-title">Log Overview</h1>
+            <p class="page-subtitle">
+                @s.TotalEntries.ToString("N0") entries
+                · @s.UniqueLoggers.Count loggers
+                · @s.FirstEntry?.ToString("yyyy-MM-dd HH:mm:ss") → @s.LastEntry?.ToString("HH:mm:ss")
+            </p>
         </div>
         <div class="date-chip">@DateTime.Now.ToString("dddd, MMMM d yyyy")</div>
     </div>
 
     <div class="kpi-grid">
-        @foreach (var card in _data.KpiCards)
+        @foreach (var card in s.KpiCards)
         {
             <KpiCardComponent Card="card" />
         }
@@ -29,22 +36,26 @@ else
 
     <div class="charts-row">
         <div class="chart-primary">
-            <RevenueChart Data="_data.RevenueData" />
+            <LogTimeline Data="s.TimelineData" />
         </div>
         <div class="chart-secondary">
-            <CategoryBreakdown Categories="_data.Categories" />
+            <LogLevelBreakdown Levels="s.LevelBreakdown" />
         </div>
     </div>
 
-    <TransactionTable Transactions="_data.RecentTransactions" />
+    <LoggerStatsTable TopLoggers="s.TopLoggers" />
 }
 
 @code {
-    private DashboardSummary? _data;
-
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(400);
-        _data = await DataService.GetDashboardDataAsync();
+        DataService.OnDataChanged += StateHasChanged;
+        if (!DataService.IsLoaded)
+        {
+            await Task.Delay(400);
+            await DataService.LoadSampleAsync();
+        }
     }
+
+    public void Dispose() => DataService.OnDataChanged -= StateHasChanged;
 }

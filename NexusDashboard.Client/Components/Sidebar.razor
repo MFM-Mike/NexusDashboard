@@ -3,7 +3,10 @@
 <nav class="sidebar">
     <div class="sidebar-brand">
         <span class="brand-icon">⬡</span>
-        <span class="brand-name">Nexus</span>
+        <div>
+            <div class="brand-name">Nexus</div>
+            <div class="brand-sub">Log Analyzer</div>
+        </div>
     </div>
 
     <ul class="nav-list">
@@ -19,12 +22,9 @@
     </ul>
 
     <div class="sidebar-footer">
-        <div class="user-chip">
-            <div class="avatar">AJ</div>
-            <div class="user-info">
-                <span class="user-name">Alex Johnson</span>
-                <span class="user-role">Admin</span>
-            </div>
+        <div class="sidebar-hint">
+            <span class="hint-icon">💡</span>
+            <span class="hint-text">Go to Log Viewer to paste your own log4net output.</span>
         </div>
     </div>
 </nav>
@@ -34,11 +34,10 @@
 
     private readonly List<NavItem> _navItems = new()
     {
-        new("Overview",   "◈", "/",          NavLinkMatch.All),
-        new("Analytics",  "◉", "/analytics"),
-        new("Orders",     "◫", "/orders"),
-        new("Customers",  "◎", "/customers"),
-        new("Products",   "▣", "/products"),
+        new("Overview",   "◈", "/",        NavLinkMatch.All),
+        new("Library",    "⊞", "/library"),
+        new("Log Viewer", "≡", "/viewer"),
+        new("Analyze",    "◉", "/analyze"),
         new("Settings",   "◌", "/settings"),
     };
 }

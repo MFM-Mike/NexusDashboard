@@ -8,12 +8,8 @@
         <div class="kpi-value">@Card.Value</div>
         <div class="kpi-footer">
             <span class="kpi-change @(Card.IsPositive ? "positive" : "negative")">
-                @(Card.IsPositive ? "▲" : "▼") @Card.Change
+                @Card.Change
             </span>
-            <span class="kpi-period">vs last month</span>
-        </div>
-        <div class="kpi-bar">
-            <div class="kpi-bar-fill" style="width: @(_rand.Next(45, 90))%"></div>
         </div>
     </div>
 }

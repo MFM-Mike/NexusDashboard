@@ -1,0 +1,141 @@
+2026-03-05 08:00:02,118 [1] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Order consumer initializing
+2026-03-05 08:00:02,334 [1] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Connecting to RabbitMQ at rabbitmq-prod:5672 (vhost: myshop)
+2026-03-05 08:00:02,771 [1] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Connected to RabbitMQ. Listening on queue: orders.inbound
+2026-03-05 08:00:03,004 [1] INFO  MyShop.Infrastructure.Database.OrderRepository - Database connection established: orders-db.internal:5432/myshop_orders
+2026-03-05 08:00:03,118 [1] INFO  MyShop.Infrastructure.Database.OrderRepository - Schema version: 47 (up to date)
+2026-03-05 08:00:03,224 [1] INFO  MyShop.Services.PaymentService - Stripe client initialized (endpoint: api.stripe.com, timeout: 30s)
+2026-03-05 08:00:03,331 [1] INFO  MyShop.Services.EmailNotificationService - SMTP relay configured: smtp.sendgrid.net:587
+2026-03-05 08:00:03,445 [1] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Order consumer ready. Prefetch count: 10
+2026-03-05 08:05:14,882 [2] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8801, session sess-A8F2C, amount $89.99
+2026-03-05 08:05:14,883 [2] INFO  MyShop.Services.OrderService - Processing order ORD-8801 for customer CUST-44512, amount $89.99
+2026-03-05 08:05:14,990 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8801 persisted with status PENDING
+2026-03-05 08:05:15,228 [2] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8801: $89.99 to card ending 4242
+2026-03-05 08:05:15,991 [2] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8801: charge_id=ch_3Oa7kL2eZvKYlo2C1B8mDw, $89.99
+2026-03-05 08:05:16,004 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8801 status updated: PENDING → PAID
+2026-03-05 08:05:16,117 [2] INFO  MyShop.Services.EmailNotificationService - Confirmation email queued for ORD-8801 → customer44512@example.com
+2026-03-05 08:05:16,334 [2] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8801 (messageId: msg_0X7kP2qR)
+2026-03-05 08:05:16,335 [2] INFO  MyShop.Services.OrderService - Order ORD-8801 completed in 1453ms
+2026-03-05 08:11:22,554 [3] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8802, session sess-B3D7E, amount $149.98
+2026-03-05 08:11:22,555 [3] INFO  MyShop.Services.OrderService - Processing order ORD-8802 for customer CUST-71830, amount $149.98
+2026-03-05 08:11:22,670 [3] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8802 persisted with status PENDING
+2026-03-05 08:11:22,991 [3] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8802: $149.98 to card ending 1234
+2026-03-05 08:11:23,778 [3] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8802: charge_id=ch_3Oa8mN2eZvKYlo2C0A4xEf, $149.98
+2026-03-05 08:11:23,881 [3] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8802 status updated: PENDING → PAID
+2026-03-05 08:11:24,004 [3] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8802 (messageId: msg_0X7kP3rS)
+2026-03-05 08:11:24,005 [3] INFO  MyShop.Services.OrderService - Order ORD-8802 completed in 1450ms
+2026-03-05 08:31:29,771 [2] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8803, session sess-D9M3N, amount $34.95
+2026-03-05 08:31:29,772 [2] INFO  MyShop.Services.OrderService - Processing order ORD-8803 for customer CUST-19204, amount $34.95
+2026-03-05 08:31:29,881 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8803 persisted with status PENDING
+2026-03-05 08:31:30,118 [2] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8803: $34.95 to card ending 9012
+2026-03-05 08:31:30,441 [2] WARN  MyShop.Services.PaymentService - Stripe returned decline code: insufficient_funds for order ORD-8803, card ending 9012
+2026-03-05 08:31:30,442 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8803 status updated: PENDING → PAYMENT_FAILED
+2026-03-05 08:31:30,558 [2] INFO  MyShop.Services.EmailNotificationService - Payment failure email sent for ORD-8803 → customer19204@example.com
+2026-03-05 08:31:30,559 [2] INFO  MyShop.Services.OrderService - Order ORD-8803 completed with payment failure in 787ms
+2026-03-05 08:47:03,004 [4] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8807, session sess-E2P8Q, amount $214.50
+2026-03-05 08:47:03,005 [4] INFO  MyShop.Services.OrderService - Processing order ORD-8807 for customer CUST-63918, amount $214.50
+2026-03-05 08:47:03,118 [4] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8807 persisted with status PENDING
+2026-03-05 08:47:03,441 [4] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8807: $214.50 to card ending 5678
+2026-03-05 08:47:04,228 [4] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8807: charge_id=ch_3Oa9pQ2eZvKYlo2C2C6yGh, $214.50
+2026-03-05 08:47:04,334 [4] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8807 status updated: PENDING → PAID
+2026-03-05 08:47:04,441 [4] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8807 (messageId: msg_0X7kP5tU)
+2026-03-05 08:47:04,442 [4] INFO  MyShop.Services.OrderService - Order ORD-8807 completed in 1437ms
+2026-03-05 09:08:57,334 [3] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8818, session sess-F7R2S, amount $67.00
+2026-03-05 09:08:57,335 [3] INFO  MyShop.Services.OrderService - Processing order ORD-8818 for customer CUST-52741, amount $67.00
+2026-03-05 09:08:57,441 [3] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8818 persisted with status PENDING
+2026-03-05 09:08:57,771 [3] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8818: $67.00 to card ending 3344
+2026-03-05 09:08:58,554 [3] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8818: charge_id=ch_3OaArS2eZvKYlo2C3D7zIj, $67.00
+2026-03-05 09:08:58,667 [3] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8818 status updated: PENDING → PAID
+2026-03-05 09:08:58,779 [3] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8818 (messageId: msg_0X7kP7vW)
+2026-03-05 09:08:58,780 [3] INFO  MyShop.Services.OrderService - Order ORD-8818 completed in 1445ms
+2026-03-05 09:15:22,441 [7] ERROR MyShop.Services.OrderService - Payment gateway timeout for order ORD-7821
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentGatewayClient.ChargeAsync(String orderId, Decimal amount)
+   at MyShop.Services.OrderService.ProcessPaymentAsync(Order order)
+2026-03-05 09:15:22,443 [7] WARN  MyShop.Services.OrderService - Order ORD-7821 marked PENDING_RETRY (attempt 1/3). Next retry in 30s.
+2026-03-05 09:17:04,881 [5] ERROR MyShop.Services.PaymentService - Stripe API timeout for order ORD-8824: no response after 30000ms
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms —> System.IO.IOException: Unable to read data from the transport connection
+   at System.Net.Sockets.NetworkStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentService.ChargeCardAsync(String orderId, Decimal amount, String cardToken)
+2026-03-05 09:17:04,883 [5] WARN  MyShop.Services.OrderService - Order ORD-8824 marked PENDING_RETRY (attempt 1/3). Next retry in 30s.
+2026-03-05 09:19:44,228 [8] WARN  MyShop.Services.PaymentService - Stripe API degraded: 3 consecutive timeouts in last 4 minutes. Engaging retry policy.
+2026-03-05 09:21:33,117 [7] INFO  MyShop.Services.OrderService - Retrying payment for ORD-7821 (attempt 2/3)
+2026-03-05 09:21:33,118 [7] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-7821: $112.45 to card ending 7788
+2026-03-05 09:22:03,441 [7] ERROR MyShop.Services.PaymentService - Stripe API timeout for order ORD-7821 (retry 2): no response after 30000ms
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentService.ChargeCardAsync(String orderId, Decimal amount, String cardToken)
+2026-03-05 09:22:03,443 [7] WARN  MyShop.Services.OrderService - Order ORD-7821 marked PENDING_RETRY (attempt 2/3). Next retry in 60s.
+2026-03-05 09:24:18,558 [5] INFO  MyShop.Services.OrderService - Retrying payment for ORD-8824 (attempt 2/3)
+2026-03-05 09:24:18,559 [5] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8824: $299.00 to card ending 5566
+2026-03-05 09:24:49,117 [5] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8824 (retry 2): charge_id=ch_3OaBtT2eZvKYlo2C4E8aKk, $299.00
+2026-03-05 09:24:49,228 [5] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8824 status updated: PENDING_RETRY → PAID
+2026-03-05 09:24:49,334 [5] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8824 (messageId: msg_0X7kQ2xY)
+2026-03-05 09:26:04,771 [9] ERROR MyShop.Services.PaymentService - Stripe API timeout for order ORD-8831: no response after 30000ms
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentService.ChargeCardAsync(String orderId, Decimal amount, String cardToken)
+2026-03-05 09:26:04,773 [9] WARN  MyShop.Services.OrderService - Order ORD-8831 marked PENDING_RETRY (attempt 1/3). Next retry in 30s.
+2026-03-05 09:29:31,334 [9] INFO  MyShop.Services.OrderService - Retrying payment for ORD-8831 (attempt 2/3)
+2026-03-05 09:29:31,335 [9] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-8831: $54.75 to card ending 2233
+2026-03-05 09:30:02,118 [9] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8831 (retry 2): charge_id=ch_3OaCuU2eZvKYlo2C5F9bLl, $54.75
+2026-03-05 09:30:02,224 [9] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8831 status updated: PENDING_RETRY → PAID
+2026-03-05 09:30:02,334 [9] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8831 (messageId: msg_0X7kQ4zA)
+2026-03-05 09:30:58,771 [7] INFO  MyShop.Services.OrderService - Retrying payment for ORD-7821 (attempt 3/3)
+2026-03-05 09:30:58,772 [7] INFO  MyShop.Services.PaymentService - Initiating Stripe charge for order ORD-7821: $112.45 to card ending 7788
+2026-03-05 09:31:29,441 [7] ERROR MyShop.Services.PaymentService - Stripe API timeout for order ORD-7821 (retry 3): no response after 30000ms
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentService.ChargeCardAsync(String orderId, Decimal amount, String cardToken)
+2026-03-05 09:31:29,443 [7] FATAL MyShop.Services.OrderService - Order ORD-7821 exhausted all 3 retry attempts. Payment permanently failed. Amount: $112.45, CUST-38819
+2026-03-05 09:31:29,444 [7] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-7821 status updated: PENDING_RETRY → FAILED_PERMANENT
+2026-03-05 09:31:29,558 [7] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Order ORD-7821 dispatched to dead-letter queue: orders.failed
+2026-03-05 09:31:29,672 [7] INFO  MyShop.Services.EmailNotificationService - Payment failure notification sent for ORD-7821 → customer38819@example.com
+2026-03-05 09:34:07,334 [6] ERROR MyShop.Services.PaymentService - Stripe API timeout for order ORD-8837: no response after 30000ms
+System.Net.Http.HttpRequestException: Connection timed out after 30000ms
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request)
+   at MyShop.Services.PaymentService.ChargeCardAsync(String orderId, Decimal amount, String cardToken)
+2026-03-05 09:34:07,336 [6] WARN  MyShop.Services.OrderService - Order ORD-8837 marked PENDING_RETRY (attempt 1/3). Next retry in 30s.
+2026-03-05 09:37:22,118 [6] INFO  MyShop.Services.OrderService - Retrying payment for ORD-8837 (attempt 2/3)
+2026-03-05 09:37:52,441 [6] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8837 (retry 2): charge_id=ch_3OaDvV2eZvKYlo2C6G0cMm, $178.20
+2026-03-05 09:37:52,554 [6] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8837 status updated: PENDING_RETRY → PAID
+2026-03-05 09:37:52,667 [6] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8837 (messageId: msg_0X7kQ7cB)
+2026-03-05 09:40:14,881 [8] FATAL MyShop.Services.OrderService - Order ORD-8839 exhausted all 3 retry attempts. Payment permanently failed. Amount: $445.00, CUST-90121
+2026-03-05 09:40:14,882 [8] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8839 status updated: PENDING_RETRY → FAILED_PERMANENT
+2026-03-05 09:40:14,994 [8] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Order ORD-8839 dispatched to dead-letter queue: orders.failed
+2026-03-05 09:40:15,107 [8] INFO  MyShop.Services.EmailNotificationService - Payment failure notification sent for ORD-8839 → customer90121@example.com
+2026-03-05 09:43:01,334 [4] FATAL MyShop.Services.OrderService - Order ORD-8841 exhausted all 3 retry attempts. Payment permanently failed. Amount: $89.95, CUST-11047
+2026-03-05 09:43:01,335 [4] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8841 status updated: PENDING_RETRY → FAILED_PERMANENT
+2026-03-05 09:43:01,448 [4] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Order ORD-8841 dispatched to dead-letter queue: orders.failed
+2026-03-05 09:43:01,558 [4] INFO  MyShop.Services.EmailNotificationService - Payment failure notification sent for ORD-8841 → customer11047@example.com
+2026-03-05 09:46:38,117 [2] WARN  MyShop.Services.PaymentService - Stripe API latency improving: last 5 requests averaged 4200ms (down from 30000ms timeouts)
+2026-03-05 09:50:19,441 [3] INFO  MyShop.Services.OrderService - Processing backlog order ORD-8843 for customer CUST-29384, amount $55.40
+2026-03-05 09:50:20,224 [3] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8843: charge_id=ch_3OaEwW2eZvKYlo2C7H1dNn, $55.40
+2026-03-05 09:50:20,334 [3] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8843 status updated: PENDING → PAID
+2026-03-05 09:50:20,441 [3] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8843 (messageId: msg_0X7kR1eC)
+2026-03-05 09:52:44,771 [5] INFO  MyShop.Services.OrderService - Processing backlog order ORD-8845 for customer CUST-74820, amount $320.00
+2026-03-05 09:52:45,882 [5] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8845: charge_id=ch_3OaFxX2eZvKYlo2C8I2eOo, $320.00
+2026-03-05 09:52:45,994 [5] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8845 status updated: PENDING → PAID
+2026-03-05 09:52:46,107 [5] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8845 (messageId: msg_0X7kR3fD)
+2026-03-05 10:00:33,334 [9] INFO  MyShop.Services.PaymentService - Stripe API fully recovered: avg latency 980ms, error rate 0.0%
+2026-03-05 10:01:18,881 [2] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8855, session sess-M5E9F, amount $134.75
+2026-03-05 10:01:18,882 [2] INFO  MyShop.Services.OrderService - Processing order ORD-8855 for customer CUST-38471, amount $134.75
+2026-03-05 10:01:19,004 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8855 persisted with status PENDING
+2026-03-05 10:01:19,881 [2] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8855: charge_id=ch_3OaGyY2eZvKYlo2C9J3fPp, $134.75
+2026-03-05 10:01:19,994 [2] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8855 status updated: PENDING → PAID
+2026-03-05 10:01:20,107 [2] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8855 (messageId: msg_0X7kR5gE)
+2026-03-05 10:01:20,108 [2] INFO  MyShop.Services.OrderService - Order ORD-8855 completed in 1227ms
+2026-03-05 10:07:58,117 [4] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8861, session sess-L3C7D, amount $79.99
+2026-03-05 10:07:58,118 [4] INFO  MyShop.Services.OrderService - Processing order ORD-8861 for customer CUST-60293, amount $79.99
+2026-03-05 10:07:59,001 [4] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8861: charge_id=ch_3OaHzZ2eZvKYlo2C0K4gQq, $79.99
+2026-03-05 10:07:59,114 [4] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8861 status updated: PENDING → PAID
+2026-03-05 10:07:59,224 [4] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8861 (messageId: msg_0X7kR7hF)
+2026-03-05 10:07:59,225 [4] INFO  MyShop.Services.OrderService - Order ORD-8861 completed in 1107ms
+2026-03-05 10:14:41,334 [6] INFO  MyShop.Infrastructure.MessageQueue.OrderConsumer - Message received: order ORD-8867, session sess-N7G2H, amount $249.95
+2026-03-05 10:14:41,335 [6] INFO  MyShop.Services.OrderService - Processing order ORD-8867 for customer CUST-82156, amount $249.95
+2026-03-05 10:14:42,441 [6] INFO  MyShop.Services.PaymentService - Stripe charge successful for ORD-8867: charge_id=ch_3OaIaA2eZvKYlo2C1L5hRr, $249.95
+2026-03-05 10:14:42,554 [6] INFO  MyShop.Infrastructure.Database.OrderRepository - Order ORD-8867 status updated: PENDING → PAID
+2026-03-05 10:14:42,667 [6] INFO  MyShop.Services.EmailNotificationService - Confirmation email sent for ORD-8867 (messageId: msg_0X7kS1iG)
+2026-03-05 10:14:42,668 [6] INFO  MyShop.Services.OrderService - Order ORD-8867 completed in 1333ms
+2026-03-05 10:29:08,771 [3] INFO  MyShop.Services.OrderService - Session summary: 24 orders processed since 08:00. 21 succeeded ($3,847.12), 3 permanently failed ($647.40). Dead-letter queue: 3 entries.

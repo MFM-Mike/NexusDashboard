@@ -12,7 +12,7 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri("https://localhost:7000/")
 });
 
-builder.Services.AddScoped<DashboardDataService>();
+builder.Services.AddScoped<LogDataService>();
 builder.Services.AddScoped<ThemeService>();
 
 await builder.Build().RunAsync();

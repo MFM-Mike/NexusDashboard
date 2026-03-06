@@ -1,0 +1,100 @@
+@using NexusDashboard.Shared.Models
+
+@if (Entries is not null)
+{
+    var page       = Entries.Skip((_page - 1) * PageSize).Take(PageSize).ToList();
+    int totalPages = (int)Math.Ceiling((double)Entries.Count() / PageSize);
+    bool showSource = _sources.Count > 1;
+
+    <div class="table-card log-table-card">
+        <div class="chart-header">
+            <h3 class="chart-title">Log Entries</h3>
+            <span class="entry-count">@Entries.Count().ToString("N0") entries</span>
+        </div>
+        <div class="table-scroll">
+            <table class="data-table log-table">
+                <thead>
+                    <tr>
+                        <th class="col-time">Timestamp</th>
+                        <th class="col-level">Level</th>
+                        @if (showSource) { <th class="col-source">Source</th> }
+                        <th class="col-thread">Thread</th>
+                        <th class="col-logger">Logger</th>
+                        <th class="col-message">Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in page)
+                    {
+                        bool expanded = _expanded.Contains(entry.Id);
+                        <tr class="log-row @(entry.Exception != null ? "has-exception" : "") @(entry.Level.ToLower())-row"
+                            @onclick="() => Toggle(entry.Id)" title="@(entry.Exception != null ? "Click to expand exception" : "")">
+                            <td class="col-time log-ts">@entry.Timestamp.ToString("HH:mm:ss.fff")</td>
+                            <td class="col-level"><span class="level-badge level-@entry.Level.ToLower()">@entry.Level</span></td>
+                            @if (showSource)
+                            {
+                                <td class="col-source">
+                                    @if (!string.IsNullOrEmpty(entry.Source))
+                                    {
+                                        <span class="source-badge source-@GetSourceIndex(entry.Source)">@entry.Source</span>
+                                    }
+                                </td>
+                            }
+                            <td class="col-thread log-thread">@entry.Thread</td>
+                            <td class="col-logger log-logger" title="@entry.Logger">@entry.ShortLogger</td>
+                            <td class="col-message log-message">
+                                <div class="msg-text">@entry.Message</div>
+                                @if (expanded && entry.Exception is not null)
+                                {
+                                    <pre class="exception-trace">@entry.Exception</pre>
+                                }
+                                @if (entry.Exception is not null && !expanded)
+                                {
+                                    <span class="ex-indicator">⚠ exception — click to expand</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (totalPages > 1)
+        {
+            <div class="pagination">
+                <button class="btn-ghost" disabled="@(_page == 1)" @onclick="() => _page--">← Prev</button>
+                <span class="page-info">Page @_page of @totalPages</span>
+                <button class="btn-ghost" disabled="@(_page == totalPages)" @onclick="() => _page++">Next →</button>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public IEnumerable<LogEntry>? Entries { get; set; }
+
+    private const int PageSize = 100;
+    private int _page = 1;
+    private HashSet<int> _expanded = new();
+    private List<string> _sources = [];
+
+    // Stable ordered list of sources so colour assignments don't change as filters change
+    [Parameter] public List<string> AllSources { get; set; } = [];
+
+    protected override void OnParametersSet()
+    {
+        _page = 1;
+        _sources = AllSources.Count > 0
+            ? AllSources
+            : Entries?.Select(e => e.Source).Where(s => !string.IsNullOrEmpty(s)).Distinct().ToList() ?? [];
+    }
+
+    private void Toggle(int id) { if (!_expanded.Remove(id)) _expanded.Add(id); }
+
+    // Returns a stable index 0–5 for CSS class source-0 … source-5
+    private int GetSourceIndex(string source)
+    {
+        var idx = _sources.IndexOf(source);
+        return idx >= 0 ? idx % 6 : 0;
+    }
+}

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\NexusDashboard.Shared\NexusDashboard.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="SampleLogs\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

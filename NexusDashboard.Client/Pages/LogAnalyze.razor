@@ -1,0 +1,176 @@
+@page "/analyze"
+@inject LogDataService DataService
+@implements IDisposable
+
+<PageTitle>Analyze · Nexus Log Analyzer</PageTitle>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Analyze</h1>
+        <p class="page-subtitle">Patterns, error clusters, and logger heat map</p>
+    </div>
+</div>
+
+@if (!DataService.IsLoaded)
+{
+    <div class="loading-state"><div class="spinner"></div><p>Loading…</p></div>
+}
+else
+{
+    var entries    = DataService.CurrentData!.Entries;
+    var errors     = entries.Where(e => e.Level is "ERROR" or "FATAL").ToList();
+    var warns      = entries.Where(e => e.Level == "WARN").ToList();
+    var exceptions = entries.Where(e => e.Exception is not null).ToList();
+    var exTypes    = exceptions
+        .Select(e => ExtractExceptionType(e.Exception!))
+        .Where(t => t is not null)
+        .GroupBy(t => t!)
+        .OrderByDescending(g => g.Count())
+        .ToList();
+
+    <!-- ── Error clusters ── -->
+    <div class="analyze-section">
+        <div class="section-header">
+            <h2 class="section-title">🔴 Top Error Messages</h2>
+            <span class="section-sub">@errors.Count total errors &amp; fatals</span>
+        </div>
+        @if (!errors.Any())
+        {
+            <div class="empty-state">No errors found — great news! ✅</div>
+        }
+        else
+        {
+            var grouped = errors
+                .GroupBy(e => TruncateMessage(e.Message))
+                .OrderByDescending(g => g.Count())
+                .Take(10)
+                .ToList();
+
+            <div class="table-card">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>Message</th><th>Level</th><th>Logger</th><th>Count</th><th>First seen</th></tr></thead>
+                    <tbody>
+                        @foreach (var (grp, i) in grouped.Select((g, i) => (g, i + 1)))
+                        {
+                            var sample = grp.First();
+                            <tr>
+                                <td class="tx-id">@i</td>
+                                <td class="log-message-cell" title="@sample.Message">@grp.Key</td>
+                                <td><span class="level-badge level-@sample.Level.ToLower()">@sample.Level</span></td>
+                                <td class="log-logger" title="@sample.Logger">@sample.ShortLogger</td>
+                                <td><strong>@grp.Count()</strong></td>
+                                <td class="tx-date">@grp.Min(e => e.Timestamp).ToString("HH:mm:ss")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <!-- ── Exception types ── -->
+    @if (exTypes.Any())
+    {
+        <div class="analyze-section">
+            <div class="section-header">
+                <h2 class="section-title">⚠ Exception Types</h2>
+                <span class="section-sub">@exceptions.Count entries with stack traces</span>
+            </div>
+            <div class="table-card">
+                <table class="data-table">
+                    <thead><tr><th>Exception Type</th><th>Count</th><th>Share</th></tr></thead>
+                    <tbody>
+                        @foreach (var exGrp in exTypes)
+                        {
+                            double pct = (double)exGrp.Count() / exceptions.Count * 100;
+                            <tr>
+                                <td class="tx-id ex-type">@exGrp.Key</td>
+                                <td>@exGrp.Count()</td>
+                                <td>
+                                    <div class="error-rate-row">
+                                        <div class="error-rate-bar">
+                                            <div class="error-rate-fill" style="width:@pct.ToString("F0")%"></div>
+                                        </div>
+                                        <span class="error-rate-label high">@pct.ToString("F0")%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ── Warning clusters ── -->
+    <div class="analyze-section">
+        <div class="section-header">
+            <h2 class="section-title">🟡 Top Warnings</h2>
+            <span class="section-sub">@warns.Count total warnings</span>
+        </div>
+        @if (!warns.Any())
+        {
+            <div class="empty-state">No warnings found.</div>
+        }
+        else
+        {
+            var warnGroups = warns
+                .GroupBy(e => TruncateMessage(e.Message))
+                .OrderByDescending(g => g.Count())
+                .Take(8)
+                .ToList();
+
+            <div class="table-card">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>Message</th><th>Logger</th><th>Count</th></tr></thead>
+                    <tbody>
+                        @foreach (var (grp, i) in warnGroups.Select((g, i) => (g, i + 1)))
+                        {
+                            var sample = grp.First();
+                            <tr>
+                                <td class="tx-id">@i</td>
+                                <td class="log-message-cell" title="@sample.Message">@grp.Key</td>
+                                <td class="log-logger" title="@sample.Logger">@sample.ShortLogger</td>
+                                <td><strong>@grp.Count()</strong></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <!-- ── Logger error heat map ── -->
+    <div class="analyze-section">
+        <div class="section-header">
+            <h2 class="section-title">📊 Logger Activity</h2>
+            <span class="section-sub">All @DataService.CurrentData!.Summary.UniqueLoggers.Count loggers</span>
+        </div>
+        <LoggerStatsTable TopLoggers="DataService.CurrentData!.Summary.TopLoggers" />
+    </div>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        DataService.OnDataChanged += StateHasChanged;
+        if (!DataService.IsLoaded)
+            await DataService.LoadSampleAsync();
+    }
+
+    public void Dispose() => DataService.OnDataChanged -= StateHasChanged;
+
+    private static string TruncateMessage(string msg) =>
+        msg.Length > 90 ? msg[..87] + "…" : msg;
+
+    private static string? ExtractExceptionType(string exText)
+    {
+        var line = exText.Split('\n', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()?.Trim();
+        if (line is null) return null;
+        var colon = line.IndexOf(':');
+        var name  = colon > 0 ? line[..colon] : line;
+        // keep only the simple class name (last segment)
+        var dot = name.LastIndexOf('.');
+        return dot >= 0 ? name[(dot + 1)..] : name;
+    }
+}

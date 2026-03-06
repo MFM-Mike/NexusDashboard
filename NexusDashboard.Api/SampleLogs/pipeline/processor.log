@@ -1,0 +1,112 @@
+2026-03-05 08:00:03,221 [1] INFO  DataPipeline.Processor.BatchProcessor - ETL batch processor worker starting. Version: 3.14.2. Environment: production
+2026-03-05 08:00:03,448 [1] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Connecting to data warehouse. Host: dw-primary.internal:5439. Database: nexus_dw
+2026-03-05 08:00:04,112 [1] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Warehouse connection established. Pool size: 10. Max connections: 50. Latency: 664ms
+2026-03-05 08:00:04,331 [1] INFO  DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Loading product catalog from reference store. Source: redis://ref-data-01.internal:6379/1
+2026-03-05 08:00:05,118 [1] INFO  DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Product catalog loaded. 18742 SKUs cached. Last updated: 2026-03-05 06:00:00 UTC
+2026-03-05 08:00:05,334 [1] INFO  DataPipeline.Processor.Enrichment.GeoEnricher - Loading geo-lookup table. Source: /data/ref/maxmind_city_2026_02.mmdb
+2026-03-05 08:00:05,891 [1] INFO  DataPipeline.Processor.Enrichment.GeoEnricher - Geo-lookup database loaded. 6.2M IP ranges indexed. Build date: 2026-02-28
+2026-03-05 08:00:06,002 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory monitor started. Heap baseline: 312 MB. Warning threshold: 75%. Critical threshold: 90%
+2026-03-05 08:00:06,118 [1] INFO  DataPipeline.Processor.BatchProcessor - Worker ready. Consuming from queue: pipeline.ingest.salesforce, pipeline.ingest.stripe, pipeline.ingest.custom
+2026-03-05 08:00:44,771 [2] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20401 dequeued. Source: salesforce_account. Records: 309. Queue latency: 35s
+2026-03-05 08:00:44,788 [2] DEBUG DataPipeline.Processor.TransformEngine - Transform step 1/4: field normalization. Batch B-20401. Input: 309 records
+2026-03-05 08:00:44,921 [2] DEBUG DataPipeline.Processor.TransformEngine - Transform step 2/4: type coercion (AnnualRevenue -> decimal, LastModifiedDate -> UTC). Batch B-20401
+2026-03-05 08:00:45,114 [2] DEBUG DataPipeline.Processor.TransformEngine - Transform step 3/4: enrichment lookup (product catalog, geo). Batch B-20401
+2026-03-05 08:00:45,441 [2] DEBUG DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Enrichment complete. Batch B-20401. Records enriched: 309. Cache hits: 297, Misses: 12
+2026-03-05 08:00:45,557 [2] DEBUG DataPipeline.Processor.TransformEngine - Transform step 4/4: deduplication hash generation. Batch B-20401
+2026-03-05 08:00:45,612 [2] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20401 transform complete. Records: 309. Duration: 841ms
+2026-03-05 08:00:45,781 [2] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Loading batch B-20401 to warehouse. Table: dw.fact_salesforce_accounts. Records: 309
+2026-03-05 08:00:46,334 [2] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20401 loaded successfully. Rows inserted: 302, Updated: 7. Duration: 553ms
+2026-03-05 08:05:47,002 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20402 dequeued. Source: salesforce_account. Records: 41. Queue latency: 43s
+2026-03-05 08:05:47,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20402. Records: 41. Duration: 312ms
+2026-03-05 08:05:47,811 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20402 loaded. Rows inserted: 38, Updated: 3. Duration: 370ms
+2026-03-05 08:07:48,119 [4] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20403 dequeued. Source: stripe_charge. Records: 1. Queue latency: 34s
+2026-03-05 08:07:48,228 [4] DEBUG DataPipeline.Processor.Enrichment.GeoEnricher - IP geo-lookup: 203.113.44.18 -> AU / New South Wales / Sydney. ASN: AS9311
+2026-03-05 08:07:48,311 [4] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20403 loaded. Rows inserted: 1. Duration: 83ms
+2026-03-05 08:10:47,441 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20404 dequeued. Source: salesforce_account. Records: 28. Queue latency: 42s
+2026-03-05 08:10:47,887 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20404. Records: 28. Duration: 331ms
+2026-03-05 08:10:48,114 [3] WARN  DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Enrichment miss: 2 records in batch B-20404 reference unknown product IDs [SKU-99012, SKU-99013]. Records enriched without product metadata
+2026-03-05 08:10:48,241 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20404 loaded. Rows inserted: 28. Duration: 127ms
+2026-03-05 08:19:07,334 [4] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20405 dequeued. Source: stripe_subscription. Records: 1. Queue latency: 34s
+2026-03-05 08:19:07,441 [4] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20405. Records: 1. Duration: 74ms
+2026-03-05 08:19:07,521 [4] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20405 loaded. Rows inserted: 1. Duration: 80ms
+2026-03-05 08:21:07,009 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20406 dequeued. Source: salesforce_opportunity. Records: 19. Queue latency: 63s
+2026-03-05 08:21:07,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20406. Records: 19. Duration: 278ms
+2026-03-05 08:21:07,718 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20406 loaded. Rows inserted: 14, Updated: 5. Duration: 277ms
+2026-03-05 08:35:24,441 [5] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20407 dequeued. Source: custom_order. Records: 1. Queue latency: 33s
+2026-03-05 08:35:24,562 [5] DEBUG DataPipeline.Processor.Enrichment.GeoEnricher - IP geo-lookup: 192.0.2.88 -> US / California / San Francisco. ASN: AS14061
+2026-03-05 08:35:24,619 [5] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20407. Records: 1. Duration: 178ms
+2026-03-05 08:35:24,701 [5] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20407 loaded. Rows inserted: 1. Duration: 82ms
+2026-03-05 08:46:08,227 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20408 dequeued. Source: salesforce_account. Records: 53. Queue latency: 65s
+2026-03-05 08:46:08,771 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20408. Records: 53. Duration: 441ms
+2026-03-05 08:46:09,118 [3] WARN  DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Enrichment miss: 1 record in batch B-20408 references unknown product ID [SKU-99014]. Record enriched without product metadata
+2026-03-05 08:46:09,214 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20408 loaded. Rows inserted: 49, Updated: 4. Duration: 443ms
+2026-03-05 08:53:01,334 [4] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20409 dequeued. Source: stripe_refund. Records: 1. Queue latency: 44s
+2026-03-05 08:53:01,441 [4] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20409. Records: 1. Duration: 81ms
+2026-03-05 08:53:01,524 [4] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20409 loaded. Rows inserted: 1. Duration: 83ms
+2026-03-05 09:01:18,007 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20410 dequeued. Source: salesforce_account. Records: 31. Queue latency: 73s
+2026-03-05 09:01:18,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20410. Records: 31. Duration: 334ms
+2026-03-05 09:01:18,781 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20410 loaded. Rows inserted: 29, Updated: 2. Duration: 340ms
+2026-03-05 09:06:18,441 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20411 dequeued. Source: salesforce_opportunity. Records: 22. Queue latency: 74s
+2026-03-05 09:06:18,811 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20411. Records: 22. Duration: 291ms
+2026-03-05 09:06:19,114 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20411 loaded. Rows inserted: 20, Updated: 2. Duration: 303ms
+2026-03-05 09:11:18,331 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20412 dequeued. Source: salesforce_account. Records: 16. Queue latency: 63s
+2026-03-05 09:11:18,618 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20412. Records: 16. Duration: 208ms
+2026-03-05 09:11:18,819 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20412 loaded. Rows inserted: 16. Duration: 201ms
+2026-03-05 09:30:11,441 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory check: heap 1124 MB / JVM max 2048 MB (54.9%). Batch throughput: 487 records/min. Status: normal
+2026-03-05 09:36:08,004 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20413 dequeued. Source: salesforce_account. Records: 24. Queue latency: 64s
+2026-03-05 09:36:08,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20413. Records: 24. Duration: 261ms
+2026-03-05 09:36:08,714 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20413 loaded. Rows inserted: 22, Updated: 2. Duration: 273ms
+2026-03-05 09:38:44,228 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory pressure: heap 1597 MB / 2048 MB (78.0%). Approaching warning threshold. GC activity increased
+2026-03-05 09:41:22,771 [6] INFO  DataPipeline.Processor.BatchProcessor - Large batch B-20414 dequeued. Source: salesforce_account. Records: 50000. Queue latency: 312s (catchup backlog)
+2026-03-05 09:41:22,884 [6] DEBUG DataPipeline.Processor.TransformEngine - Transform step 1/4: field normalization. Batch B-20414. Input: 50000 records. Estimated memory: 890 MB
+2026-03-05 09:41:25,441 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory pressure: heap 1823 MB / 2048 MB (89.0%). Critical threshold approaching. Recommend reducing batch concurrency
+2026-03-05 09:41:31,118 [6] DEBUG DataPipeline.Processor.TransformEngine - Transform step 2/4: type coercion. Batch B-20414. 50000 records
+2026-03-05 09:41:38,334 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - GC pause detected. Duration: 2.1s. Processing stalled during collection. Heap before: 1823 MB. Heap after: 1541 MB
+2026-03-05 09:41:40,441 [6] DEBUG DataPipeline.Processor.TransformEngine - Transform step 3/4: enrichment lookup. Batch B-20414. GC pause impacted in-flight records
+2026-03-05 09:42:01,774 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory pressure: heap 1924 MB / 2048 MB (93.9%). Critical threshold exceeded. Triggering emergency GC
+2026-03-05 09:42:03,118 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - GC pause detected. Duration: 3.7s. Processing stalled. Heap before: 1924 MB. Heap after: 1688 MB
+2026-03-05 09:42:07,441 [6] DEBUG DataPipeline.Processor.TransformEngine - Transform step 3/4 continuing after GC pause. Enrichment in progress. Batch B-20414
+2026-03-05 09:42:19,884 [1] WARN  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory pressure: heap 2011 MB / 2048 MB (98.2%). OOM risk. Halting new batch intake
+2026-03-05 09:42:22,331 [6] ERROR DataPipeline.Processor.BatchProcessor - OutOfMemoryException during transform of batch B-20414. Batch will be split and re-queued
+System.OutOfMemoryException: Insufficient memory to continue the execution of the program.
+   at DataPipeline.Processor.Enrichment.ReferenceDataEnricher.EnrichBatchAsync(DataBatch batch)
+   at DataPipeline.Processor.TransformEngine.RunStep3EnrichmentAsync(DataBatch batch)
+   at DataPipeline.Processor.TransformEngine.TransformAsync(DataBatch batch)
+   at DataPipeline.Processor.BatchProcessor.ProcessBatchAsync(DataBatch batch)
+2026-03-05 09:42:22,448 [6] WARN  DataPipeline.Processor.BatchProcessor - Splitting batch B-20414 (50000 records) into 10 sub-batches of 5000 records each. Re-queuing as B-20414a through B-20414j
+2026-03-05 09:42:22,561 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - OOM recovery: releasing all batch buffers. Forcing full GC
+2026-03-05 09:42:26,114 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory released after OOM. Heap: 641 MB / 2048 MB (31.3%). Resuming batch intake
+2026-03-05 09:43:01,334 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414a dequeued. Records: 5000. Processing in recovery mode
+2026-03-05 09:43:01,441 [7] DEBUG DataPipeline.Processor.TransformEngine - Transform step 1/4: field normalization. Batch B-20414a. Input: 5000 records
+2026-03-05 09:43:04,778 [7] DEBUG DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Enrichment complete. Batch B-20414a. Records enriched: 5000. Cache hits: 4887, Misses: 113
+2026-03-05 09:43:05,441 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414a transform complete. Records: 5000. Duration: 4107ms
+2026-03-05 09:43:05,889 [7] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Sub-batch B-20414a loaded. Rows inserted: 4971, Updated: 29. Duration: 448ms
+2026-03-05 09:44:07,221 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414b dequeued. Records: 5000
+2026-03-05 09:44:07,441 [7] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20414b. Duration: 4231ms
+2026-03-05 09:44:07,891 [7] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Sub-batch B-20414b loaded. Rows inserted: 4968, Updated: 32. Duration: 450ms
+2026-03-05 09:46:11,774 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory check: heap 881 MB / 2048 MB (43.0%). Recovery stable. Batch intake at reduced concurrency
+2026-03-05 09:48:09,331 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414c dequeued. Records: 5000
+2026-03-05 09:48:09,441 [7] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20414c. Duration: 4118ms
+2026-03-05 09:48:09,891 [7] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Sub-batch B-20414c loaded. Rows inserted: 4989, Updated: 11. Duration: 450ms
+2026-03-05 09:52:14,441 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414d dequeued. Records: 5000. Duration: 4204ms
+2026-03-05 09:52:14,891 [7] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Sub-batch B-20414d loaded. Rows inserted: 4977, Updated: 23. Duration: 477ms
+2026-03-05 09:56:31,334 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20415 dequeued. Source: salesforce_account (catchup). Records: 181. Queue latency: 79s
+2026-03-05 09:56:31,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20415. Records: 181. Duration: 1774ms
+2026-03-05 09:56:31,884 [3] WARN  DataPipeline.Processor.Enrichment.ReferenceDataEnricher - Enrichment miss: 4 records in batch B-20415 reference unknown product IDs [SKU-99015, SKU-99016, SKU-99017, SKU-99018]
+2026-03-05 09:56:32,118 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20415 loaded. Rows inserted: 175, Updated: 6. Duration: 477ms
+2026-03-05 10:01:18,441 [7] INFO  DataPipeline.Processor.BatchProcessor - Sub-batch B-20414e dequeued. Records: 5000. Catch-up mode active
+2026-03-05 10:01:18,891 [7] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20414e. Duration: 4338ms
+2026-03-05 10:01:19,334 [7] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Sub-batch B-20414e loaded. Rows inserted: 4991, Updated: 9. Duration: 443ms
+2026-03-05 10:06:21,007 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20416 dequeued. Source: salesforce_account. Records: 67. Queue latency: 77s
+2026-03-05 10:06:21,441 [3] DEBUG DataPipeline.Processor.TransformEngine - Transform steps 1-4 complete. Batch B-20416. Records: 67. Duration: 614ms
+2026-03-05 10:06:21,889 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20416 loaded. Rows inserted: 62, Updated: 5. Duration: 448ms
+2026-03-05 10:11:21,441 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20417 dequeued. Source: salesforce_opportunity. Records: 31. Duration: 301ms
+2026-03-05 10:11:21,788 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20417 loaded. Rows inserted: 28, Updated: 3. Duration: 347ms
+2026-03-05 10:15:41,334 [4] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20418 dequeued. Source: stripe_charge. Records: 1. Duration: 91ms
+2026-03-05 10:15:41,441 [4] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20418 loaded. Rows inserted: 1. Duration: 107ms
+2026-03-05 10:21:21,441 [3] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20419 dequeued. Source: salesforce_account. Records: 44. Duration: 407ms
+2026-03-05 10:21:21,891 [3] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20419 loaded. Rows inserted: 41, Updated: 3. Duration: 450ms
+2026-03-05 10:26:11,334 [5] INFO  DataPipeline.Processor.BatchProcessor - Batch B-20420 dequeued. Source: custom_fulfillment. Records: 1. Duration: 88ms
+2026-03-05 10:26:11,441 [5] INFO  DataPipeline.Processor.Warehouse.WarehouseLoader - Batch B-20420 loaded. Rows inserted: 1. Duration: 107ms
+2026-03-05 10:29:44,118 [1] INFO  DataPipeline.Processor.Monitoring.MemoryMonitor - Memory check: heap 934 MB / 2048 MB (45.6%). Status: normal. OOM incident cleared
+2026-03-05 10:29:44,221 [1] INFO  DataPipeline.Processor.BatchProcessor - Processor health check OK. Batches completed this session: 28 (including 10 sub-batches from B-20414 split). Total records processed: 71139. Warehouse rows written: 71041

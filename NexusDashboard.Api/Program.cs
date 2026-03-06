@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<DashboardDataService>();
+builder.Services.AddScoped<LogParserService>();
 
 builder.Services.AddCors(options =>
 {
