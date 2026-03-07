@@ -8,7 +8,7 @@
 {
     <div class="loading-state">
         <div class="spinner"></div>
-        <p>@(DataService.IsLoading ? "Parsing log data…" : "Loading sample log data…")</p>
+        <p>@(DataService.IsLoading ? "Loading log data…" : "Loading sample log data…")</p>
     </div>
 }
 else
@@ -24,7 +24,21 @@ else
                 · @s.FirstEntry?.ToString("yyyy-MM-dd HH:mm:ss") → @s.LastEntry?.ToString("HH:mm:ss")
             </p>
         </div>
-        <div class="date-chip">@DateTime.Now.ToString("dddd, MMMM d yyyy")</div>
+        <div class="page-header-right">
+            <span class="active-source-chip">
+                @if (DataService.ActiveBundleName is not null)
+                {
+                    <span class="source-chip-icon">📦</span>
+                    <span>@DataService.ActiveBundleName</span>
+                }
+                else
+                {
+                    <span class="source-chip-icon">🔬</span>
+                    <span>Sample Data</span>
+                }
+            </span>
+            <div class="date-chip">@DateTime.Now.ToString("dddd, MMMM d yyyy")</div>
+        </div>
     </div>
 
     <div class="kpi-grid">
@@ -53,7 +67,7 @@ else
         if (!DataService.IsLoaded)
         {
             await Task.Delay(400);
-            await DataService.LoadSampleAsync();
+            await DataService.RestoreLastSessionAsync();
         }
     }
 
